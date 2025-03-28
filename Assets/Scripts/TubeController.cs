@@ -1,0 +1,183 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DG.Tweening;
+using UnityEngine;
+
+public class TubeController : MonoBehaviour
+{
+    [SerializeField] private float shakeDuration = 0.5f;
+    [SerializeField] private float shakeStrength = 0.1f;
+    [SerializeField] private Vector2 rotationPointOffset = new Vector2(0.5f, -1f);
+    [SerializeField] private Vector2 liquidDropPointOffset = new Vector2(0.5f, -1f);
+
+    private int[] colors = new int[4] { -1, -1, -1, -1 };
+    private int currentTopIndex = 0;
+    private SpriteRenderer tubeRenderer;
+    private Material tubeMaterial;
+    private Vector3 initialPosition;
+    private int selectedLayerId;
+    private int defaultLayerId;
+
+    public bool IsEmpty => currentTopIndex <= 0;
+    public bool IsFull => currentTopIndex >= 4 && TopColorLevelCount == 4;
+    public int TopColor => colors[currentTopIndex - 1];
+
+    public Vector2 GetLiquidDropPoint(int direction) => (Vector2)transform.position +
+                                                        new Vector2(direction * liquidDropPointOffset.x,
+                                                            liquidDropPointOffset.y);
+
+    public int TopColorLevelCount
+    {
+        get
+        {
+            int topColor = TopColor;
+            int levelCount = 0;
+            for (int i = currentTopIndex - 1; i >= 0 && colors[i] == topColor; i--)
+                levelCount++;
+            return levelCount;
+        }
+    }
+
+    public int TopEmptyLevelCount => 4 - currentTopIndex;
+
+    private void Awake()
+    {
+        selectedLayerId = SortingLayer.NameToID("Selected");
+        defaultLayerId = SortingLayer.NameToID("Default");
+        //
+        tubeRenderer = GetComponent<SpriteRenderer>();
+        tubeMaterial = tubeRenderer.material;
+        initialPosition = transform.position;
+    }
+
+    public void SetupTube(List<int> colors)
+    {
+        this.colors = new int[4];
+        for (int i = 0; i < colors.Count; i++)
+            this.colors[i] = colors[i];
+
+        currentTopIndex = colors.Count;
+        UpdateTubeMaterial();
+    }
+
+    private void UpdateTubeMaterial()
+    {
+        for (int i = 0; i < currentTopIndex; i++)
+            tubeMaterial.SetColor($"_Color{i}", GameManager.Instance.Colors[colors[i]]);
+
+        tubeMaterial.SetFloat("_Mask", GameManager.Instance.TubeData[currentTopIndex].fillAmount);
+    }
+
+    public void OnSelectTube()
+    {
+        tubeRenderer.sortingLayerID = selectedLayerId;
+        MoveTube(GameManager.Instance.TubeUpOffset);
+    }
+
+    public void OnDeSelectTube()
+    {
+        tubeRenderer.sortingLayerID = defaultLayerId;
+        MoveTube(-GameManager.Instance.TubeUpOffset);
+    }
+
+    private void MoveTube(float offset)
+    {
+        transform.DOMove(transform.position + Vector3.up * offset, GameManager.Instance.TimeToMove);
+    }
+
+    public async Task PourLiquid(TubeController secondTube, int direction)
+    {
+        float currentFillAmount = GameManager.Instance.TubeData[currentTopIndex].fillAmount;
+        int topColorLevelCount = TopColorLevelCount;
+        var tubeModel = GameManager.Instance.TubeData[currentTopIndex - topColorLevelCount];
+
+        await MoveTubeAsync(secondTube.GetLiquidDropPoint(-direction));
+        await Task.WhenAll(
+            RotateTubeAsync(0, direction * tubeModel.tubeRotationAngle, direction),
+            RotateLiquidAsync(direction * tubeModel.liquidRotationAngle),
+            FillMask(tubeModel.fillAmount),
+            secondTube.FillLiquid(TopColor, topColorLevelCount)
+        );
+        await Task.WhenAll(
+            RotateTubeAsync(direction * tubeModel.tubeRotationAngle, 0, direction),
+            RotateLiquidAsync(0)
+        );
+        await MoveTubeAsync(initialPosition);
+        currentTopIndex -= topColorLevelCount;
+        UpdateTubeMaterial();
+        tubeRenderer.sortingLayerID = defaultLayerId;
+    }
+
+    private async Task<bool> MoveTubeAsync(Vector2 targetPosition)
+    {
+        await transform.DOMove(targetPosition, GameManager.Instance.TimeToMove).AsyncWaitForCompletion();
+        return true;
+    }
+
+    private async Task<bool> RotateTubeAsync(float fromAngle, float toAngle, int direction)
+    {
+        Vector3 rotationPoint = transform.position +
+                                transform.rotation * new Vector3(direction * rotationPointOffset.x,
+                                    rotationPointOffset.y, 0);
+        Vector3 mDirection = transform.position - rotationPoint;
+        Quaternion mRotation = Quaternion.Euler(0, 0, -transform.eulerAngles.z);
+        Vector3 rotatedDirection = mRotation * mDirection;
+        Vector3 newPosition = rotationPoint + rotatedDirection;
+        Vector3 initialOffset = newPosition - rotationPoint;
+
+        await DOTween.To(() => fromAngle, value =>
+        {
+            Quaternion rotation = Quaternion.AngleAxis(value, Vector3.forward);
+            transform.SetPositionAndRotation(rotationPoint + rotation * initialOffset, rotation);
+        }, toAngle, GameManager.Instance.TimeToRotate).AsyncWaitForCompletion();
+
+        return true;
+    }
+
+    private async Task<bool> RotateLiquidAsync(float toAngle)
+    {
+        await DOTween
+            .To(() => tubeMaterial.GetFloat("_RotationAngle"), value => tubeMaterial.SetFloat("_RotationAngle", value),
+                toAngle, GameManager.Instance.TimeToRotate).AsyncWaitForCompletion();
+        return true;
+    }
+
+    private async Task<bool> FillMask(float toMask)
+    {
+        await DOTween
+            .To(() => tubeMaterial.GetFloat("_Mask"), value => tubeMaterial.SetFloat("_Mask", value), toMask,
+                GameManager.Instance.TimeToRotate).AsyncWaitForCompletion();
+        return true;
+    }
+
+    private async Task<bool> FillLiquid(int fillColor, int fillLevel)
+    {
+        for (int i = currentTopIndex; i < currentTopIndex + fillLevel; i++)
+        {
+            colors[i] = fillColor;
+            tubeMaterial.SetColor($"_Color{i}", GameManager.Instance.Colors[fillColor]);
+        }
+
+        currentTopIndex += fillLevel;
+        var tubeModel = GameManager.Instance.TubeData[currentTopIndex];
+        await FillMask(tubeModel.fillAmount);
+        return true;
+    }
+
+    public void ShakeTube() => transform.DOShakePosition(shakeDuration, shakeStrength);
+
+    private void OnDrawGizmos()
+    {
+        //
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + new Vector3(-liquidDropPointOffset.x, liquidDropPointOffset.y, 0), 0.1f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position + new Vector3(liquidDropPointOffset.x, liquidDropPointOffset.y, 0), 0.1f);
+        //for rotation
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(
+            transform.position + transform.rotation * new Vector3(-rotationPointOffset.x, rotationPointOffset.y, 0),
+            0.1f);
+        Gizmos.DrawSphere(transform.position + transform.rotation * rotationPointOffset, 0.1f);
+    }
+}
