@@ -16,11 +16,23 @@ namespace UI
             recyclableScroller.OnItemClickListener = this;
         }
 
-        public void OnItemClick(LevelCell cell)
+        public void OnItemClick(LevelInfo info)
         {
-            PlayerPrefs.SetInt("Hardness", 0);
-            PlayerPrefs.SetInt("Level", cell.CellIndex + 1);
-            SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Single);
+            if (info.LevelStatus == LevelStatus.Locked)
+            {
+                Debug.Log("Level is locked");
+            }
+            else
+            {
+                PlayerPrefs.SetInt("Hardness", 0);
+                var completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
+                if (completedLevels <= info.LevelNumber)
+                {
+                }
+
+                PlayerPrefs.SetInt("ActiveLevel", info.LevelNumber);
+                SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Single);
+            }
         }
 
         public void OnClickBackButton()

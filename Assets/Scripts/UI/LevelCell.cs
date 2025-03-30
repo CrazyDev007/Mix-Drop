@@ -13,6 +13,7 @@ namespace UI
     {
         //UI
         public TextMeshProUGUI levelNumberText;
+        [SerializeField] private GameObject lockImage;
 
         private IOnItemClickListener mListener;
 
@@ -33,15 +34,26 @@ namespace UI
             mListener = listener;
             CellIndex = cellIndex;
             mContactInfo = contactInfo;
-
-            levelNumberText.text = (cellIndex + 1).ToString();
+            switch (mContactInfo.LevelStatus)
+            {
+                case LevelStatus.Locked:
+                    levelNumberText.text = "";
+                    lockImage.SetActive(true);
+                    break;
+                case LevelStatus.Unlocked:
+                    levelNumberText.text = mContactInfo.LevelNumber.ToString();
+                    lockImage.SetActive(false);
+                    break;
+                case LevelStatus.None:
+                default:
+                    break;
+            }
         }
 
 
         private void ButtonListener()
         {
-            Debug.Log("Index : " + CellIndex + ", Name : " + mContactInfo.Name + ", Gender : " + mContactInfo.Gender);
-            mListener.OnItemClick(this);
+            mListener.OnItemClick(mContactInfo);
         }
     }
 }

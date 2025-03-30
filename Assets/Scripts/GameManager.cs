@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private TubeLiquidModel GetLevel()
     {
         var hardness = PlayerPrefs.GetInt("Hardness", 0); //Random.Range(0, 3);
-        Level = PlayerPrefs.GetInt("Level", 1); //Random.Range(0, 10000) + 1;
+        Level = PlayerPrefs.GetInt("ActiveLevel", 1); //Random.Range(0, 10000) + 1;
         //
         switch (hardness)
         {
@@ -82,7 +82,10 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
-        PlayerPrefs.SetInt("Level", Level + 1);
+        var completedLevel = PlayerPrefs.GetInt("CompletedLevels", 0);
+        if (completedLevel <= Level)
+            PlayerPrefs.SetInt("CompletedLevels", Level);
+        PlayerPrefs.SetInt("ActiveLevel", Level + 1);
         RestartGame();
     }
 

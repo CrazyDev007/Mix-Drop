@@ -5,16 +5,23 @@ using UnityEngine.Serialization;
 
 namespace UI
 {
+    public enum LevelStatus
+    {
+        None,
+        Locked,
+        Unlocked
+    }
+
     public struct LevelInfo
     {
-        public string Name;
-        public string Gender;
+        public int LevelNumber;
+        public LevelStatus LevelStatus;
         public string ID;
     }
 
     public interface IOnItemClickListener
     {
-        void OnItemClick(LevelCell cell);
+        void OnItemClick(LevelInfo info);
     }
 
     public class LevelRecyclableScroller : MonoBehaviour, IRecyclableScrollRectDataSource
@@ -39,13 +46,14 @@ namespace UI
         {
             contactList?.Clear();
 
-            string[] genders = { "Male", "Female" };
             for (var i = 0; i < dataLength; i++)
             {
                 var obj = new LevelInfo
                 {
-                    Name = i + "_Name",
-                    Gender = genders[Random.Range(0, 2)],
+                    LevelNumber = i + 1,
+                    LevelStatus = PlayerPrefs.GetInt("CompletedLevels", 0) + 1 >= i + 1
+                        ? LevelStatus.Unlocked
+                        : LevelStatus.Locked,
                     ID = "item : " + i
                 };
                 contactList?.Add(obj);
