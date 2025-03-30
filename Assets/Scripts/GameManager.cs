@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 [DefaultExecutionOrder(0)]
 public class GameManager : MonoBehaviour
@@ -50,8 +48,8 @@ public class GameManager : MonoBehaviour
 
     private TubeLiquidModel GetLevel()
     {
-        var hardness = Random.Range(0, 3);
-        Level = Random.Range(0, 10000) + 1;
+        var hardness = PlayerPrefs.GetInt("Hardness", 0); //Random.Range(0, 3);
+        Level = PlayerPrefs.GetInt("Level", 1); //Random.Range(0, 10000) + 1;
         //
         switch (hardness)
         {
@@ -84,6 +82,7 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
+        PlayerPrefs.SetInt("Level", Level + 1);
         RestartGame();
     }
 
@@ -93,7 +92,7 @@ public class GameManager : MonoBehaviour
         UpdateLevelText();
     }
 
-    private void UpdateLevelText() => levelText.text = $"{levelName}";
+    private void UpdateLevelText() => levelText.text = $"{Level}";
 }
 
 [Serializable]
