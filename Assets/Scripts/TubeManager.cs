@@ -1,12 +1,13 @@
-using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class TubeManager : MonoBehaviour
 {
     public static TubeManager Instance { get; private set; }
 
     [SerializeField] private TubeController tubePrefab;
+    [SerializeField] private int maxTubes = 11; // Maximum number of tubes allowed
 
     private List<TubeController> tubes = new List<TubeController>();
     private TubeController selectedTube;
@@ -32,7 +33,8 @@ public class TubeManager : MonoBehaviour
         tubes.Clear();
         //create new tubes
         var tubesContainerPrefab = Resources.Load<GameObject>($"{tubeCount} Tubes Container");
-        Transform[] tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity).GetComponentsInChildren<Transform>();
+        var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity)
+            .GetComponentsInChildren<Transform>();
         for (int i = 1; i <= tubeCount; i++)
         {
             tubes.Add(Instantiate(tubePrefab, tubesPositions[i].position, Quaternion.identity));
@@ -69,6 +71,7 @@ public class TubeManager : MonoBehaviour
         {
             InitializeTubes(tubeCount);
         }
+
         for (int i = 0; i < tubeCount; i++)
         {
             var tubeColors = level.GetColors(GameManager.Instance.Level, i);
@@ -137,6 +140,7 @@ public class TubeManager : MonoBehaviour
             if (tube.IsEmpty) tubeEmpty++;
             if (tube.IsFull) tubeFilled++;
         }
+
         if (tubeController.IsFull && (tubeFilled + tubeEmpty) == tubes.Count)
         {
             GameManager.Instance.GameWin();
@@ -145,9 +149,56 @@ public class TubeManager : MonoBehaviour
 
     private bool CanPour(TubeController fromTube, TubeController toTube)
     {
-        return toTube.IsEmpty || (fromTube.TopColor == toTube.TopColor && fromTube.TopColorLevelCount <= toTube.TopEmptyLevelCount);
+        return toTube.IsEmpty || (fromTube.TopColor == toTube.TopColor &&
+                                  fromTube.TopColorLevelCount <= toTube.TopEmptyLevelCount);
+    }
+
+    public void AddEmptyTube()
+    {
+        if (tubes.Count >= maxTubes)
+        {
+            Debug.Log("Maximum number of tubes reached!");
+            return;
+        }
+
+        // Calculate position for new tube
+        var newPosition = Vector3.zero;
+
+        // Create new tube
+        var newTube = Instantiate(tubePrefab, newPosition, Quaternion.identity);
+        newTube.SetupTube(new List<int>()); // Empty tube
+        tubes.Add(newTube);
+
+        // Update tube container
+        UpdateTubeContainer();
+    }
+
+    private void UpdateTubeContainer()
+    {
+        // Destroy existing container if any
+        var existingContainer = GameObject.Find($"{tubes.Count} Tubes Container");
+        if (existingContainer != null)
+        {
+            Destroy(existingContainer);
+        }
+
+        //
+        Debug.Log($"{tubes.Count} Tubes Container");
+        //create new tubes
+        var tubesContainerPrefab = Resources.Load<GameObject>($"{tubes.Count} Tubes Container");
+        var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity)
+            .GetComponentsInChildren<Transform>();
+        for (var i = 0; i < tubes.Count; i++)
+        {
+            tubes[i].transform.SetPositionAndRotation(tubesPositions[i + 1].position, Quaternion.identity);
+        }
     }
 
     private void OnEnable() => GameManager.OnRestartGame += RestartGame;
     private void OnDisable() => GameManager.OnRestartGame -= RestartGame;
+
+    public int GetCurrentTubeCount()
+    {
+        return tubes.Count;
+    }
 }
