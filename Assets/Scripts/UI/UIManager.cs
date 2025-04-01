@@ -7,7 +7,10 @@ namespace UI
     {
         Main,
         Setting,
-        Level
+        Level,
+        Pause,
+        Gameplay,
+        Hint,
     }
 
     public class UIManager : MonoBehaviour
@@ -23,7 +26,7 @@ namespace UI
                 screen.Setup(this);
             }
 
-            ChangeScreen(ScreenType.Main);
+            ChangeScreen(currentScreen);
         }
 
         public void ChangeScreen(ScreenType nextScreen)
