@@ -3,6 +3,14 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
+public enum TubeState
+{
+    None,
+    Normal,
+    Pouring,
+    Filling
+}
+
 public class TubeController : MonoBehaviour
 {
     [SerializeField] private float shakeDuration = 0.5f;
@@ -18,6 +26,7 @@ public class TubeController : MonoBehaviour
     private int selectedLayerId;
     private int defaultLayerId;
 
+    public TubeState CurrentTubeState { get; set; } = TubeState.None;
     public bool IsEmpty => currentTopIndex <= 0;
     public bool IsFull => currentTopIndex >= 4 && TopColorLevelCount == 4;
     public int TopColor => colors[currentTopIndex - 1];
@@ -52,6 +61,7 @@ public class TubeController : MonoBehaviour
 
     public void SetupTube(List<int> colors)
     {
+        CurrentTubeState = TubeState.Normal;
         this.colors = new int[4];
         for (int i = 0; i < colors.Count; i++)
             this.colors[i] = colors[i];
@@ -87,6 +97,10 @@ public class TubeController : MonoBehaviour
 
     public async Task PourLiquid(TubeController secondTube, int direction)
     {
+        // Change Tubes State
+        CurrentTubeState = TubeState.Pouring;
+        secondTube.CurrentTubeState = TubeState.Filling;
+        //
         float currentFillAmount = GameManager.Instance.TubeData[currentTopIndex].fillAmount;
         int topColorLevelCount = TopColorLevelCount;
         var tubeModel = GameManager.Instance.TubeData[currentTopIndex - topColorLevelCount];
@@ -106,6 +120,10 @@ public class TubeController : MonoBehaviour
         currentTopIndex -= topColorLevelCount;
         UpdateTubeMaterial();
         tubeRenderer.sortingLayerID = defaultLayerId;
+        // Change Tubes State
+        CurrentTubeState = TubeState.Normal;
+        secondTube.CurrentTubeState = TubeState.Normal;
+        Debug.Log(">>>>> TC "+secondTube.CurrentTubeState);
     }
 
     private async Task<bool> MoveTubeAsync(Vector2 targetPosition)
@@ -166,6 +184,17 @@ public class TubeController : MonoBehaviour
 
     public void ShakeTube() => transform.DOShakePosition(shakeDuration, shakeStrength);
 
+    private List<Task> activeTasks = new List<Task>();
+    
+    private async Task WaitForAllTasks()
+    {
+        while (activeTasks.Count > 0)
+        {
+            var completedTask = await Task.WhenAny(activeTasks);
+            activeTasks.Remove(completedTask);
+        }
+    }
+    
     private void OnDrawGizmos()
     {
         //

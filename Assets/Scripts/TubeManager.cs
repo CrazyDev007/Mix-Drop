@@ -9,9 +9,11 @@ public class TubeManager : MonoBehaviour
     [SerializeField] private TubeController tubePrefab;
     [SerializeField] private int maxTubes = 11; // Maximum number of tubes allowed
 
-    private List<TubeController> tubes = new List<TubeController>();
     private TubeController selectedTube;
-    private bool canPour = true;
+
+    private List<Task> tasks = new List<Task>();
+
+    public List<TubeController> Tubes { get; } = new List<TubeController>();
 
     private void Awake()
     {
@@ -29,34 +31,40 @@ public class TubeManager : MonoBehaviour
     {
         Debug.Log($"Tube Count: {tubeCount}");
         //reset tubes
-        foreach (var tube in tubes) Destroy(tube.gameObject);
-        tubes.Clear();
+        foreach (var tube in Tubes) Destroy(tube.gameObject);
+        Tubes.Clear();
         //create new tubes
         var tubesContainerPrefab = Resources.Load<GameObject>($"{tubeCount} Tubes Container");
         var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity)
             .GetComponentsInChildren<Transform>();
         for (int i = 1; i <= tubeCount; i++)
         {
-            tubes.Add(Instantiate(tubePrefab, tubesPositions[i].position, Quaternion.identity));
+            Tubes.Add(Instantiate(tubePrefab, tubesPositions[i].position, Quaternion.identity));
         }
     }
 
     private void Update()
     {
-        if (canPour && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            HandleMouseClick();
+            HandleMouseClick(Input.mousePosition);
         }
     }
 
-    private void HandleMouseClick()
+    public void SimulateMouseClick(Vector3 mousePositionPixel)
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        HandleMouseClick(mousePositionPixel);
+    }
+
+    private void HandleMouseClick(Vector3 mousePositionPixel)
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
         if (hit.collider != null)
         {
-            OnTubeClicked(hit.collider.GetComponent<TubeController>());
+            var tube = hit.collider.GetComponent<TubeController>();
+            OnTubeClicked(tube);
         }
         else if (selectedTube != null)
         {
@@ -67,7 +75,7 @@ public class TubeManager : MonoBehaviour
     private void RestartGame(TubeLiquidModel level)
     {
         int tubeCount = level.GetTubeCount(GameManager.Instance.Level);
-        if (tubeCount != tubes.Count)
+        if (tubeCount != Tubes.Count)
         {
             InitializeTubes(tubeCount);
         }
@@ -75,13 +83,14 @@ public class TubeManager : MonoBehaviour
         for (int i = 0; i < tubeCount; i++)
         {
             var tubeColors = level.GetColors(GameManager.Instance.Level, i);
-            tubes[i].SetupTube(tubeColors);
+            Tubes[i].SetupTube(tubeColors);
         }
     }
 
     public async void OnTubeClicked(TubeController tubeController)
     {
-        if (selectedTube == null)
+        if (tubeController.CurrentTubeState == TubeState.Pouring) return;
+        if (selectedTube == null && tubeController.CurrentTubeState != TubeState.Filling)
         {
             HandleFirstTubeSelection(tubeController);
         }
@@ -91,7 +100,7 @@ public class TubeManager : MonoBehaviour
         }
         else
         {
-            await HandleSecondTubeSelection(tubeController);
+            tasks.Add(HandleSecondTubeSelection(tubeController));
         }
     }
 
@@ -112,12 +121,11 @@ public class TubeManager : MonoBehaviour
     {
         if (CanPour(selectedTube, tubeController))
         {
-            canPour = false;
-            int direction = selectedTube.transform.position.x > tubeController.transform.position.x ? -1 : 1;
-            await selectedTube.PourLiquid(tubeController, direction);
+            var tempSelectedTube = selectedTube;
             selectedTube = null;
+            int direction = tempSelectedTube.transform.position.x > tubeController.transform.position.x ? -1 : 1;
+            await tempSelectedTube.PourLiquid(tubeController, direction);
             CheckWinCondition(tubeController);
-            canPour = true;
         }
         else
         {
@@ -135,13 +143,13 @@ public class TubeManager : MonoBehaviour
     {
         int tubeFilled = 0;
         int tubeEmpty = 0;
-        foreach (var tube in tubes)
+        foreach (var tube in Tubes)
         {
             if (tube.IsEmpty) tubeEmpty++;
             if (tube.IsFull) tubeFilled++;
         }
 
-        if (tubeController.IsFull && (tubeFilled + tubeEmpty) == tubes.Count)
+        if (tubeController.IsFull && (tubeFilled + tubeEmpty) == Tubes.Count)
         {
             GameManager.Instance.GameWin();
         }
@@ -155,7 +163,7 @@ public class TubeManager : MonoBehaviour
 
     public void AddEmptyTube()
     {
-        if (tubes.Count >= maxTubes)
+        if (Tubes.Count >= maxTubes)
         {
             Debug.Log("Maximum number of tubes reached!");
             return;
@@ -167,7 +175,7 @@ public class TubeManager : MonoBehaviour
         // Create new tube
         var newTube = Instantiate(tubePrefab, newPosition, Quaternion.identity);
         newTube.SetupTube(new List<int>()); // Empty tube
-        tubes.Add(newTube);
+        Tubes.Add(newTube);
 
         // Update tube container
         UpdateTubeContainer();
@@ -176,21 +184,21 @@ public class TubeManager : MonoBehaviour
     private void UpdateTubeContainer()
     {
         // Destroy existing container if any
-        var existingContainer = GameObject.Find($"{tubes.Count} Tubes Container");
+        var existingContainer = GameObject.Find($"{Tubes.Count} Tubes Container");
         if (existingContainer != null)
         {
             Destroy(existingContainer);
         }
 
         //
-        Debug.Log($"{tubes.Count} Tubes Container");
+        Debug.Log($"{Tubes.Count} Tubes Container");
         //create new tubes
-        var tubesContainerPrefab = Resources.Load<GameObject>($"{tubes.Count} Tubes Container");
+        var tubesContainerPrefab = Resources.Load<GameObject>($"{Tubes.Count} Tubes Container");
         var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity)
             .GetComponentsInChildren<Transform>();
-        for (var i = 0; i < tubes.Count; i++)
+        for (var i = 0; i < Tubes.Count; i++)
         {
-            tubes[i].transform.SetPositionAndRotation(tubesPositions[i + 1].position, Quaternion.identity);
+            Tubes[i].transform.SetPositionAndRotation(tubesPositions[i + 1].position, Quaternion.identity);
         }
     }
 
@@ -199,6 +207,6 @@ public class TubeManager : MonoBehaviour
 
     public int GetCurrentTubeCount()
     {
-        return tubes.Count;
+        return Tubes.Count;
     }
 }
