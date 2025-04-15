@@ -97,6 +97,19 @@ public class TubeController : MonoBehaviour
 
     public async Task PourLiquid(TubeController secondTube, int direction)
     {
+        var task =  OnPourLiquid(secondTube, direction);
+        activeTasks.Add(task);
+        
+        if (activeTasks.Count <= 1)
+        {
+           await WaitForAllTasks();
+           CurrentTubeState = TubeState.Normal;
+           Debug.Log(">>>>> TC " + CurrentTubeState);
+        }
+    }
+
+    public async Task OnPourLiquid(TubeController secondTube, int direction)
+    {
         // Change Tubes State
         secondTube.CurrentTubeState = TubeState.Pouring;
         CurrentTubeState = TubeState.Filling;
@@ -122,8 +135,8 @@ public class TubeController : MonoBehaviour
         secondTube.tubeRenderer.sortingLayerID = secondTube.defaultLayerId;
         // Change Tubes State
         secondTube.CurrentTubeState = TubeState.Normal;
-        CurrentTubeState = TubeState.Normal;
-        Debug.Log(">>>>> TC "+CurrentTubeState);
+        //CurrentTubeState = TubeState.Normal;
+        //Debug.Log(">>>>> TC " + CurrentTubeState);
     }
 
     private async Task<bool> MoveTubeAsync(Vector2 targetPosition)
@@ -185,7 +198,7 @@ public class TubeController : MonoBehaviour
     public void ShakeTube() => transform.DOShakePosition(shakeDuration, shakeStrength);
 
     private List<Task> activeTasks = new List<Task>();
-    
+
     private async Task WaitForAllTasks()
     {
         while (activeTasks.Count > 0)
@@ -194,7 +207,7 @@ public class TubeController : MonoBehaviour
             activeTasks.Remove(completedTask);
         }
     }
-    
+
     private void OnDrawGizmos()
     {
         //
