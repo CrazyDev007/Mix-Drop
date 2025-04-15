@@ -123,8 +123,8 @@ public class TubeManager : MonoBehaviour
         {
             var tempSelectedTube = selectedTube;
             selectedTube = null;
-            int direction = tempSelectedTube.transform.position.x > tubeController.transform.position.x ? -1 : 1;
-            await tempSelectedTube.PourLiquid(tubeController, direction);
+            var direction = tempSelectedTube.transform.position.x > tubeController.transform.position.x ? -1 : 1;
+            await tubeController.PourLiquid(tempSelectedTube, direction);
             CheckWinCondition(tubeController);
         }
         else

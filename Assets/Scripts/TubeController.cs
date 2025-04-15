@@ -98,32 +98,32 @@ public class TubeController : MonoBehaviour
     public async Task PourLiquid(TubeController secondTube, int direction)
     {
         // Change Tubes State
-        CurrentTubeState = TubeState.Pouring;
-        secondTube.CurrentTubeState = TubeState.Filling;
+        secondTube.CurrentTubeState = TubeState.Pouring;
+        CurrentTubeState = TubeState.Filling;
         //
-        float currentFillAmount = GameManager.Instance.TubeData[currentTopIndex].fillAmount;
-        int topColorLevelCount = TopColorLevelCount;
-        var tubeModel = GameManager.Instance.TubeData[currentTopIndex - topColorLevelCount];
+        //float currentFillAmount = GameManager.Instance.TubeData[currentTopIndex].fillAmount;
+        var topColorLevelCount = secondTube.TopColorLevelCount;
+        var tubeModel = GameManager.Instance.TubeData[secondTube.currentTopIndex - topColorLevelCount];
 
-        await MoveTubeAsync(secondTube.GetLiquidDropPoint(-direction));
+        await secondTube.MoveTubeAsync(GetLiquidDropPoint(-direction));
         await Task.WhenAll(
-            RotateTubeAsync(0, direction * tubeModel.tubeRotationAngle, direction),
-            RotateLiquidAsync(direction * tubeModel.liquidRotationAngle),
-            FillMask(tubeModel.fillAmount),
-            secondTube.FillLiquid(TopColor, topColorLevelCount)
+            secondTube.RotateTubeAsync(0, direction * tubeModel.tubeRotationAngle, direction),
+            secondTube.RotateLiquidAsync(direction * tubeModel.liquidRotationAngle),
+            secondTube.FillMask(tubeModel.fillAmount),
+            FillLiquid(secondTube.TopColor, topColorLevelCount)
         );
         await Task.WhenAll(
-            RotateTubeAsync(direction * tubeModel.tubeRotationAngle, 0, direction),
-            RotateLiquidAsync(0)
+            secondTube.RotateTubeAsync(direction * tubeModel.tubeRotationAngle, 0, direction),
+            secondTube.RotateLiquidAsync(0)
         );
-        await MoveTubeAsync(initialPosition);
-        currentTopIndex -= topColorLevelCount;
-        UpdateTubeMaterial();
-        tubeRenderer.sortingLayerID = defaultLayerId;
+        await secondTube.MoveTubeAsync(secondTube.initialPosition);
+        secondTube.currentTopIndex -= topColorLevelCount;
+        secondTube.UpdateTubeMaterial();
+        secondTube.tubeRenderer.sortingLayerID = secondTube.defaultLayerId;
         // Change Tubes State
-        CurrentTubeState = TubeState.Normal;
         secondTube.CurrentTubeState = TubeState.Normal;
-        Debug.Log(">>>>> TC "+secondTube.CurrentTubeState);
+        CurrentTubeState = TubeState.Normal;
+        Debug.Log(">>>>> TC "+CurrentTubeState);
     }
 
     private async Task<bool> MoveTubeAsync(Vector2 targetPosition)
