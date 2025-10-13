@@ -58,7 +58,10 @@ public class TubeController : MonoBehaviour
         tubeMaterial = tubeRenderer.material;
         initialPosition = transform.position;
     }
-
+    public void UpdateTubesInitialPosition()
+    {
+        initialPosition = transform.position;
+    }
     public void SetupTube(List<int> colors)
     {
         CurrentTubeState = TubeState.Normal;

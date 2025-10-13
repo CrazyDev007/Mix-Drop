@@ -184,7 +184,7 @@ public class TubeManager : MonoBehaviour
     private void UpdateTubeContainer()
     {
         // Destroy existing container if any
-        var existingContainer = GameObject.Find($"{Tubes.Count} Tubes Container");
+        var existingContainer = GameObject.Find($"{Tubes.Count-1} Tubes Container(Clone)");
         if (existingContainer != null)
         {
             Destroy(existingContainer);
@@ -194,11 +194,11 @@ public class TubeManager : MonoBehaviour
         Debug.Log($"{Tubes.Count} Tubes Container");
         //create new tubes
         var tubesContainerPrefab = Resources.Load<GameObject>($"{Tubes.Count} Tubes Container");
-        var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity)
-            .GetComponentsInChildren<Transform>();
+        var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity).GetComponentsInChildren<Transform>();
         for (var i = 0; i < Tubes.Count; i++)
         {
             Tubes[i].transform.SetPositionAndRotation(tubesPositions[i + 1].position, Quaternion.identity);
+            Tubes[i].UpdateTubesInitialPosition();
         }
     }
 
