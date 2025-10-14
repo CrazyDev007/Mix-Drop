@@ -2639,6 +2639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tubePrefab: {fileID: 4574835859448582995, guid: aabc41718c7fbbe458f8f0f5e8ed17c2, type: 3}
   maxTubes: 11
+  tapClip: {fileID: 8300000, guid: e5b3c8f7c248206428ec25db4f05d721, type: 3}
 --- !u!1001 &2127889215
 PrefabInstance:
   m_ObjectHideFlags: 0
