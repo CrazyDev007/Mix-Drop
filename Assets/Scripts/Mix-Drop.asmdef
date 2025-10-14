@@ -2,9 +2,10 @@
     "name": "Mix-Drop",
     "rootNamespace": "",
     "references": [
-        "GUID:e5181d26baed06c42988be36ed696bae",
-        "GUID:bde8757f76806cc4ab53f9a15f118d47",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    "GUID:e5181d26baed06c42988be36ed696bae",
+    "GUID:bde8757f76806cc4ab53f9a15f118d47",
+    "GUID:6055be8ebefd69e48b49212b09b47b2f",
+    "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TubeManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TubeManager : MonoBehaviour
     private TubeController selectedTube;
 
     private List<Task> tasks = new List<Task>();
+    private InputAction clickAction;
 
     public List<TubeController> Tubes { get; } = new List<TubeController>();
 
@@ -25,6 +27,10 @@ public class TubeManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        // Initialize Input System action for mouse click
+        clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
+        clickAction.performed += ctx => HandleMouseClick(Mouse.current.position.ReadValue());
+        clickAction.Enable();
     }
 
     private void InitializeTubes(int tubeCount)
@@ -43,13 +49,7 @@ public class TubeManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            HandleMouseClick(Input.mousePosition);
-        }
-    }
+    // Legacy Update removed: using Input System clickAction instead
 
     public void SimulateMouseClick(Vector3 mousePositionPixel)
     {
@@ -202,8 +202,16 @@ public class TubeManager : MonoBehaviour
         }
     }
 
-    private void OnEnable() => GameManager.OnRestartGame += RestartGame;
-    private void OnDisable() => GameManager.OnRestartGame -= RestartGame;
+    private void OnEnable()
+    {
+        GameManager.OnRestartGame += RestartGame;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnRestartGame -= RestartGame;
+        if (clickAction != null)
+            clickAction.Disable();
+    }
 
     public int GetCurrentTubeCount()
     {
