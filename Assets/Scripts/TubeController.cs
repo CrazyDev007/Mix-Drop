@@ -17,9 +17,10 @@ public class TubeController : MonoBehaviour
     [SerializeField] private float shakeStrength = 0.1f;
     [SerializeField] private Vector2 rotationPointOffset = new Vector2(0.5f, -1f);
     [SerializeField] private Vector2 liquidDropPointOffset = new Vector2(0.5f, -1f);
+    public bool IsLocked { get; set; } = false;
 
-    private int[] colors = new int[4] { -1, -1, -1, -1 };
-    private int currentTopIndex = 0;
+    internal int[] colors = new int[4] { -1, -1, -1, -1 };
+    internal int currentTopIndex = 0;
     private SpriteRenderer tubeRenderer;
     private Material tubeMaterial;
     private Vector3 initialPosition;
@@ -73,7 +74,7 @@ public class TubeController : MonoBehaviour
         UpdateTubeMaterial();
     }
 
-    private void UpdateTubeMaterial()
+    internal void UpdateTubeMaterial()
     {
         for (int i = 0; i < currentTopIndex; i++)
             tubeMaterial.SetColor($"_Color{i}", GameManager.Instance.Colors[colors[i]]);

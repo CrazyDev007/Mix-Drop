@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,8 @@ public class TubeManager : MonoBehaviour
     private InputAction clickAction;
     [SerializeField] private AudioClip tapClip;
     private AudioSource audioSource;
+
+    private int availableSwaps;
 
     public List<TubeController> Tubes { get; } = new List<TubeController>();
 
@@ -45,14 +48,45 @@ public class TubeManager : MonoBehaviour
         Tubes.Clear();
         //create new tubes
         var tubesContainerPrefab = Resources.Load<GameObject>($"{tubeCount} Tubes Container");
-        var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity)
-            .GetComponentsInChildren<Transform>();
+        var tubesPositions = Instantiate(tubesContainerPrefab, Vector3.zero, Quaternion.identity).GetComponentsInChildren<Transform>();
         for (int i = 1; i <= tubeCount; i++)
         {
             Tubes.Add(Instantiate(tubePrefab, tubesPositions[i].position, Quaternion.identity));
         }
     }
 
+    public void SetLockedTubes(List<int> lockedTubes)
+    {
+        for (int i = 0; i < Tubes.Count; i++)
+        {
+            Tubes[i].IsLocked = lockedTubes.Contains(i);
+        }
+    }
+    public void SetAvailableSwaps(int swaps)
+    {
+        availableSwaps = swaps;
+        // Optional: Update UI
+        // UIManager.Instance.UpdateSwapCounter(availableSwaps);
+    }
+    public bool SwapTopColors(TubeController tubeA, TubeController tubeB)
+    {
+        if (availableSwaps <= 0) return false;
+        if (tubeA.IsEmpty || tubeB.IsEmpty) return false;
+
+        int topA = tubeA.TopColor;
+        int topB = tubeB.TopColor;
+
+        tubeA.colors[tubeA.currentTopIndex - 1] = topB;
+        tubeB.colors[tubeB.currentTopIndex - 1] = topA;
+
+        tubeA.UpdateTubeMaterial();
+        tubeB.UpdateTubeMaterial();
+
+        availableSwaps--;
+        //UIManager.Instance.UpdateSwapCounter(availableSwaps); // Optional UI update //need to work on this
+
+        return true;
+    }
     // Legacy Update removed: using Input System clickAction instead
 
     public void SimulateMouseClick(Vector3 mousePositionPixel)
@@ -85,7 +119,8 @@ public class TubeManager : MonoBehaviour
 
     private void RestartGame(TubeLiquidModel level)
     {
-        int tubeCount = level.GetTubeCount(GameManager.Instance.Level);
+
+        int tubeCount = level.GetTubeCount(GameManager.Instance.Level - 1);
         if (tubeCount != Tubes.Count)
         {
             InitializeTubes(tubeCount);
@@ -93,13 +128,22 @@ public class TubeManager : MonoBehaviour
 
         for (int i = 0; i < tubeCount; i++)
         {
-            var tubeColors = level.GetColors(GameManager.Instance.Level, i);
+            var tubeColors = level.GetColors(GameManager.Instance.Level-1, i);
             Tubes[i].SetupTube(tubeColors);
+            Tubes[i].IsLocked = level.levels[GameManager.Instance.Level-1].lockedTubes.Contains(i); // Add tube lock
+
         }
+        availableSwaps = level.levels[GameManager.Instance.Level - 1].availableSwaps; // set available swaps
     }
 
     public async void OnTubeClicked(TubeController tubeController)
     {
+        if (tubeController.IsLocked)
+        {
+            tubeController.ShakeTube();
+            return;
+        }
+
         if (tubeController.CurrentTubeState == TubeState.Pouring) return;
         if (selectedTube == null && tubeController.CurrentTubeState != TubeState.Filling)
         {
@@ -168,6 +212,7 @@ public class TubeManager : MonoBehaviour
 
     private bool CanPour(TubeController fromTube, TubeController toTube)
     {
+        if (toTube.IsLocked) return false;
         return toTube.IsEmpty || (fromTube.TopColor == toTube.TopColor &&
                                   fromTube.TopColorLevelCount <= toTube.TopEmptyLevelCount);
     }

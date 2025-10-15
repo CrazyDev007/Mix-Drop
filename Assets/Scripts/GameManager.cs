@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UI;
 using UnityEngine;
 
 [DefaultExecutionOrder(0)]
@@ -73,13 +75,59 @@ public class GameManager : MonoBehaviour
                     JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
                 return TubeLiquidModelEasy;
         }
+        
+    }
+    private TubeLiquidData currentLevelData;
+
+    private TubeLiquidModel GetLevelData()
+    {
+        Level = PlayerPrefs.GetInt("ActiveLevel", 1);
+        //
+        var TubeLiquidModel = JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("color_sort_1000_levels").text);
+        currentLevelData = TubeLiquidModelEasy.levels[Level - 1]; // Load current level
+        return TubeLiquidModel;
+
     }
 
     private void Start()
     {
         RestartGame();
     }
+    public int RemainingMoves =0;
+    public float LevelTime = 0;
+    private Coroutine timerCoroutine;
 
+    private void SetupLevelRules()
+    {
+        RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
+        LevelTime = currentLevelData.timeLimit;
+        if (LevelTime > 0)
+        {
+            if (timerCoroutine != null) StopCoroutine(timerCoroutine);
+            timerCoroutine = StartCoroutine(LevelTimer());
+        }
+    }
+
+    private IEnumerator LevelTimer()
+    {
+        float timeLeft = LevelTime;
+        while (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            //UIManager.Instance.UpdateTimer(timeLeft / LevelTime);//need to setup times 
+            yield return null;
+        }
+        OnLevelFailed();
+    }
+    public void OnLevelFailed()
+    {
+        //do stuff here on level failed
+    }
+    private void SetupTwists()
+    {
+        TubeManager.Instance.SetLockedTubes(currentLevelData.lockedTubes);
+        TubeManager.Instance.SetAvailableSwaps(currentLevelData.availableSwaps);
+    }
     public void GameWin()
     {
         var completedLevel = PlayerPrefs.GetInt("CompletedLevels", 0);
@@ -91,7 +139,11 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
-        OnRestartGame?.Invoke(GetLevel());
+        SetupLevelRules();           // Setup timer & move limit
+        SetupTwists();
+
+        var model = GetLevelData();      // Load level & set currentLevelData
+        OnRestartGame?.Invoke(model);
         UpdateLevelText();
     }
 
@@ -111,15 +163,21 @@ public class TubeLiquidModel
 {
     public List<TubeLiquidData> levels;
     public int TotalLevels => levels.Count;
-    public int GetTubeCount(int level) => levels[level].map.Count;
-    public List<int> GetColors(int level, int tubeNo) => levels[level].map[tubeNo].values;
+    public int GetTubeCount(int level) => levels[level].tubes.Count;
+    public List<int> GetColors(int level, int tubeNo) => levels[level].tubes[tubeNo].values;
 }
 
 [Serializable]
 public class TubeLiquidData
 {
-    public int no;
-    public List<TubeLiquidColorData> map;
+    public int level;
+    public List<TubeLiquidColorData> tubes;
+    public int emptyTubes;
+    public int maxMoves;
+    public float timeLimit;
+    public List<int> lockedTubes = new List<int>(); // default empty
+    public int availableSwaps;
+    public List<string> twists = new List<string>(); // default empty
 }
 
 [Serializable]
