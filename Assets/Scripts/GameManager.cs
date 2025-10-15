@@ -84,7 +84,8 @@ public class GameManager : MonoBehaviour
         Level = PlayerPrefs.GetInt("ActiveLevel", 1);
         //
         var TubeLiquidModel = JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("color_sort_1000_levels").text);
-        currentLevelData = TubeLiquidModelEasy.levels[Level - 1]; // Load current level
+        Debug.Log("==> Level count : "+ TubeLiquidModel.TotalLevels);
+        currentLevelData = TubeLiquidModel.levels[Level - 1]; // Load current level
         return TubeLiquidModel;
 
     }
@@ -139,10 +140,10 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
+        var model = GetLevelData();      // Load level & set currentLevelData
         SetupLevelRules();           // Setup timer & move limit
         SetupTwists();
 
-        var model = GetLevelData();      // Load level & set currentLevelData
         OnRestartGame?.Invoke(model);
         UpdateLevelText();
     }
