@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static event Action<TubeLiquidModel> OnRestartGame;
 
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI moveCountText;
     [SerializeField] private Color[] colors;
     [SerializeField] private TubeModel[] tubeData;
     [SerializeField] private float timeToMove = 1f;
@@ -20,9 +22,9 @@ public class GameManager : MonoBehaviour
 
     public int Level { get; private set; }
     private string levelName;
-    private TubeLiquidModel TubeLiquidModelEasy { get; set; }
-    private TubeLiquidModel TubeLiquidModelMedium { get; set; }
-    private TubeLiquidModel TubeLiquidModelHard { get; set; }
+    //private TubeLiquidModel TubeLiquidModelEasy { get; set; }
+    //private TubeLiquidModel TubeLiquidModelMedium { get; set; }
+    //private TubeLiquidModel TubeLiquidModelHard { get; set; }
 
     public Color[] Colors => colors;
     public TubeModel[] TubeData => tubeData;
@@ -48,37 +50,36 @@ public class GameManager : MonoBehaviour
         UpdateLevelText();
     }
 
-    private TubeLiquidModel GetLevel()
-    {
-        var hardness = PlayerPrefs.GetInt("Hardness", 0); //Random.Range(0, 3);
-        Level = PlayerPrefs.GetInt("ActiveLevel", 1); //Random.Range(0, 10000) + 1;
-        //
-        switch (hardness)
-        {
-            case 0:
-                levelName = "Easy";
-                TubeLiquidModelEasy =
-                    JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
-                return TubeLiquidModelEasy;
-            case 1:
-                levelName = "Medium";
-                TubeLiquidModelMedium =
-                    JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-normal").text);
-                return TubeLiquidModelMedium;
-            case 2:
-                levelName = "Hard";
-                TubeLiquidModelHard =
-                    JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-hard").text);
-                return TubeLiquidModelHard;
-            default:
-                TubeLiquidModelEasy =
-                    JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
-                return TubeLiquidModelEasy;
-        }
-        
-    }
-    private TubeLiquidData currentLevelData;
+    //private TubeLiquidModel GetLevel()
+    //{
+    //    var hardness = PlayerPrefs.GetInt("Hardness", 0); //Random.Range(0, 3);
+    //    Level = PlayerPrefs.GetInt("ActiveLevel", 1); //Random.Range(0, 10000) + 1;
+    //    //
+    //    switch (hardness)
+    //    {
+    //        case 0:
+    //            levelName = "Easy";
+    //            TubeLiquidModelEasy =
+    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
+    //            return TubeLiquidModelEasy;
+    //        case 1:
+    //            levelName = "Medium";
+    //            TubeLiquidModelMedium =
+    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-normal").text);
+    //            return TubeLiquidModelMedium;
+    //        case 2:
+    //            levelName = "Hard";
+    //            TubeLiquidModelHard =
+    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-hard").text);
+    //            return TubeLiquidModelHard;
+    //        default:
+    //            TubeLiquidModelEasy =
+    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
+    //            return TubeLiquidModelEasy;
+    //    }
+    //}
 
+    private TubeLiquidData currentLevelData;
     private TubeLiquidModel GetLevelData()
     {
         Level = PlayerPrefs.GetInt("ActiveLevel", 1);
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
     {
         RestartGame();
     }
-    public int RemainingMoves =0;
+    public int RemainingMoves = 0;
     public float LevelTime = 0;
     private Coroutine timerCoroutine;
 
@@ -114,15 +115,17 @@ public class GameManager : MonoBehaviour
         float timeLeft = LevelTime;
         while (timeLeft > 0)
         {
-            timeLeft -= Time.deltaTime;
-            //UIManager.Instance.UpdateTimer(timeLeft / LevelTime);//need to setup times 
-            yield return null;
+            timerText.text = $"{Mathf.CeilToInt(timeLeft)} Sec Left";
+            yield return new WaitForSeconds(1f);
+            timeLeft -= 1f;
         }
+
         OnLevelFailed();
     }
     public void OnLevelFailed()
     {
         //do stuff here on level failed
+        Debug.Log("Level Failed! Try Again.");
     }
     private void SetupTwists()
     {
