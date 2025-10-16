@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(0)]
 public class GameManager : MonoBehaviour
@@ -75,8 +78,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private async void Start()
     {
+        // Initialize Unity Services
+        await UnityServices.InitializeAsync();
+        
+        // Check if user is authenticated
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            // Load login scene if not authenticated
+            SceneManager.LoadScene("Main");
+            return;
+        }
+        
+        // Proceed with game initialization
         RestartGame();
     }
 
