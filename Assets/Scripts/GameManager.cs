@@ -13,13 +13,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private TextMeshProUGUI moveCountText;
+    [SerializeField] internal TextMeshProUGUI moveCountText;
+    public GameplayScreenUI gamePlayScreenUIref;
     [SerializeField] private Color[] colors;
     [SerializeField] private TubeModel[] tubeData;
     [SerializeField] private float timeToMove = 1f;
     [SerializeField] private float timeToRotate = 1f;
     [SerializeField] private float tubeUpOffset = 1f;
-
     public int Level { get; private set; }
     private string levelName;
     //private TubeLiquidModel TubeLiquidModelEasy { get; set; }
@@ -102,11 +102,25 @@ public class GameManager : MonoBehaviour
     private void SetupLevelRules()
     {
         RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
+        if(currentLevelData.maxMoves <= 0)
+        {
+            moveCountText.gameObject.SetActive(false);
+        }
+        else
+        {
+            moveCountText.gameObject.SetActive(true);
+            moveCountText.text = $"{RemainingMoves} Moves Left";
+        }
         LevelTime = currentLevelData.timeLimit;
         if (LevelTime > 0)
         {
+            timerText.gameObject.SetActive(true);
             if (timerCoroutine != null) StopCoroutine(timerCoroutine);
             timerCoroutine = StartCoroutine(LevelTimer());
+        }
+        else
+        {
+            timerText.gameObject.SetActive(false);
         }
     }
 
@@ -126,11 +140,12 @@ public class GameManager : MonoBehaviour
     {
         //do stuff here on level failed
         Debug.Log("Level Failed! Try Again.");
+        gamePlayScreenUIref.OnLevelFailed();
     }
-    private void SetupTwists()
+    private void SetupTwists() //Will work on this later
     {
-        TubeManager.Instance.SetLockedTubes(currentLevelData.lockedTubes);
-        TubeManager.Instance.SetAvailableSwaps(currentLevelData.availableSwaps);
+        //TubeManager.Instance.SetLockedTubes(currentLevelData.lockedTubes);
+        //TubeManager.Instance.SetAvailableSwaps(currentLevelData.availableSwaps);
     }
     public void GameWin()
     {

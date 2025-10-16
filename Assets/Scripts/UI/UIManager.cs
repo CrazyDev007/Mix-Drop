@@ -11,6 +11,8 @@ namespace UI
         Pause,
         Gameplay,
         Hint,
+        LevelFailed,
+        LevelCompleted
     }
 
     public class UIManager : MonoBehaviour
@@ -34,6 +36,7 @@ namespace UI
             currentScreen = nextScreen;
             foreach (var screen in screens)
             {
+                Debug.Log(">>>>> UIManager " + screen.screenType + " : " + (screen.screenType == currentScreen));
                 screen.SetActive(screen.screenType == currentScreen);
             }
         }
