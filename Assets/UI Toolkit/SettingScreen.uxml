@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="project://database/Assets/UI Toolkit/SettingScreen.uss" />
     <ui:VisualElement class="settings-screen">
         <ui:Button name="back-button" class="back-button" text="Back" />
         <ui:Label class="title" text="Settings" />

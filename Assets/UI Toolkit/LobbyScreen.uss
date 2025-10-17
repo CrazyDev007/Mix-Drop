@@ -4,19 +4,60 @@
     justify-content: center;
     height: 100%;
     width: 100%;
+    background-color: #E3F2FD;
+    padding: 20px;
 }
 
 .logo {
-    width: 300px;
-    height: 150px;
+    width: 1024px;
+    height: 1024px;
     margin-bottom: 50px;
+    background-image: url("project://database/Assets/Sprites/Mix-Drop-1.png?fileID=2800000&guid=e53e3f7600b6e174188172a1bfd809fe&type=3#Mix-Drop-1");
+    background-size: 100% 100%;
+    border-radius: 15px;
 }
 
-.play-button,
-.settings-button,
+.play-button {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #03A9F4;
+    color: white;
+    border-radius: 25px;
+    border-width: 0;
+}
+
+.play-button:hover {
+    background-color: #0288D1;
+}
+
+.settings-button {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #03A9F4;
+    color: white;
+    border-radius: 25px;
+    border-width: 0;
+}
+
+.settings-button:hover {
+    background-color: #0288D1;
+}
+
 .hits-button {
     width: 200px;
     height: 50px;
     margin: 10px;
     font-size: 18px;
+    background-color: #03A9F4;
+    color: white;
+    border-radius: 25px;
+    border-width: 0;
+}
+
+.hits-button:hover {
+    background-color: #0288D1;
 }
