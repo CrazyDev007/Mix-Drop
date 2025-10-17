@@ -1,7 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using MixDrop.Login;
 using MixDrop.Login.Services;
 using MixDrop.Login.UI;
@@ -9,41 +7,20 @@ using MixDrop.Login.UI;
 namespace MixDrop.Login.UI
 {
     /// <summary>
-    /// Controller for handling login UI events and coordinating authentication flow
+    /// Presenter for handling login UI events and coordinating authentication flow
     /// </summary>
-    public class LoginController : MonoBehaviour
+    public class LoginPresenter
     {
-    [Header("UI Components")]
-    public LoginUI loginUI;
+        private readonly LoginScreen loginUI;
 
-    [Header("Scene Management")]
-    public string mainGameSceneName = "GamePlay";
+        public event Action OnLoginSuccessful;
 
-        private void Start()
+        public LoginPresenter(LoginScreen view)
         {
-            if (loginUI == null)
-            {
-                loginUI = GetComponent<LoginUI>();
-                if (loginUI == null)
-                {
-                    Debug.LogError("LoginUI component not found. Please assign it in the inspector or attach it to the same GameObject.");
-                    return;
-                }
-            }
+            loginUI = view ?? throw new ArgumentNullException(nameof(view));
 
             // Subscribe to login button click event
             loginUI.OnLoginAttempted += OnLoginButtonClicked;
-            loginUI.OnSignupLinkClickedEvent += OnSignupLinkClicked;
-        }
-
-        private void OnDestroy()
-        {
-            // Unsubscribe from events to prevent memory leaks
-            if (loginUI != null)
-            {
-                loginUI.OnLoginAttempted -= OnLoginButtonClicked;
-                loginUI.OnSignupLinkClickedEvent -= OnSignupLinkClicked;
-            }
         }
 
         /// <summary>
@@ -62,20 +39,6 @@ namespace MixDrop.Login.UI
 
             // Start login process
             await PerformLogin(email, password);
-        }
-
-        /// <summary>
-        /// Handle signup link click event
-        /// </summary>
-        private void OnSignupLinkClicked()
-        {
-            // Navigate to signup screen by activating signup controller and deactivating self
-            GameObject signupController = GameObject.Find("SignupController");
-            if (signupController != null)
-            {
-                signupController.SetActive(true);
-            }
-            gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -133,8 +96,8 @@ namespace MixDrop.Login.UI
                 // Login successful
                 LoginLogger.LogInfo($"Login successful for user: {AuthenticationService.Instance.UserId}");
 
-                // Transition to main game scene
-                SceneManager.LoadScene(mainGameSceneName);
+                // Raise event for successful login
+                OnLoginSuccessful?.Invoke();
 
             }
             catch (LoginException loginEx)
@@ -171,7 +134,7 @@ namespace MixDrop.Login.UI
                 if (userAccount != null && userAccount.IsLockedOut())
                 {
                     TimeSpan remaining = userAccount.LockoutUntil.Value - DateTime.UtcNow;
-                    int minutes = Mathf.CeilToInt((float)remaining.TotalMinutes);
+                    int minutes = (int)Math.Ceiling(remaining.TotalMinutes);
                     loginUI.SetLockoutMessage($"Account locked. Try again in {minutes} minute(s).");
                 }
                 else

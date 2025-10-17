@@ -9,7 +9,7 @@ namespace MixDrop.Login.Tests
     public class LoginUITests
     {
         private GameObject uiGameObject;
-        private LoginUI loginUI;
+        private LoginScreen loginUI;
         private UIDocument uiDocument;
         private TextField emailField;
         private TextField passwordField;
@@ -22,7 +22,7 @@ namespace MixDrop.Login.Tests
             // Create test GameObject with UIDocument
             uiGameObject = new GameObject("TestLoginUI");
             uiDocument = uiGameObject.AddComponent<UIDocument>();
-            loginUI = uiGameObject.AddComponent<LoginUI>();
+            loginUI = uiGameObject.AddComponent<LoginScreen>();
 
             // Create PanelSettings for UIDocument
             uiDocument.panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
@@ -40,7 +40,6 @@ namespace MixDrop.Login.Tests
             root.Add(errorLabel);
 
             // Manually set up the LoginUI with test elements (bypassing UIDocument for testing)
-            loginUI.uiDocument = uiDocument;
             // Note: In a real scenario, UIDocument would populate these, but for testing we simulate
         }
 
@@ -54,7 +53,7 @@ namespace MixDrop.Login.Tests
         public void LoginUI_ComponentExists()
         {
             // Arrange & Act
-            var component = uiGameObject.GetComponent<LoginUI>();
+            var component = uiGameObject.GetComponent<LoginScreen>();
 
             // Assert
             Assert.IsNotNull(component);

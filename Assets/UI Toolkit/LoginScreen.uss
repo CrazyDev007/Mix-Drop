@@ -13,9 +13,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px;
-    min-width: 400px;
-    max-width: 500px;
+    padding: 80px;
+    min-width: 800px;
+    max-width: 1000px;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     border-width: 1px;
@@ -24,10 +24,10 @@
 
 .title-label {
     /* Welcome title styling */
-    font-size: 24px;
+    font-size: 40px;
     -unity-font-style: bold;
     color: #ffffff;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     -unity-text-align: middle-center;
 }
 
@@ -35,14 +35,14 @@
     /* Form container styling */
     flex-direction: column;
     align-items: stretch;
-    width: 300px;
+    width: 600px;
     align-self: center;
 }
 
 .input-field {
     /* Input field styling */
-    height: 40px;
-    font-size: 16px;
+    height: 80px;
+    font-size: 24px;
     padding-left: 12px;
     padding-right: 12px;
     margin-bottom: 15px;
@@ -62,14 +62,14 @@
 .input-field Label {
     /* Input field label styling */
     color: #cccccc;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 5px;
 }
 
 .login-button {
     /* Login button styling */
-    height: 45px;
-    font-size: 16px;
+    height: 80px;
+    font-size: 24px;
     -unity-font-style: bold;
     background-color: #4a9eff;
     border-width: 0px;
@@ -94,7 +94,7 @@
 
 .error-label {
     /* Error message styling */
-    font-size: 14px;
+    font-size: 20px;
     color: #ff6b6b;
     -unity-text-align: middle-center;
     min-height: 20px;
@@ -109,7 +109,7 @@
 
 .lockout-label {
     /* Lockout message styling */
-    font-size: 14px;
+    font-size: 20px;
     color: #ffa500;
     -unity-text-align: middle-center;
     min-height: 20px;
@@ -124,8 +124,8 @@
 
 .link-button {
     /* Link button styling for navigation */
-    height: 30px;
-    font-size: 14px;
+    height: 50px;
+    font-size: 20px;
     background-color: transparent;
     border-width: 0px;
     color: #4a9eff;

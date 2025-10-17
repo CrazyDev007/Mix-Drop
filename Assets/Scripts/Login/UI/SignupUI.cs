@@ -1,3 +1,4 @@
+using ScreenFlow;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,11 +7,8 @@ namespace MixDrop.Login.UI
     /// <summary>
     /// Base UI script for handling Signup screen interactions with Unity UI Toolkit
     /// </summary>
-    public class SignupUI : MonoBehaviour
+    public class SignupUI : ScreenUI
     {
-        [Header("UI Document")]
-        [SerializeField] public UIDocument uiDocument;
-
         [Header("UI Elements")]
         [SerializeField] private string emailFieldName = "email-field";
         [SerializeField] private string passwordFieldName = "password-field";
@@ -26,40 +24,8 @@ namespace MixDrop.Login.UI
         private Label errorText;
         private Button loginLink;
 
-        private bool isInitialized = false;
-
-        private void OnEnable()
+        private void InitializeUIElements(VisualElement root)
         {
-            if (uiDocument == null)
-            {
-                Debug.LogError("UIDocument not assigned to SignupUI");
-                return;
-            }
-
-            if (!isInitialized)
-            {
-                InitializeUIElements();
-                isInitialized = true;
-            }
-            SetupEventHandlers();
-        }
-
-        private void OnDisable()
-        {
-            if (signupButton != null)
-            {
-                signupButton.clicked -= OnSignupButtonClicked;
-            }
-            if (loginLink != null)
-            {
-                loginLink.clicked -= OnLoginLinkClicked;
-            }
-        }
-
-        private void InitializeUIElements()
-        {
-            var root = uiDocument.rootVisualElement;
-
             emailField = root.Q<TextField>(emailFieldName);
             passwordField = root.Q<TextField>(passwordFieldName);
             confirmPasswordField = root.Q<TextField>(confirmPasswordFieldName);
@@ -95,19 +61,14 @@ namespace MixDrop.Login.UI
 
         private void OnLoginLinkClicked()
         {
-            // Raise the login link clicked event
-            OnLoginLinkClickedEvent?.Invoke();
+            // Navigate back to login screen
+            ScreenManager.Instance.ShowScreen("LoginScreen");
         }
 
         /// <summary>
         /// Event raised when user attempts to signup
         /// </summary>
         public event System.Action OnSignupAttempted;
-
-        /// <summary>
-        /// Event raised when user clicks the login link
-        /// </summary>
-        public event System.Action OnLoginLinkClickedEvent;
 
         /// <summary>
         /// Get the current email input value
@@ -168,6 +129,12 @@ namespace MixDrop.Login.UI
                 signupButton.SetEnabled(!isLoading);
                 signupButton.text = isLoading ? "Creating Account..." : "Sign Up";
             }
+        }
+
+        protected override void SetupScreen(VisualElement screen)
+        {
+            InitializeUIElements(screen);
+            SetupEventHandlers();
         }
     }
 }

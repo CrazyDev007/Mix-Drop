@@ -32,7 +32,6 @@ namespace MixDrop.Login.UI
 
             // Subscribe to signup button click event
             signupUI.OnSignupAttempted += OnSignupButtonClicked;
-            signupUI.OnLoginLinkClickedEvent += OnLoginLinkClicked;
         }
 
         private void OnDestroy()
@@ -41,7 +40,6 @@ namespace MixDrop.Login.UI
             if (signupUI != null)
             {
                 signupUI.OnSignupAttempted -= OnSignupButtonClicked;
-                signupUI.OnLoginLinkClickedEvent -= OnLoginLinkClicked;
             }
         }
 
@@ -62,20 +60,6 @@ namespace MixDrop.Login.UI
 
             // Start signup process
             await PerformSignup(email, password);
-        }
-
-        /// <summary>
-        /// Handle login link click event
-        /// </summary>
-        private void OnLoginLinkClicked()
-        {
-            // Navigate to login screen by activating login controller and deactivating self
-            GameObject loginController = GameObject.Find("LoginController");
-            if (loginController != null)
-            {
-                loginController.SetActive(true);
-            }
-            gameObject.SetActive(false);
         }
 
         /// <summary>

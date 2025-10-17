@@ -129,28 +129,13 @@ GameObject:
   m_Component:
   - component: {fileID: 21563877}
   - component: {fileID: 21563875}
-  - component: {fileID: 21563874}
   m_Layer: 0
-  m_Name: LoginUI
+  m_Name: Login Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &21563874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21563873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63333618e3a57b7469331e493cbb9c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.LoginController
-  loginUI: {fileID: 21563875}
-  mainGameSceneName: Main
 --- !u!114 &21563875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,8 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba68dcea3789820438e79870acdc5f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.LoginUI
-  screenAsset: {fileID: 0}
-  uiDocument: {fileID: 0}
+  screenAsset: {fileID: 9197481963319205126, guid: d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9, type: 3}
   emailFieldName: email-field
   passwordFieldName: password-field
   loginButtonName: login-button
@@ -180,6 +164,72 @@ Transform:
   m_GameObject: {fileID: 21563873}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1615642805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &164347773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 164347776}
+  - component: {fileID: 164347774}
+  - component: {fileID: 164347775}
+  m_Layer: 0
+  m_Name: Signup Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &164347774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164347773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aae2f01280acff46acdc687388b2eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.SignupUI
+  screenAsset: {fileID: 9197481963319205126, guid: d453068773290624f93c608c691f28d9, type: 3}
+  emailFieldName: email-field
+  passwordFieldName: password-field
+  confirmPasswordFieldName: confirm-password-field
+  signupButtonName: signup-button
+  errorTextName: error-text
+  loginLinkName: login-link
+--- !u!114 &164347775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164347773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf47781d5b520c147a8cae5d7242be8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.SignupController
+  signupUI: {fileID: 0}
+  mainGameSceneName: GamePlay
+--- !u!4 &164347776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164347773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -369,6 +419,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 21563877}
+  - {fileID: 164347776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1615642806
@@ -384,11 +435,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: com.crazydev007.screenflow.Runtime::ScreenFlow.ScreenManager
   screenMappings:
-  - type: 
-    screen: {fileID: 0}
-    isDefault: 0
-  - type: 
-    screen: {fileID: 0}
+  - type: LoginScreen
+    screen: {fileID: 21563875}
+    isDefault: 1
+  - type: SignupScreen
+    screen: {fileID: 164347774}
     isDefault: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
