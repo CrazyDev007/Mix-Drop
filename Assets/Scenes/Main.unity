@@ -730,7 +730,6 @@ GameObject:
   - component: {fileID: 743143688}
   - component: {fileID: 743143687}
   - component: {fileID: 743143686}
-  - component: {fileID: 743143690}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -823,23 +822,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &743143690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743143685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ceb7d14ba30f03488b58acc6da945b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentScreen: 0
-  screens:
-  - {fileID: 973493794}
-  - {fileID: 931359651}
-  - {fileID: 772473926}
 --- !u!1001 &772473922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1172,8 +1154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c96e7e2b84797348ba6e1dea3490c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenType: 2
-  uiManager: {fileID: 0}
+  screenAsset: {fileID: 0}
   levelScreen: {fileID: 1839784242}
   recyclableScroller: {fileID: 772473927}
 --- !u!114 &772473927
@@ -1396,17 +1377,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5741706757341717733, guid: 90f286ffb8b35c141ac2cbe09869e6a8, type: 3}
   m_PrefabInstance: {fileID: 931359641}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &931359651 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6595334958915280851, guid: 90f286ffb8b35c141ac2cbe09869e6a8, type: 3}
-  m_PrefabInstance: {fileID: 931359641}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8359e8e285a5b924596b1e1877ce2a42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &973493788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,8 +1466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1016be44422b224d93301b00e0fcc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenType: 0
-  uiManager: {fileID: 0}
+  screenAsset: {fileID: 0}
   mainScreen: {fileID: 2034612010}
 --- !u!1 &1054347428
 GameObject:

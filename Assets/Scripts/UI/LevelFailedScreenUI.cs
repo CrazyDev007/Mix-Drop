@@ -1,5 +1,7 @@
+using ScreenFlow;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace UI
 {
@@ -17,10 +19,9 @@ namespace UI
             SceneManager.LoadSceneAsync("Main");
         }
 
-        public override void SetActive(bool active)
+        protected override void SetupScreen(VisualElement screen)
         {
-            levelFailedScreen.SetActive(active);
+            throw new System.NotImplementedException();
         }
-
     }
 }

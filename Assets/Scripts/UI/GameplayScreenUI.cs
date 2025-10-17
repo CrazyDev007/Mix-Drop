@@ -19,13 +19,12 @@ namespace UI
         }
         public void OnLevelFailed()
         {
-            uiManager.ChangeScreen(ScreenType.LevelFailed);
+            //uiManager.ChangeScreen(ScreenType.LevelFailed);
         }
-        public override void SetActive(bool active)
 
         protected override void SetupScreen(VisualElement screen)
         {
-            
+            // Setup your screen elements here
         }
     }
 }
