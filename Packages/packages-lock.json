@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.crazydev007.screenflow": {
+      "version": "https://github.com/CrazyDev007/com.crazydev007.screenflow.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5011b69f2829563cc32c59f7b350c18227dc3e36"
+    },
     "com.unity.2d.common": {
       "version": "11.0.1",
       "depth": 1,
