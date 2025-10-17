@@ -7,7 +7,7 @@ namespace MixDrop.Login.UI
     /// <summary>
     /// Base UI script for handling Signup screen interactions with Unity UI Toolkit
     /// </summary>
-    public class SignupUI : ScreenUI
+    public class SignupScreen : ScreenUI
     {
         [Header("UI Elements")]
         [SerializeField] private string emailFieldName = "email-field";
@@ -23,6 +23,8 @@ namespace MixDrop.Login.UI
         private Button signupButton;
         private Label errorText;
         private Button loginLink;
+
+        private SignupPresenter presenter;
 
         private void InitializeUIElements(VisualElement root)
         {
@@ -135,6 +137,7 @@ namespace MixDrop.Login.UI
         {
             InitializeUIElements(screen);
             SetupEventHandlers();
+            presenter = new SignupPresenter(this);
         }
     }
 }

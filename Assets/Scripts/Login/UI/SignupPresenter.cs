@@ -8,38 +8,26 @@ using MixDrop.Login.UI;
 namespace MixDrop.Login.UI
 {
     /// <summary>
-    /// Controller for handling signup UI events and coordinating authentication flow
+    /// Presenter for handling signup UI events and coordinating authentication flow
     /// </summary>
-    public class SignupController : MonoBehaviour
+    public class SignupPresenter
     {
-        [Header("UI Components")]
-        public SignupUI signupUI;
+        private SignupScreen signupScreen;
+        private string mainGameSceneName = "GamePlay";
 
-        [Header("Scene Management")]
-        public string mainGameSceneName = "GamePlay";
-
-        private void Start()
+        public SignupPresenter(SignupScreen signupScreen)
         {
-            if (signupUI == null)
-            {
-                signupUI = GetComponent<SignupUI>();
-                if (signupUI == null)
-                {
-                    Debug.LogError("SignupUI component not found. Please assign it in the inspector or attach it to the same GameObject.");
-                    return;
-                }
-            }
-
+            this.signupScreen = signupScreen;
             // Subscribe to signup button click event
-            signupUI.OnSignupAttempted += OnSignupButtonClicked;
+            signupScreen.OnSignupAttempted += OnSignupButtonClicked;
         }
 
-        private void OnDestroy()
+        public void Dispose()
         {
             // Unsubscribe from events to prevent memory leaks
-            if (signupUI != null)
+            if (signupScreen != null)
             {
-                signupUI.OnSignupAttempted -= OnSignupButtonClicked;
+                signupScreen.OnSignupAttempted -= OnSignupButtonClicked;
             }
         }
 
@@ -48,9 +36,9 @@ namespace MixDrop.Login.UI
         /// </summary>
         private async void OnSignupButtonClicked()
         {
-            string email = signupUI.GetEmail();
-            string password = signupUI.GetPassword();
-            string confirmPassword = signupUI.GetConfirmPassword();
+            string email = signupScreen.GetEmail();
+            string password = signupScreen.GetPassword();
+            string confirmPassword = signupScreen.GetConfirmPassword();
 
             // Basic client-side validation
             if (!IsValidInput(email, password, confirmPassword))
@@ -79,31 +67,31 @@ namespace MixDrop.Login.UI
             // Check for safe input
             if (!SecurityUtils.IsInputSafe(email) || !SecurityUtils.IsInputSafe(password) || !SecurityUtils.IsInputSafe(confirmPassword))
             {
-                signupUI.SetErrorMessage("Invalid characters detected in input.");
+                signupScreen.SetErrorMessage("Invalid characters detected in input.");
                 return false;
             }
 
             if (!MixDrop.Login.Models.UserAccount.IsValidEmail(email))
             {
-                signupUI.SetErrorMessage("Please enter a valid email address.");
+                signupScreen.SetErrorMessage("Please enter a valid email address.");
                 return false;
             }
 
             if (!SecurityUtils.IsPasswordStrong(password))
             {
-                signupUI.SetErrorMessage("Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.");
+                signupScreen.SetErrorMessage("Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.");
                 return false;
             }
 
             // Check if passwords match
             if (password != confirmPassword)
             {
-                signupUI.SetErrorMessage("Passwords do not match.");
+                signupScreen.SetErrorMessage("Passwords do not match.");
                 return false;
             }
 
             // Clear any previous error messages
-            signupUI.SetErrorMessage(string.Empty);
+            signupScreen.SetErrorMessage(string.Empty);
             return true;
         }
 
@@ -117,8 +105,8 @@ namespace MixDrop.Login.UI
             try
             {
                 // Set loading state
-                signupUI.SetLoadingState(true);
-                signupUI.SetErrorMessage(string.Empty);
+                signupScreen.SetLoadingState(true);
+                signupScreen.SetErrorMessage(string.Empty);
 
                 // Attempt account creation
                 await AuthenticationService.Instance.SignUpWithEmailPassword(email, password);
@@ -139,12 +127,12 @@ namespace MixDrop.Login.UI
             {
                 // Handle unexpected errors
                 LoginLogger.LogException(ex, "Unexpected error during signup process");
-                signupUI.SetErrorMessage("An unexpected error occurred. Please try again.");
+                signupScreen.SetErrorMessage("An unexpected error occurred. Please try again.");
             }
             finally
             {
                 // Reset loading state
-                signupUI.SetLoadingState(false);
+                signupScreen.SetLoadingState(false);
             }
         }
 
@@ -156,7 +144,7 @@ namespace MixDrop.Login.UI
         {
             string errorMessage = LoginUtils.GetErrorMessage(signupEx.ErrorType);
 
-            signupUI.SetErrorMessage(errorMessage);
+            signupScreen.SetErrorMessage(errorMessage);
             LoginLogger.LogError($"Signup error: {errorMessage}");
         }
     }

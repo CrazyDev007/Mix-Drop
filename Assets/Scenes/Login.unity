@@ -180,7 +180,6 @@ GameObject:
   m_Component:
   - component: {fileID: 164347776}
   - component: {fileID: 164347774}
-  - component: {fileID: 164347775}
   m_Layer: 0
   m_Name: Signup Screen
   m_TagString: Untagged
@@ -197,9 +196,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 164347773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aae2f01280acff46acdc687388b2eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c14fe0ee04026446a76335f0ef91dbf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.SignupUI
+  m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.SignupScreen
   screenAsset: {fileID: 9197481963319205126, guid: d453068773290624f93c608c691f28d9, type: 3}
   emailFieldName: email-field
   passwordFieldName: password-field
@@ -207,20 +206,6 @@ MonoBehaviour:
   signupButtonName: signup-button
   errorTextName: error-text
   loginLinkName: login-link
---- !u!114 &164347775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 164347773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf47781d5b520c147a8cae5d7242be8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.SignupController
-  signupUI: {fileID: 0}
-  mainGameSceneName: GamePlay
 --- !u!4 &164347776
 Transform:
   m_ObjectHideFlags: 0
