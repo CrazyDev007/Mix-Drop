@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement class="settings-screen">
+        <ui:Button name="back-button" class="back-button" text="Back" />
+        <ui:Label class="title" text="Settings" />
+        <ui:VisualElement class="settings-container">
+            <ui:Label text="Music Volume" />
+            <ui:Slider name="music-slider" class="volume-slider" low-value="0" high-value="1" value="0.5" />
+            <ui:Label text="SFX Volume" />
+            <ui:Slider name="sfx-slider" class="volume-slider" low-value="0" high-value="1" value="0.5" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
