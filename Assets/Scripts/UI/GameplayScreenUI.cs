@@ -1,4 +1,6 @@
+using ScreenFlow;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UI
 {
@@ -13,12 +15,12 @@ namespace UI
 
         public void OnClickBtnPause()
         {
-            uiManager.ChangeScreen(ScreenType.Pause);
+            //uiManager.ChangeScreen(ScreenType.Pause);
         }
 
-        public override void SetActive(bool active)
+        protected override void SetupScreen(VisualElement screen)
         {
-            gameplayScreen.SetActive(active);
+            
         }
     }
 }

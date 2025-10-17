@@ -1,5 +1,7 @@
+using ScreenFlow;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace UI
 {
@@ -9,7 +11,7 @@ namespace UI
 
         public void OnClickBtnResume()
         {
-            uiManager.ChangeScreen(ScreenType.Gameplay);
+            //uiManager.ChangeScreen(ScreenType.Gameplay);
         }
 
         public void OnClickBtnRestart()
@@ -21,10 +23,10 @@ namespace UI
         {
             SceneManager.LoadSceneAsync("Main");
         }
-
-        public override void SetActive(bool active)
+        
+        protected override void SetupScreen(VisualElement screen)
         {
-            pauseScreen.SetActive(active);
+            throw new System.NotImplementedException();
         }
     }
 }

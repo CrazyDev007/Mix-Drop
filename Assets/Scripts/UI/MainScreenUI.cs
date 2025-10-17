@@ -1,5 +1,7 @@
+using ScreenFlow;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace UI
 {
@@ -9,17 +11,17 @@ namespace UI
 
         public void OnClickBtnStartGame()
         {
-            uiManager.ChangeScreen(ScreenType.Level);
+            //uiManager.ChangeScreen(ScreenType.Level);
         }
 
         public void OnClickBtnSetting()
         {
-            uiManager.ChangeScreen(ScreenType.Setting);
+            //uiManager.ChangeScreen(ScreenType.Setting);
         }
 
-        public override void SetActive(bool active)
+        protected override void SetupScreen(VisualElement screen)
         {
-            mainScreen.SetActive(active);
+            throw new System.NotImplementedException();
         }
     }
 }

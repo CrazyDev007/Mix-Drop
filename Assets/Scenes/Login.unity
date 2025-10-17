@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba68dcea3789820438e79870acdc5f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::MixDrop.Login.UI.LoginUI
+  screenAsset: {fileID: 0}
   uiDocument: {fileID: 0}
   emailFieldName: email-field
   passwordFieldName: password-field
@@ -323,6 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1615642805}
   - component: {fileID: 1615642804}
+  - component: {fileID: 1615642806}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -369,6 +371,25 @@ Transform:
   - {fileID: 21563877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1615642806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615642803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2f26e16e2cbc543af90665dfe998fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.crazydev007.screenflow.Runtime::ScreenFlow.ScreenManager
+  screenMappings:
+  - type: 
+    screen: {fileID: 0}
+    isDefault: 0
+  - type: 
+    screen: {fileID: 0}
+    isDefault: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using UI;
+using ScreenFlow;
 
 namespace MixDrop.Login.UI
 {
     /// <summary>
     /// Base UI script for handling Login screen interactions with Unity UI Toolkit
     /// </summary>
-    public class LoginUI : MonoBehaviour
+    public class LoginUI : ScreenUI
     {
         [Header("UI Document")]
         [SerializeField] public UIDocument uiDocument;
@@ -173,6 +175,10 @@ namespace MixDrop.Login.UI
                 loginButton.SetEnabled(!isLoading);
                 loginButton.text = isLoading ? "Logging in..." : "Login";
             }
+        }
+        protected override void SetupScreen(VisualElement screen)
+        {
+            // Setup the screen elements here
         }
     }
 }
