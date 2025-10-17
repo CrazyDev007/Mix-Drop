@@ -1,0 +1,22 @@
+.lobby-screen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.logo {
+    width: 300px;
+    height: 150px;
+    margin-bottom: 50px;
+}
+
+.play-button,
+.settings-button,
+.hits-button {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    font-size: 18px;
+}

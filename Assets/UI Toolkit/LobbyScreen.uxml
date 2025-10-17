@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement class="lobby-screen">
+        <ui:Image class="logo" image="Sprites/Mix-Drop-1.png" />
+        <ui:Button name="play-button" class="play-button" text="Play" />
+        <ui:Button name="settings-button" class="settings-button" text="Settings" />
+        <ui:Button name="hits-button" class="hits-button" text="Hits" />
+    </ui:VisualElement>
+</ui:UXML>
