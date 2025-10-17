@@ -102,6 +102,12 @@ namespace MixDrop.Login.UI
         /// <param name="password">User's password</param>
         private async Task PerformSignup(string email, string password)
         {
+            // Ensure Unity Services are initialized
+            if (Unity.Services.Core.UnityServices.State != Unity.Services.Core.ServicesInitializationState.Initialized)
+            {
+                await Unity.Services.Core.UnityServices.InitializeAsync();
+            }
+
             try
             {
                 // Set loading state

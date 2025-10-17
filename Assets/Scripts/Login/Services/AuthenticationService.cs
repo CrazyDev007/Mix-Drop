@@ -93,6 +93,12 @@ namespace MixDrop.Login.Services
         /// <returns>Task representing the async operation</returns>
         public async Task SignInWithEmailPassword(string email, string password)
         {
+            // Ensure Unity Services are initialized
+            if (UnityServices.State != ServicesInitializationState.Initialized)
+            {
+                await UnityServices.InitializeAsync();
+            }
+
             // Load or create user account for local state management
             var userAccount = LoadUserAccount(email) ?? new MixDrop.Login.Models.UserAccount(email);
 
@@ -163,6 +169,12 @@ namespace MixDrop.Login.Services
         /// <returns>Task representing the async operation</returns>
         public async Task SignUpWithEmailPassword(string email, string password)
         {
+            // Ensure Unity Services are initialized
+            if (UnityServices.State != ServicesInitializationState.Initialized)
+            {
+                await UnityServices.InitializeAsync();
+            }
+
             try
             {
                 LoginLogger.LogInfo($"Attempting signup for email: {email}");

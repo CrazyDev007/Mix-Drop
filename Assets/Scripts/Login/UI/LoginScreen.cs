@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UI;
 using ScreenFlow;
+using UnityEngine.SceneManagement;
 
 namespace MixDrop.Login.UI
 {
@@ -24,6 +25,8 @@ namespace MixDrop.Login.UI
         private Label errorText;
         private Label lockoutText;
         private Button signupLink;
+
+        private LoginPresenter presenter;
 
         private void InitializeUIElements(VisualElement root)
         {
@@ -139,6 +142,8 @@ namespace MixDrop.Login.UI
         {
             InitializeUIElements(screen);
             SetupEventHandlers();
+            presenter = new LoginPresenter(this);
+            presenter.OnLoginSuccessful += () => SceneManager.LoadScene("GamePlay");
         }
     }
 }
