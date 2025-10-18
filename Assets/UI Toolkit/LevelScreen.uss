@@ -20,6 +20,31 @@
     margin-bottom: 20px;
 }
 
+.level-row {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.level-button {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.level-button:hover {
+    background-color: #45a049;
+}
+
+.level-button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
 .back-button {
     width: 200px;
     height: 60px;

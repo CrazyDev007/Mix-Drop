@@ -9,6 +9,7 @@ namespace UI
     {
         private ScrollView levelList;
         private Button backButton;
+        private VisualTreeAsset levelRowTemplate;
 
         protected override void SetupScreen(VisualElement screen)
         {
@@ -20,6 +21,7 @@ namespace UI
                 backButton.clicked += OnClickBackButton;
             }
 
+            levelRowTemplate = Resources.Load<VisualTreeAsset>("LevelRow");
             SetupLevelList();
         }
 
@@ -27,23 +29,24 @@ namespace UI
         {
             levelList.Clear();
             int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
-            int levelsPerRow = 10;
 
-            for (int row = 0; row < 100; row++) // 100 rows for 1000 levels
+            for (int row = 0; row < 200; row++) // 200 rows for 1000 levels with 5 per row
             {
-                var rowElement = new VisualElement { style = { flexDirection = FlexDirection.Row, justifyContent = Justify.SpaceAround } };
-                for (int col = 0; col < levelsPerRow; col++)
+                var rowElement = levelRowTemplate.CloneTree();
+                for (int col = 0; col < 5; col++)
                 {
-                    int levelNumber = row * levelsPerRow + col + 1;
-                    if (levelNumber > 1000) break;
+                    var button = rowElement.Q<Button>($"level-{col + 1}");
+                    int levelNumber = row * 5 + col + 1;
+                    if (levelNumber > 1000)
+                    {
+                        button.style.display = DisplayStyle.None;
+                        continue;
+                    }
 
                     bool isLocked = levelNumber > completedLevels + 1;
-                    var button = new Button { text = $"{levelNumber}" };
+                    button.text = $"{levelNumber}";
                     button.SetEnabled(!isLocked);
-                    button.style.width = 80;
-                    button.style.height = 80;
                     button.clicked += () => OnLevelSelected(levelNumber);
-                    rowElement.Add(button);
                 }
                 levelList.Add(rowElement);
             }
