@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 2155056a29f5aca4abb5517f300a5489, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 3d8bc2fc56fada44685c71a817d554b4, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 706be60a8af03b04694c8d0295c45a66, type: 3}
   m_SortingOrder: 0
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -254,6 +254,7 @@ Transform:
   m_Children:
   - {fileID: 1415908008}
   - {fileID: 648932955}
+  - {fileID: 1459667054}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &496162993
@@ -274,6 +275,9 @@ MonoBehaviour:
     isDefault: 1
   - type: SettingScreen
     screen: {fileID: 648932954}
+    isDefault: 0
+  - type: LevelScreen
+    screen: {fileID: 1459667055}
     isDefault: 0
 --- !u!1 &519420028
 GameObject:
@@ -593,6 +597,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 496162992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1459667053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459667054}
+  - component: {fileID: 1459667055}
+  m_Layer: 5
+  m_Name: Level Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459667054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459667053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 496162992}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459667055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459667053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c96e7e2b84797348ba6e1dea3490c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mix-Drop::UI.LevelScreen
+  screenAsset: {fileID: 9197481963319205126, guid: 706be60a8af03b04694c8d0295c45a66, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

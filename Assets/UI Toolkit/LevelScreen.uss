@@ -1,0 +1,60 @@
+.level-screen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(240, 240, 240);
+    padding: 20px;
+}
+
+.title {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.level-list {
+    width: 80%;
+    height: 80%;
+    margin-bottom: 20px;
+}
+
+.level-row {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.level-button {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.level-button:hover {
+    background-color: #45a049;
+}
+
+.level-button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.back-button {
+    width: 200px;
+    height: 60px;
+    font-size: 24px;
+    background-color: #FF5722;
+    color: white;
+    border-radius: 30px;
+    border-width: 0;
+}
+
+.back-button:hover {
+    background-color: #D84315;
+}

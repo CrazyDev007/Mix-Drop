@@ -60,7 +60,7 @@ namespace MixDrop.Login.Tests
         }
 
         [Test]
-        public async System.Threading.Tasks.Task SignInWithEmailPassword_WithInvalidCredentials_ThrowsException()
+        public void SignInWithEmailPassword_WithInvalidCredentials_ThrowsException()
         {
             // Arrange
             string invalidEmail = "invalid@example.com";
