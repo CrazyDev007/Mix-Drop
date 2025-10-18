@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace UI
 {
-    public class LevelScreenUI : ScreenUI, IOnItemClickListener
+    public class LevelScreen : ScreenUI, IOnItemClickListener
     {
         [SerializeField] private GameObject levelScreen;
 
