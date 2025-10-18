@@ -1,0 +1,87 @@
+.gameplay-screen {
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0); /* transparent */
+}
+
+.top-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.left-section {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 1;
+}
+
+.center-section {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.right-section {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 1;
+}
+
+.level-title {
+    font-size: 40px;
+    color: white;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.level-number {
+    font-size: 80px;
+    color: white;
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+.timer {
+    font-size: 40px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.moves {
+    font-size: 40px;
+    color: white;
+}
+
+.add-tube-btn {
+    width: 80px;
+    height: 80px;
+    background-color: #4CAF50;
+    border-width: 0;
+    border-radius: 8px;
+    margin-left: 8px;
+}
+
+.hint-btn {
+    width: 80px;
+    height: 80px;
+    background-image: url("project://database/Assets/Sprites/Hint%20Buitton.png?fileID=2800000&guid=4c495e6fbd50f5d4bbb5047ef88e6f20&type=3#Hint Buitton");
+    background-size: contain;
+    border-width: 0;
+    margin-left: 8px;
+}
+
+.pause-btn {
+    width: 80px;
+    height: 80px;
+    background-image: url("project://database/Assets/Sprites/Pause%20Button.png?fileID=2800000&guid=597c2a46be2d28a45b44859a4021d47d&type=3#Pause Button");
+    background-size: contain;
+    border-width: 0;
+    margin-left: 8px;
+}
