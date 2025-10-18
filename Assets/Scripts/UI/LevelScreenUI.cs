@@ -1,6 +1,8 @@
+using ScreenFlow;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace UI
 {
@@ -37,12 +39,12 @@ namespace UI
 
         public void OnClickBackButton()
         {
-            uiManager.ChangeScreen(ScreenType.Main);
+            //uiManager.ChangeScreen(ScreenType.Main);
         }
 
-        public override void SetActive(bool active)
+        protected override void SetupScreen(VisualElement screen)
         {
-            levelScreen.SetActive(active);
+            throw new System.NotImplementedException();
         }
     }
 }

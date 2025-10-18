@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+    <engine:Style src="project://database/Assets/UI Toolkit/SignupScreen.uss" />
+    <engine:VisualElement class="root-wrapper">
+        <engine:VisualElement name="signup-container" class="signup-container">
+            <engine:Label text="Create Account" class="title-label" />
+
+            <engine:VisualElement name="form-container" class="form-container">
+                <engine:TextField name="email-field" label="Email" class="input-field" />
+                <engine:TextField name="password-field" label="Password" password="true" class="input-field" />
+                <engine:TextField name="confirm-password-field" label="Confirm Password" password="true" class="input-field" />
+                <engine:Button name="signup-button" text="Sign Up" class="signup-button" />
+                <engine:Label name="error-text" class="error-label" />
+                <engine:Button name="login-link" text="Already have an account? Login" class="link-button" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

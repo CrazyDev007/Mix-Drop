@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LobbyScreen.uss?fileID=7433441132597879392&amp;guid=3ac97067e86ffb0429d2a27779954667&amp;type=3#LobbyScreen" />
+    <ui:VisualElement class="lobby-screen">
+        <ui:Image image="Assets/Sprites/Mix-Drop-1.png" class="logo" />
+        <ui:Button name="play-button" text="Play" class="play-button" />
+        <ui:Button name="settings-button" text="Settings" class="settings-button" />
+        <ui:Button name="hits-button" text="Hits" class="hits-button" />
+    </ui:VisualElement>
+</ui:UXML>

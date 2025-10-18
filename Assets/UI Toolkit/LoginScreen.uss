@@ -1,0 +1,142 @@
+/* Login Screen Styles - Mix-Drop Game */
+/* Unity Style Sheet (USS) for LoginScreen.uxml */
+
+.root-wrapper {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    /* Main container styling */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    min-width: 800px;
+    max-width: 1000px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.title-label {
+    /* Welcome title styling */
+    font-size: 40px;
+    -unity-font-style: bold;
+    color: #ffffff;
+    margin-bottom: 60px;
+    -unity-text-align: middle-center;
+}
+
+.form-container {
+    /* Form container styling */
+    flex-direction: column;
+    align-items: stretch;
+    width: 600px;
+    align-self: center;
+}
+
+.input-field {
+    /* Input field styling */
+    height: 80px;
+    font-size: 24px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    color: #000000;
+}
+
+.input-field:focus {
+    /* Focused input field styling */
+    border-color: #4a9eff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.input-field Label {
+    /* Input field label styling */
+    color: #cccccc;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.login-button {
+    /* Login button styling */
+    height: 80px;
+    font-size: 24px;
+    -unity-font-style: bold;
+    background-color: #4a9eff;
+    border-width: 0px;
+    border-radius: 6px;
+    color: #ffffff;
+}
+
+.login-button:hover {
+    /* Login button hover styling */
+    background-color: #3a8eef;
+}
+
+.login-button:active {
+    /* Login button active/pressed styling */
+    background-color: #2a7edf;
+}
+
+.login-button:disabled {
+    /* Login button disabled styling */
+    background-color: #666666;
+}
+
+.error-label {
+    /* Error message styling */
+    font-size: 20px;
+    color: #ff6b6b;
+    -unity-text-align: middle-center;
+    min-height: 20px;
+    margin-top: 10px;
+    display: none;
+}
+
+.error-label.visible {
+    /* Error message visible styling */
+    display: flex;
+}
+
+.lockout-label {
+    /* Lockout message styling */
+    font-size: 20px;
+    color: #ffa500;
+    -unity-text-align: middle-center;
+    min-height: 20px;
+    margin-top: 10px;
+    display: none;
+}
+
+.lockout-label.visible {
+    /* Lockout message visible styling */
+    display: flex;
+}
+
+.link-button {
+    /* Link button styling for navigation */
+    height: 50px;
+    font-size: 20px;
+    background-color: transparent;
+    border-width: 0px;
+    color: #4a9eff;
+    -unity-text-align: middle-center;
+    margin-top: 10px;
+}
+
+.link-button:hover {
+    /* Link button hover styling */
+    color: #3a8eef;
+}
+
+/* Note: Media queries and responsive breakpoints are not supported in Unity USS */
+/* For responsive design, consider using Unity's built-in UI scaling features */
