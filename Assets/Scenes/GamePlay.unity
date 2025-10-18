@@ -658,6 +658,9 @@ MonoBehaviour:
   - type: pause-screen
     screen: {fileID: 1281163223}
     isDefault: 0
+  - type: hint-screen
+    screen: {fileID: 1219532074}
+    isDefault: 0
 --- !u!114 &1149053012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,7 +700,54 @@ Transform:
   - {fileID: 1638023043}
   - {fileID: 1555168217}
   - {fileID: 1281163224}
+  - {fileID: 1219532075}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1219532073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1219532075}
+  - component: {fileID: 1219532074}
+  m_Layer: 5
+  m_Name: Hint Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1219532074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219532073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4cc6a85dc8944e408f7708919a7909c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mix-Drop::UI.HintScreenUI
+  screenAsset: {fileID: 0}
+  hintScreen: {fileID: 0}
+--- !u!4 &1219532075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219532073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1149053013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1281163222
 GameObject:
@@ -836,8 +886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::UI.GameplayScreenUI
   screenAsset: {fileID: 9197481963319205126, guid: 61eb651741d4fe74387c70f68524d111, type: 3}
-  gameplayScreen: {fileID: 0}
-  hintScreenUI: {fileID: 0}
 --- !u!1 &1816778621
 GameObject:
   m_ObjectHideFlags: 0

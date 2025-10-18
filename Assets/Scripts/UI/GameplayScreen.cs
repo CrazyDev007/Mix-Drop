@@ -6,16 +6,10 @@ namespace UI
 {
     public class GameplayScreen : ScreenUI
     {
-        [SerializeField] private GameObject gameplayScreen;
 
         private Label levelNumberLabel;
         private Label timerLabel;
         private Label movesLabel;
-        private Button addTubeButton;
-        private Button hintButton;
-        private Button pauseButton;
-
-        [SerializeField] private HintScreenUI hintScreenUI;
 
         public void OnClickBtnAddTube()
         {
@@ -25,22 +19,18 @@ namespace UI
         public void OnClickBtnPause()
         {
             //uiManager.ChangeScreen(ScreenType.Pause);
+            ScreenManager.Instance.ShowScreen("pause-screen");
         }
 
         public void OnLevelFailed()
         {
             //uiManager.ChangeScreen(ScreenType.LevelFailed);
+            ScreenManager.Instance.ShowScreen("level-failed-screen");
         }
 
         private void OnClickBtnHint()
         {
-            // Show hint screen
-            if (hintScreenUI != null && hintScreenUI.gameObject != null)
-            {
-                hintScreenUI.gameObject.SetActive(true);
-                // Set hint text based on current level
-                hintScreenUI.SetHintText("Try to sort the colors by moving liquids between tubes. You can only move to an empty tube or on top of the same color!");
-            }
+            ScreenManager.Instance.ShowScreen("hint-screen");
         }
 
         protected override void SetupScreen(VisualElement screen)
@@ -48,13 +38,10 @@ namespace UI
             levelNumberLabel = screen.Q<Label>("level-number");
             timerLabel = screen.Q<Label>("timer-label");
             movesLabel = screen.Q<Label>("moves-label");
-            addTubeButton = screen.Q<Button>("add-tube-button");
-            hintButton = screen.Q<Button>("hint-button");
-            pauseButton = screen.Q<Button>("pause-button");
 
-            addTubeButton.clicked += OnClickBtnAddTube;
-            hintButton.clicked += OnClickBtnHint;
-            pauseButton.clicked += OnClickBtnPause;
+            screen.Q<Button>("add-tube-button").clicked += OnClickBtnAddTube;
+            screen.Q<Button>("hint-button").clicked += OnClickBtnHint;
+            screen.Q<Button>("pause-button").clicked += OnClickBtnPause;
 
             // Initialize values
             UpdateLevel(1);
