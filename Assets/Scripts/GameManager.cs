@@ -116,12 +116,19 @@ public class GameManager : MonoBehaviour
     {
         RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
         LevelTime = currentLevelData.timeLimit;
-        var _movesLeft = $"{RemainingMoves} Moves left";
+        var _movesLeft = RemainingMoves >= 50000 ? "Unlimited Moves" : $"{RemainingMoves} Moves left";
         gamePlayScreenUIref.UpdateMoves(_movesLeft);
-        if (timerCoroutine != null)
-            StopCoroutine(timerCoroutine);
-        
-        timerCoroutine = StartCoroutine(LevelTimer());
+        if (LevelTime > 0)
+        {
+            if (timerCoroutine != null)
+                StopCoroutine(timerCoroutine);
+            
+            timerCoroutine = StartCoroutine(LevelTimer());
+        }
+        else
+        {
+            gamePlayScreenUIref.UpdateTimer("Unlimited Time");
+        }
     }
 
     private IEnumerator LevelTimer()

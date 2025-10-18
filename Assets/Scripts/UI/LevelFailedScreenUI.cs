@@ -21,7 +21,7 @@ namespace UI
 
         protected override void SetupScreen(VisualElement screen)
         {
-            throw new System.NotImplementedException();
+            // Additional setup can be done here if needed
         }
     }
 }
