@@ -15,6 +15,8 @@ namespace UI
         private Button hintButton;
         private Button pauseButton;
 
+        [SerializeField] private HintScreenUI hintScreenUI;
+
         public void OnClickBtnAddTube()
         {
             TubeManager.Instance.AddEmptyTube();
@@ -28,6 +30,17 @@ namespace UI
         public void OnLevelFailed()
         {
             //uiManager.ChangeScreen(ScreenType.LevelFailed);
+        }
+
+        private void OnClickBtnHint()
+        {
+            // Show hint screen
+            if (hintScreenUI != null && hintScreenUI.gameObject != null)
+            {
+                hintScreenUI.gameObject.SetActive(true);
+                // Set hint text based on current level
+                hintScreenUI.SetHintText("Try to sort the colors by moving liquids between tubes. You can only move to an empty tube or on top of the same color!");
+            }
         }
 
         protected override void SetupScreen(VisualElement screen)
@@ -65,11 +78,6 @@ namespace UI
         {
             if (movesLabel != null)
                 movesLabel.text = "Moves: " + moves.ToString();
-        }
-
-        private void OnClickBtnHint()
-        {
-            // Implement hint logic
         }
     }
 }

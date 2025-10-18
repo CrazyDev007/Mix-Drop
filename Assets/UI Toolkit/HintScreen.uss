@@ -1,0 +1,43 @@
+.hint-screen-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.hint-panel {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    min-width: 600px;
+    max-width: 1000px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hint-title {
+    font-size: 72px;
+    color: #333;
+    margin-bottom: 40px;
+    -unity-font-style: bold;
+}
+
+.hint-text {
+    font-size: 48px;
+    color: #666;
+    -unity-text-align: middle-center;
+    margin-bottom: 60px;
+    white-space: normal;
+}
+
+.close-btn {
+    width: 240px;
+    height: 100px;
+    background-color: #4CAF50;
+    color: white;
+    border-width: 0;
+    border-radius: 10px;
+    font-size: 36px;
+}

@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3735523145219699253, guid: 90f286ffb8b35c141ac2cbe09869e6a8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4676744739145445045, guid: 90f286ffb8b35c141ac2cbe09869e6a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2925,6 +2925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenAsset: {fileID: 0}
   gameplayScreen: {fileID: 172453444}
+  hintScreenUI: {fileID: 0}
 --- !u!1 &1816778621
 GameObject:
   m_ObjectHideFlags: 0
@@ -3410,7 +3411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3735523145219699253, guid: 90f286ffb8b35c141ac2cbe09869e6a8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5068021721291815206, guid: 90f286ffb8b35c141ac2cbe09869e6a8, type: 3}
       propertyPath: m_AnchorMax.y
