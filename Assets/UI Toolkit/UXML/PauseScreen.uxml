@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/PauseScreen.uss?fileID=7433441132597879392&amp;guid=825aacb8f4eee264f9d211f1bc1f3ee3&amp;type=3#PauseScreen" />
+    <ui:VisualElement name="PauseScreen" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
+        <ui:VisualElement name="PausePanel" style="background-color: rgb(50, 50, 50); padding: 20px; border-radius: 10px; min-width: 300px;">
+            <ui:Label text="Game Paused" name="PauseTitle" style="font-size: 24px; color: white; margin-bottom: 20px; align-self: center;" />
+            <ui:Button text="Resume" name="ResumeButton" style="margin-bottom: 10px; height: 40px;" />
+            <ui:Button text="Restart" name="RestartButton" style="margin-bottom: 10px; height: 40px;" />
+            <ui:Button text="Home" name="HomeButton" style="height: 40px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
