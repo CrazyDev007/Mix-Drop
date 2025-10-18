@@ -87,7 +87,7 @@ namespace UI
         private void OnBackButtonClicked()
         {
             SaveSettings();
-            ScreenManager.Instance.ShowScreen("MainScreen");
+            ScreenManager.Instance.ShowScreen("LobbyScreen");
         }
 
         public void OnClickBtnBack()

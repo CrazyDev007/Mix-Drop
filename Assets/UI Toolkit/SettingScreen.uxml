@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:Style src="project://database/Assets/UI Toolkit/SettingScreen.uss" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/SettingScreen.uss?fileID=7433441132597879392&amp;guid=abf647da91af8ba4ca5fcb368ae2cebf&amp;type=3#SettingScreen" />
     <ui:VisualElement class="settings-screen">
-        <ui:Button name="back-button" class="back-button" text="Back" />
-        <ui:Label class="title" text="Settings" />
+        <ui:Button name="back-button" text="Back" class="back-button" />
+        <ui:Label text="Settings" class="title" />
         <ui:VisualElement class="settings-container">
             <ui:Label text="Music Volume" />
-            <ui:Slider name="music-slider" class="volume-slider" low-value="0" high-value="1" value="0.5" />
+            <ui:Slider name="music-slider" low-value="0" high-value="1" value="0.5" class="volume-slider" />
             <ui:Label text="SFX Volume" />
-            <ui:Slider name="sfx-slider" class="volume-slider" low-value="0" high-value="1" value="0.5" />
+            <ui:Slider name="sfx-slider" low-value="0" high-value="1" value="0.5" class="volume-slider" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
