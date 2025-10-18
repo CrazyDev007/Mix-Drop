@@ -437,9 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db615ed080b7f142a4cb5fe82cc0a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelText: {fileID: 0}
-  timerText: {fileID: 0}
-  moveCountText: {fileID: 0}
   gamePlayScreenUIref: {fileID: 1638023044}
   colors:
   - {r: 1, g: 0, b: 0, a: 1}
@@ -1068,7 +1065,7 @@ SceneRoots:
   - {fileID: 2051489436}
   - {fileID: 297153953}
   - {fileID: 294259598}
+  - {fileID: 1149053013}
   - {fileID: 1816778624}
   - {fileID: 185434928}
   - {fileID: 1126939320}
-  - {fileID: 1149053013}

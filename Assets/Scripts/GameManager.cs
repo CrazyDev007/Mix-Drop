@@ -101,8 +101,8 @@ public class GameManager : MonoBehaviour
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             // Load login scene if not authenticated
-            SceneManager.LoadScene("Main");
-            return;
+            //SceneManager.LoadScene("Main");
+            //return;
         }
         
         // Proceed with game initialization
