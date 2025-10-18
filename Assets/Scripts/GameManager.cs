@@ -116,6 +116,19 @@ public class GameManager : MonoBehaviour
     {
         RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
         LevelTime = currentLevelData.timeLimit;
+        var _movesLeft = RemainingMoves >= 50000 ? "Unlimited Moves" : $"{RemainingMoves} Moves left";
+        gamePlayScreenUIref.UpdateMoves(_movesLeft);
+        if (LevelTime > 0)
+        {
+            if (timerCoroutine != null)
+                StopCoroutine(timerCoroutine);
+            
+            timerCoroutine = StartCoroutine(LevelTimer());
+        }
+        else
+        {
+            gamePlayScreenUIref.UpdateTimer("Unlimited Time");
+        }
     }
 
     private IEnumerator LevelTimer()
@@ -123,10 +136,11 @@ public class GameManager : MonoBehaviour
         float timeLeft = LevelTime;
         while (timeLeft > 0)
         {
+            var _timeLeft = $"{timeLeft} Sec Left";
+            gamePlayScreenUIref.UpdateTimer(_timeLeft);
             yield return new WaitForSeconds(1f);
             timeLeft -= 1f;
         }
-
         OnLevelFailed();
     }
     public void OnLevelFailed()
