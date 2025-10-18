@@ -6,7 +6,6 @@ namespace UI
 {
     public class HintScreenUI : ScreenUI
     {
-        [SerializeField] private GameObject hintScreen;
 
         private Label hintTextLabel;
         private Button closeButton;
@@ -21,13 +20,7 @@ namespace UI
 
         public void OnClickBtnClose()
         {
-            // Hide the hint screen
-            // This would typically be handled by the UI manager
-            // For now, we'll just deactivate the GameObject
-            if (hintScreen != null)
-            {
-                hintScreen.SetActive(false);
-            }
+            ScreenManager.Instance.ShowScreen("gameplay-screen");
         }
 
         protected override void SetupScreen(VisualElement screen)
