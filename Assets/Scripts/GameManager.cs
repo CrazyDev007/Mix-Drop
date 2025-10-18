@@ -14,10 +14,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public static event Action<TubeLiquidModel> OnRestartGame;
 
-    [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] internal TextMeshProUGUI moveCountText;
-    public GameplayScreenUI gamePlayScreenUIref;
+    public GameplayScreen gamePlayScreenUIref;
     [SerializeField] private Color[] colors;
     [SerializeField] private TubeModel[] tubeData;
     [SerializeField] private float timeToMove = 1f;
@@ -50,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGame()
     {
+        Level = PlayerPrefs.GetInt("ActiveLevel", 1);
         UpdateLevelText();
     }
 
@@ -117,26 +115,7 @@ public class GameManager : MonoBehaviour
     private void SetupLevelRules()
     {
         RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
-        if(currentLevelData.maxMoves <= 0)
-        {
-            moveCountText.gameObject.SetActive(false);
-        }
-        else
-        {
-            moveCountText.gameObject.SetActive(true);
-            moveCountText.text = $"{RemainingMoves} Moves Left";
-        }
         LevelTime = currentLevelData.timeLimit;
-        if (LevelTime > 0)
-        {
-            timerText.gameObject.SetActive(true);
-            if (timerCoroutine != null) StopCoroutine(timerCoroutine);
-            timerCoroutine = StartCoroutine(LevelTimer());
-        }
-        else
-        {
-            timerText.gameObject.SetActive(false);
-        }
     }
 
     private IEnumerator LevelTimer()
@@ -144,7 +123,6 @@ public class GameManager : MonoBehaviour
         float timeLeft = LevelTime;
         while (timeLeft > 0)
         {
-            timerText.text = $"{Mathf.CeilToInt(timeLeft)} Sec Left";
             yield return new WaitForSeconds(1f);
             timeLeft -= 1f;
         }
@@ -181,7 +159,7 @@ public class GameManager : MonoBehaviour
         UpdateLevelText();
     }
 
-    private void UpdateLevelText() => levelText.text = $"{Level}";
+    private void UpdateLevelText() => gamePlayScreenUIref.UpdateLevel(Level);
 }
 
 [Serializable]

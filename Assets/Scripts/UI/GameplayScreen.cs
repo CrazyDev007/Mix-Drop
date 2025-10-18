@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace UI
 {
-    public class GameplayScreenUI : ScreenUI
+    public class GameplayScreen : ScreenUI
     {
         [SerializeField] private GameObject gameplayScreen;
 

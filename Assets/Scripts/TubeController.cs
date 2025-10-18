@@ -143,7 +143,6 @@ public class TubeController : MonoBehaviour
         //Debug.Log(">>>>> TC " + CurrentTubeState);
         GameManager.Instance.RemainingMoves--;
         Debug.Log("Remaining Moves: " + GameManager.Instance.RemainingMoves);
-        GameManager.Instance.moveCountText.text = $"{GameManager.Instance.RemainingMoves} Moves Left";
         if (GameManager.Instance.RemainingMoves <= 0)
         {
             Debug.Log("No Moves Left");
