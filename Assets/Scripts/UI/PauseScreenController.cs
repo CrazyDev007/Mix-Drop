@@ -13,7 +13,7 @@ public class PauseScreenController : MonoBehaviour
 
     private void Awake()
     {
-        pauseManager = FindObjectOfType<PauseManager>();
+        pauseManager = FindFirstObjectByType<PauseManager>();
         if (pauseManager == null)
         {
             Debug.LogError("PauseManager not found in scene!");
