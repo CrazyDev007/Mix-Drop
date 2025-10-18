@@ -7,6 +7,7 @@
     background-color: rgb(255, 255, 255);
     padding: 20px;
     background-image: url("project://database/Assets/Sprites/Backgrounds/temp_isuir_00001_.png?fileID=2800000&guid=ddb2671e153786b4da073ce04f8d0173&type=3#temp_isuir_00001_");
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
 }
 
 .logo {
@@ -23,10 +24,11 @@
     height: 100px;
     margin: 10px;
     font-size: 36px;
-    background-color: #03A9F4;
+    background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
 }
 
 .play-button:hover {
@@ -38,7 +40,7 @@
     height: 100px;
     margin: 10px;
     font-size: 36px;
-    background-color: #03A9F4;
+    background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
@@ -53,7 +55,7 @@
     height: 100px;
     margin: 10px;
     font-size: 36px;
-    background-color: #03A9F4;
+    background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;

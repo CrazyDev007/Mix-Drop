@@ -7,6 +7,7 @@
     padding: 40px;
     background-color: rgb(255, 255, 255);
     background-image: url("project://database/Assets/Sprites/Backgrounds/background2.png?fileID=2800000&guid=2cf5c51a2faf4c045879f4c813a1ecd3&type=3#background2");
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
 }
 
 .back-button {

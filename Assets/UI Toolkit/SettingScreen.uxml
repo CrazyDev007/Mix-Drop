@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/SettingScreen.uss?fileID=7433441132597879392&amp;guid=abf647da91af8ba4ca5fcb368ae2cebf&amp;type=3#SettingScreen" />
     <ui:VisualElement class="settings-screen">
-        <ui:Button name="back-button" text="Back" class="back-button" />
+        <ui:Button name="back-button" text="BACK" class="back-button" />
         <ui:Label text="Settings" class="title" />
         <ui:VisualElement class="settings-container">
             <ui:Label text="Music Volume" />

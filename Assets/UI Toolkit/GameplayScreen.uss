@@ -2,7 +2,8 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0); /* transparent */
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
 }
 
 .top-bar {
@@ -62,7 +63,7 @@
 .add-tube-btn {
     width: 80px;
     height: 80px;
-    background-color: #4CAF50;
+    background-color: rgb(76, 175, 80);
     border-width: 0;
     border-radius: 8px;
     margin-left: 8px;

@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/LevelScreen.uss?fileID=7433441132597879392&amp;guid=e4cb526a8465e894c91c39b18138a44a&amp;type=3#LevelScreen" />
     <ui:VisualElement class="level-screen">
-        <ui:Label text="Select Level" class="title" />
+        <ui:Label text="SELECT LEVEL" class="title" />
         <ui:ScrollView name="level-list" class="level-list" />
-        <ui:Button name="back-button" text="Back" class="back-button" />
+        <ui:Button name="back-button" text="BACK" class="back-button" />
     </ui:VisualElement>
 </ui:UXML>

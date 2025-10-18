@@ -1,22 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    <engine:Style src="project://database/Assets/UI Toolkit/LoginScreen.uss" />
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LoginScreen.uss?fileID=7433441132597879392&amp;guid=e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0&amp;type=3#LoginScreen" />
     <engine:VisualElement class="root-wrapper">
         <engine:VisualElement name="login-container" class="login-container">
             <engine:Label text="Welcome to Mix-Drop" class="title-label" />
-
             <engine:VisualElement name="form-container" class="form-container">
                 <engine:TextField name="email-field" label="Email" class="input-field" />
                 <engine:TextField name="password-field" label="Password" password="true" class="input-field" />
                 <engine:Button name="login-button" text="Login" class="login-button" />
                 <engine:Label name="error-text" class="error-label" />
                 <engine:Label name="lockout-text" class="lockout-label" />
-                <engine:Button name="signup-link" text="Don't have an account? Sign up" class="link-button" />
+                <engine:Button name="signup-link" text="Don&apos;t have an account? Sign up" class="link-button" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
