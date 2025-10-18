@@ -42,9 +42,9 @@ namespace UI
             screen.Q<Button>("pause-button").clicked += OnClickBtnPause;
 
             // Initialize values
-            UpdateLevel(1);
-            UpdateTimer("00:00");
-            UpdateMoves(0);
+            UpdateLevel(0);
+            UpdateTimer("Unlimited Time");
+            UpdateMoves("Unlimited Moves");
         }
 
         public void UpdateLevel(int level)
@@ -53,16 +53,16 @@ namespace UI
                 levelNumberLabel.text = level.ToString();
         }
 
-        public void UpdateTimer(string time)
+        public void UpdateTimer(string timeInSec)
         {
             if (timerLabel != null)
-                timerLabel.text = time;
+                timerLabel.text = timeInSec;
         }
 
-        public void UpdateMoves(int moves)
+        public void UpdateMoves(string moves)
         {
             if (movesLabel != null)
-                movesLabel.text = "Moves: " + moves.ToString();
+                movesLabel.text = moves;
         }
     }
 }
