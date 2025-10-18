@@ -7,11 +7,10 @@ namespace UI
 {
     public class PauseScreen : ScreenUI
     {
-        [SerializeField] private GameObject pauseScreen;
 
         public void OnClickBtnResume()
         {
-            //uiManager.ChangeScreen(ScreenType.Gameplay);
+            ScreenManager.Instance.ShowScreen("gameplay-screen");
         }
 
         public void OnClickBtnRestart()
@@ -26,7 +25,9 @@ namespace UI
         
         protected override void SetupScreen(VisualElement screen)
         {
-            // Initialize UI elements here
+            screen.Q<Button>("ResumeButton").clicked += OnClickBtnResume;
+            screen.Q<Button>("RestartButton").clicked += OnClickBtnRestart;
+            screen.Q<Button>("HomeButton").clicked += OnClickBtnHome;
         }
     }
 }
