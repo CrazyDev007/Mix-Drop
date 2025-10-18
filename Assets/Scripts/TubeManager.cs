@@ -130,7 +130,7 @@ public class TubeManager : MonoBehaviour
         {
             var tubeColors = level.GetColors(GameManager.Instance.Level-1, i);
             Tubes[i].SetupTube(tubeColors);
-            Tubes[i].IsLocked = level.levels[GameManager.Instance.Level-1].lockedTubes.Contains(i); // Add tube lock
+            //Tubes[i].IsLocked = level.levels[GameManager.Instance.Level-1].lockedTubes.Contains(i); // Add tube lock //tube lock feature temp removed
 
         }
         availableSwaps = level.levels[GameManager.Instance.Level - 1].availableSwaps; // set available swaps
