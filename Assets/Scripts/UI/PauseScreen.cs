@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UI
 {
-    public class PauseScreenUI : ScreenUI
+    public class PauseScreen : ScreenUI
     {
         [SerializeField] private GameObject pauseScreen;
 
@@ -26,7 +26,7 @@ namespace UI
         
         protected override void SetupScreen(VisualElement screen)
         {
-            throw new System.NotImplementedException();
+            // Initialize UI elements here
         }
     }
 }
