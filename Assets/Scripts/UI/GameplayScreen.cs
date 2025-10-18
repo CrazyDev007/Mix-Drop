@@ -18,13 +18,11 @@ namespace UI
 
         public void OnClickBtnPause()
         {
-            //uiManager.ChangeScreen(ScreenType.Pause);
             ScreenManager.Instance.ShowScreen("pause-screen");
         }
 
         public void OnLevelFailed()
         {
-            //uiManager.ChangeScreen(ScreenType.LevelFailed);
             ScreenManager.Instance.ShowScreen("level-failed-screen");
         }
 

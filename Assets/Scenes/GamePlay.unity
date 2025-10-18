@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cc6a85dc8944e408f7708919a7909c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::UI.HintScreenUI
-  screenAsset: {fileID: 0}
+  screenAsset: {fileID: 9197481963319205126, guid: 3a84ecf01ed047b45a7c3c7289b22a4c, type: 3}
   hintScreen: {fileID: 0}
 --- !u!4 &1219532075
 Transform:
