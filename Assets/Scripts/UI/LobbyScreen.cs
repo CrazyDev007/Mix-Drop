@@ -45,8 +45,8 @@ namespace UI
 
         private void OnPlayButtonClicked()
         {
-            // Load gameplay scene or show level screen
-            SceneManager.LoadScene("GamePlay");
+            // Show level selection screen
+            ScreenManager.Instance.ShowScreen("LevelScreen");
         }
 
         private void OnSettingsButtonClicked()

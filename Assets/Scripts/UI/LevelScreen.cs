@@ -1,50 +1,65 @@
 using ScreenFlow;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace UI
 {
-    public class LevelScreen : ScreenUI, IOnItemClickListener
+    public class LevelScreen : ScreenUI
     {
-        [SerializeField] private GameObject levelScreen;
+        private ScrollView levelList;
+        private Button backButton;
 
-        [FormerlySerializedAs("m_RecyclableScroller")] [SerializeField]
-        private LevelRecyclableScroller recyclableScroller;
-
-        private void Awake()
+        protected override void SetupScreen(VisualElement screen)
         {
-            recyclableScroller.OnItemClickListener = this;
+            levelList = screen.Q<ScrollView>("level-list");
+            backButton = screen.Q<Button>("back-button");
+
+            if (backButton != null)
+            {
+                backButton.clicked += OnClickBackButton;
+            }
+
+            SetupLevelList();
         }
 
-        public void OnItemClick(LevelInfo info)
+        private void SetupLevelList()
         {
-            if (info.LevelStatus == LevelStatus.Locked)
-            {
-                Debug.Log("Level is locked");
-            }
-            else
-            {
-                PlayerPrefs.SetInt("Hardness", 0);
-                var completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
-                if (completedLevels <= info.LevelNumber)
-                {
-                }
+            levelList.Clear();
+            int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
+            int levelsPerRow = 10;
 
-                PlayerPrefs.SetInt("ActiveLevel", info.LevelNumber);
-                SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Single);
+            for (int row = 0; row < 100; row++) // 100 rows for 1000 levels
+            {
+                var rowElement = new VisualElement { style = { flexDirection = FlexDirection.Row, justifyContent = Justify.SpaceAround } };
+                for (int col = 0; col < levelsPerRow; col++)
+                {
+                    int levelNumber = row * levelsPerRow + col + 1;
+                    if (levelNumber > 1000) break;
+
+                    bool isLocked = levelNumber > completedLevels + 1;
+                    var button = new Button { text = $"{levelNumber}" };
+                    button.SetEnabled(!isLocked);
+                    button.style.width = 80;
+                    button.style.height = 80;
+                    button.clicked += () => OnLevelSelected(levelNumber);
+                    rowElement.Add(button);
+                }
+                levelList.Add(rowElement);
             }
+        }
+
+        private void OnLevelSelected(int levelNumber)
+        {
+            PlayerPrefs.SetInt("Hardness", 0);
+            PlayerPrefs.SetInt("ActiveLevel", levelNumber);
+            SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Single);
         }
 
         public void OnClickBackButton()
         {
             //uiManager.ChangeScreen(ScreenType.Main);
-        }
-
-        protected override void SetupScreen(VisualElement screen)
-        {
-            throw new System.NotImplementedException();
+            ScreenManager.Instance.ShowScreen("LobbyScreen");
         }
     }
 }
