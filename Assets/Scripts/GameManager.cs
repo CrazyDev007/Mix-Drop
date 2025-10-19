@@ -22,9 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float tubeUpOffset = 1f;
     public int Level { get; private set; }
     private string levelName;
-    //private TubeLiquidModel TubeLiquidModelEasy { get; set; }
-    //private TubeLiquidModel TubeLiquidModelMedium { get; set; }
-    //private TubeLiquidModel TubeLiquidModelHard { get; set; }
 
     public Color[] Colors => colors;
     public TubeModel[] TubeData => tubeData;
@@ -86,7 +83,7 @@ public class GameManager : MonoBehaviour
         Level = PlayerPrefs.GetInt("ActiveLevel", 1);
         //
         var TubeLiquidModel = JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("color_sort_1000_levels").text);
-        Debug.Log("==> Level count : "+ TubeLiquidModel.TotalLevels);
+        //Debug.Log("==> Level count : "+ TubeLiquidModel.TotalLevels);
         currentLevelData = TubeLiquidModel.levels[Level - 1]; // Load current level
         return TubeLiquidModel;
 

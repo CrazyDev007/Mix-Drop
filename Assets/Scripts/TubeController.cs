@@ -91,12 +91,13 @@ public class TubeController : MonoBehaviour
     public void OnDeSelectTube()
     {
         tubeRenderer.sortingLayerID = defaultLayerId;
-        MoveTube(-GameManager.Instance.TubeUpOffset);
+        MoveTube(0);// Move back to initial position (offset 0)
     }
 
     private void MoveTube(float offset)
     {
-        transform.DOMove(transform.position + Vector3.up * offset, GameManager.Instance.TimeToMove);
+        // Use initial position + offset
+        transform.DOMove(initialPosition + Vector3.up * offset, GameManager.Instance.TimeToMove);
     }
 
     public async Task PourLiquid(TubeController secondTube, int direction)

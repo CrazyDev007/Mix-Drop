@@ -467,7 +467,7 @@ MonoBehaviour:
     fillAmount: 1
   timeToMove: 0.4
   timeToRotate: 0.4
-  tubeUpOffset: 1
+  tubeUpOffset: 0.5
   RemainingMoves: 0
   LevelTime: 0
 --- !u!4 &575234205
