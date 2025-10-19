@@ -143,7 +143,7 @@ namespace MixDrop.Login.UI
             InitializeUIElements(screen);
             SetupEventHandlers();
             presenter = new LoginPresenter(this);
-            presenter.OnLoginSuccessful += () => SceneManager.LoadScene("GamePlay");
+            presenter.OnLoginSuccessful += () => SceneManager.LoadScene("Main");
         }
     }
 }
