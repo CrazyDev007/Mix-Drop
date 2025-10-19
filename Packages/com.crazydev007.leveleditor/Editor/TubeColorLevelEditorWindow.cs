@@ -16,6 +16,7 @@ namespace CrazyDev007.LevelEditor.Editor
         private Vector2 tubeScrollPosition = Vector2.zero;
         
         private int newTubeColorValue = 0;
+        private int removeIndex = 0;
 
         [MenuItem("Tools/Tube Color Level Editor/Open Editor")]
         public static void ShowWindow()
@@ -43,6 +44,14 @@ namespace CrazyDev007.LevelEditor.Editor
             
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("File Path:", jsonFilePath);
+            
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Browse...", GUILayout.Width(100)))
+            {
+                BrowseJsonFile();
+            }
+            EditorGUILayout.EndHorizontal();
+            
             EditorGUILayout.Space();
 
             if (levels.Count == 0)
@@ -94,6 +103,7 @@ namespace CrazyDev007.LevelEditor.Editor
             if (GUILayout.Button("Add New Tube", GUILayout.Height(30)))
             {
                 level.tubes.Add(new TubeData());
+                level.emptyTubes++;
             }
 
             // Remove tube
@@ -101,10 +111,12 @@ namespace CrazyDev007.LevelEditor.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Label("Remove Tube Index:", GUILayout.Width(120));
-                int removeIndex = EditorGUILayout.IntField(0, GUILayout.Width(50));
+                removeIndex = EditorGUILayout.IntField(removeIndex, GUILayout.Width(50));
                 if (GUILayout.Button("Remove", GUILayout.Width(80)) && removeIndex >= 0 && removeIndex < level.tubes.Count)
                 {
                     level.tubes.RemoveAt(removeIndex);
+                    level.emptyTubes = Mathf.Max(0, level.emptyTubes - 1);
+                    removeIndex = 0; // Reset after removal
                 }
                 EditorGUILayout.EndHorizontal();
             }
@@ -203,6 +215,27 @@ namespace CrazyDev007.LevelEditor.Editor
             string fullPath = Path.Combine(Application.dataPath, "..", jsonFilePath);
             serializer.SaveLevels(fullPath, levels);
             Debug.Log("Levels saved successfully!");
+        }
+
+        private void BrowseJsonFile()
+        {
+            string selectedPath = EditorUtility.OpenFilePanel("Select JSON Level File", Application.dataPath, "json");
+            
+            if (!string.IsNullOrEmpty(selectedPath))
+            {
+                // Convert absolute path to relative path from project root
+                string projectRoot = Path.Combine(Application.dataPath, "..");
+                if (selectedPath.StartsWith(projectRoot))
+                {
+                    jsonFilePath = selectedPath.Substring(projectRoot.Length + 1).Replace("\\", "/");
+                }
+                else
+                {
+                    jsonFilePath = selectedPath;
+                }
+                
+                Debug.Log($"Selected JSON file: {jsonFilePath}");
+            }
         }
     }
 }
