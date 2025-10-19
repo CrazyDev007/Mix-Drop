@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            InitializeGame();
+            //InitializeGame();
         }
         else
         {
@@ -47,35 +47,6 @@ public class GameManager : MonoBehaviour
         Level = PlayerPrefs.GetInt("ActiveLevel", 1);
         UpdateLevelText();
     }
-
-    //private TubeLiquidModel GetLevel()
-    //{
-    //    var hardness = PlayerPrefs.GetInt("Hardness", 0); //Random.Range(0, 3);
-    //    Level = PlayerPrefs.GetInt("ActiveLevel", 1); //Random.Range(0, 10000) + 1;
-    //    //
-    //    switch (hardness)
-    //    {
-    //        case 0:
-    //            levelName = "Easy";
-    //            TubeLiquidModelEasy =
-    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
-    //            return TubeLiquidModelEasy;
-    //        case 1:
-    //            levelName = "Medium";
-    //            TubeLiquidModelMedium =
-    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-normal").text);
-    //            return TubeLiquidModelMedium;
-    //        case 2:
-    //            levelName = "Hard";
-    //            TubeLiquidModelHard =
-    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-hard").text);
-    //            return TubeLiquidModelHard;
-    //        default:
-    //            TubeLiquidModelEasy =
-    //                JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("levels-easy").text);
-    //            return TubeLiquidModelEasy;
-    //    }
-    //}
 
     private TubeLiquidData currentLevelData;
     private TubeLiquidModel GetLevelData()

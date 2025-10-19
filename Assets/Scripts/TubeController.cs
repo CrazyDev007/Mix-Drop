@@ -109,7 +109,7 @@ public class TubeController : MonoBehaviour
         {
            await WaitForAllTasks();
            CurrentTubeState = TubeState.Normal;
-           Debug.Log(">>>>> TC " + CurrentTubeState);
+           //Debug.Log(">>>>> TC " + CurrentTubeState);
         }
     }
 
@@ -143,7 +143,7 @@ public class TubeController : MonoBehaviour
         //CurrentTubeState = TubeState.Normal;
         //Debug.Log(">>>>> TC " + CurrentTubeState);
         GameManager.Instance.RemainingMoves--;
-        Debug.Log("Remaining Moves: " + GameManager.Instance.RemainingMoves);
+        //Debug.Log("Remaining Moves: " + GameManager.Instance.RemainingMoves);
         var _movesLeft = $"{GameManager.Instance.RemainingMoves} Moves left";
         GameManager.Instance.gamePlayScreenUIref.UpdateMoves(_movesLeft);
         if (GameManager.Instance.RemainingMoves <= 0)

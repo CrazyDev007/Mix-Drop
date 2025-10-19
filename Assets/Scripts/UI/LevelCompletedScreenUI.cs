@@ -23,7 +23,6 @@ namespace UI
         {
             //Event subscriptions can be done here if needed
             EventManager.OnLevelComplteted += ShowCompletedScreen;
-            Debug.Log("Level completed screen enabled");
         }
 
         private void OnDestroy()
@@ -70,8 +69,8 @@ namespace UI
 
         private void OnClickBtnNext()
         {
-            GameManager.Instance.GameWin();
             ScreenManager.Instance.ShowScreen("gameplay-screen");
+            GameManager.Instance.GameWin();
         }
 
         private void OnClickBtnRestart()
