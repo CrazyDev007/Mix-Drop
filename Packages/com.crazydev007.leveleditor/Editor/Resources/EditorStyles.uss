@@ -1,0 +1,44 @@
+/* 
+This file contains the USS styles for the editor window, defining the visual appearance of UI elements.
+*/
+
+#level-editor-window {
+    background-color: #2c2c2c;
+    padding: 10px;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.label {
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.text-field {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+}
+
+.text-field:focus {
+    border-color: #4CAF50;
+}
+
+.grid {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px dashed #ffffff;
+}

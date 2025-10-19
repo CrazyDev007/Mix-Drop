@@ -1,0 +1,14 @@
+{
+    "name": "CrazyDev007.LevelEditor.Runtime",
+    "rootNamespace": "CrazyDev007.LevelEditor",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,24 @@
+<engineers>
+<uxml>
+<ui>
+    <VisualElement xmlns="UnityEngine.UIElements" xmlns:ui="UnityEngine.UIElements">
+        <Label text="Level Editor" class="header"/>
+        <VisualElement class="toolbar">
+            <Button text="New Level" name="newLevelButton"/>
+            <Button text="Load Level" name="loadLevelButton"/>
+            <Button text="Save Level" name="saveLevelButton"/>
+        </VisualElement>
+        <VisualElement class="content">
+            <Label text="Level Properties" class="section-header"/>
+            <TextField label="Level Name" name="levelNameField"/>
+            <TextField label="Grid Size" name="gridSizeField"/>
+            <Toggle label="Enable Grid Snapping" name="gridSnappingToggle"/>
+        </VisualElement>
+        <VisualElement class="object-placement">
+            <Label text="Object Placement" class="section-header"/>
+            <Button text="Add Object" name="addObjectButton"/>
+            <Button text="Remove Object" name="removeObjectButton"/>
+        </VisualElement>
+    </VisualElement>
+</ui>
+</uxml>
