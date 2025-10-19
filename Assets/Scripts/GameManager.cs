@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
         RestartGame();
     }
 
-    private void RestartGame()
+    internal void RestartGame()
     {
         var model = GetLevelData();      // Load level & set currentLevelData
         SetupLevelRules();           // Setup timer & move limit

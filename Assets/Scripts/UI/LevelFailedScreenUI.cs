@@ -7,21 +7,48 @@ namespace UI
 {
     public class LevelFailedScreenUI : ScreenUI
     {
-        [SerializeField] private GameObject levelFailedScreen;
+        [Header("UI Elements")]
+        private string retryButtonName = "RetryButton";
+        private string homeButtonName = "HomeButton";
+        
+        private Button retryButton;
+        private Button homeButton;
 
-        public void OnClickBtnRestart()
+        private void InitializeUIElements(VisualElement root)
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+            retryButton = root.Q<Button>(retryButtonName);
+            homeButton = root.Q<Button>(homeButtonName);
+            
+            if (homeButton == null) Debug.LogWarning($"Home button '{homeButton}' not found");
+            if (retryButton == null) Debug.LogWarning($"Retry button '{retryButton}' not found");
+        }
+        
+        private void SetupEventHandlers()
+        {
+            if (retryButton != null)
+            {
+                retryButton.clicked += OnClickBtnRestart;
+            }
+            if (homeButton != null)
+            {
+                homeButton.clicked += OnClickBtnHome;
+            }
+        }
+        
+        private void OnClickBtnRestart()
+        {
+            GameManager.Instance.RestartGame();
         }
 
-        public void OnClickBtnHome()
+        private void OnClickBtnHome()
         {
             SceneManager.LoadSceneAsync("Main");
         }
 
         protected override void SetupScreen(VisualElement screen)
         {
-            // Additional setup can be done here if needed
+            InitializeUIElements(screen);
+            SetupEventHandlers();
         }
     }
 }

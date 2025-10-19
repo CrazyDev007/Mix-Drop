@@ -206,7 +206,8 @@ public class TubeManager : MonoBehaviour
 
         if (tubeController.IsFull && (tubeFilled + tubeEmpty) == Tubes.Count)
         {
-            GameManager.Instance.GameWin();
+            //GameManager.Instance.GameWin();
+            EventManager.OnLevelComplteted?.Invoke();
         }
     }
 
