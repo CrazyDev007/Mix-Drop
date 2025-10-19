@@ -1,0 +1,126 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="TubeColorLevelEditor.uss" />
+    <ui:VisualElement name="root" class="root-container">
+        <!-- Header Section -->
+        <ui:VisualElement name="header" class="header-container">
+            <ui:Label text="Tube Color Level Editor" class="header-title"/>
+            <ui:Label text="Design and manage game levels with ease" class="header-subtitle"/>
+        </ui:VisualElement>
+
+        <!-- Toolbar Section -->
+        <ui:VisualElement name="toolbar" class="toolbar-container">
+            <ui:Button text="Load Levels" name="loadButton" class="toolbar-button primary-button"/>
+            <ui:Button text="Save Levels" name="saveButton" class="toolbar-button primary-button"/>
+            <ui:Button text="Browse..." name="browseButton" class="toolbar-button secondary-button"/>
+            <ui:Button text="New Level" name="newLevelButton" class="toolbar-button success-button"/>
+            <ui:Button text="Duplicate Level" name="duplicateButton" class="toolbar-button secondary-button"/>
+            <ui:Button text="Delete Level" name="deleteButton" class="toolbar-button danger-button"/>
+        </ui:VisualElement>
+
+        <!-- File Path Display -->
+        <ui:VisualElement name="file-info" class="file-info-container">
+            <ui:Label text="File Path:" class="file-info-label"/>
+            <ui:Label name="filePathLabel" text="No file loaded" class="file-path-text"/>
+        </ui:VisualElement>
+
+        <!-- Main Content Split View -->
+        <ui:VisualElement name="main-content" class="main-content-container">
+            
+            <!-- Left Panel: Level List -->
+            <ui:VisualElement name="left-panel" class="left-panel">
+                <ui:VisualElement class="panel-header">
+                    <ui:Label text="Levels" class="panel-title"/>
+                    <ui:Label name="levelCountLabel" text="0 levels" class="level-count-label"/>
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="search-container">
+                    <ui:TextField name="searchField" placeholder-text="Search levels..." class="search-field"/>
+                </ui:VisualElement>
+                
+                <ui:ListView name="levelListView" class="level-list"
+                             show-border="true"
+                             reorderable="false"
+                             show-alternating-row-backgrounds="ContentOnly"
+                             selection-type="Single"/>
+            </ui:VisualElement>
+
+            <!-- Right Panel: Level Editor -->
+            <ui:VisualElement name="right-panel" class="right-panel">
+                <ui:VisualElement name="no-selection" class="no-selection-container">
+                    <ui:Label text="No Level Selected" class="no-selection-title"/>
+                    <ui:Label text="Select a level from the list or create a new one" class="no-selection-subtitle"/>
+                </ui:VisualElement>
+
+                <ui:ScrollView name="levelEditorScrollView" class="level-editor-scroll" style="display: none;">
+                    <!-- Level Header -->
+                    <ui:VisualElement class="level-header">
+                        <ui:Label name="levelTitle" text="Level 1" class="level-title"/>
+                    </ui:VisualElement>
+
+                    <!-- Level Properties Section -->
+                    <ui:VisualElement class="section-container">
+                        <ui:Label text="Level Properties" class="section-title"/>
+                        <ui:VisualElement class="properties-grid">
+                            <ui:VisualElement class="property-row">
+                                <ui:Label text="Level Number" class="property-label"/>
+                                <ui:IntegerField name="levelNumberField" class="property-field"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="property-row">
+                                <ui:Label text="Empty Tubes" class="property-label"/>
+                                <ui:IntegerField name="emptyTubesField" class="property-field"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="property-row">
+                                <ui:Label text="Max Moves" class="property-label"/>
+                                <ui:IntegerField name="maxMovesField" class="property-field"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="property-row">
+                                <ui:Label text="Time Limit (seconds)" class="property-label"/>
+                                <ui:IntegerField name="timeLimitField" class="property-field"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="property-row">
+                                <ui:Label text="Available Swaps" class="property-label"/>
+                                <ui:IntegerField name="availableSwapsField" class="property-field"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Tubes Section -->
+                    <ui:VisualElement class="section-container">
+                        <ui:VisualElement class="section-header-row">
+                            <ui:Label text="Tubes" class="section-title"/>
+                            <ui:Button text="+ Add Tube" name="addTubeButton" class="add-button"/>
+                        </ui:VisualElement>
+                        
+                        <ui:VisualElement name="tubesContainer" class="tubes-container">
+                            <!-- Tubes will be dynamically added here -->
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Locked Tubes Section -->
+                    <ui:VisualElement class="section-container">
+                        <ui:Label text="Locked Tubes" class="section-title"/>
+                        <ui:VisualElement class="locked-tubes-controls">
+                            <ui:IntegerField name="lockTubeIndexField" label="Lock Tube Index" class="lock-field"/>
+                            <ui:Button text="Lock" name="lockTubeButton" class="lock-button"/>
+                            <ui:Button text="Unlock" name="unlockTubeButton" class="unlock-button"/>
+                        </ui:VisualElement>
+                        <ui:Label name="lockedTubesLabel" text="No locked tubes" class="locked-tubes-display"/>
+                        <ui:Button text="Clear All Locks" name="clearLocksButton" class="clear-locks-button"/>
+                    </ui:VisualElement>
+
+                    <!-- Validation Section -->
+                    <ui:VisualElement class="section-container">
+                        <ui:Label text="Validation" class="section-title"/>
+                        <ui:Button text="Validate Level" name="validateButton" class="validate-button"/>
+                        <ui:Label name="validationResultLabel" text="" class="validation-result"/>
+                    </ui:VisualElement>
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Status Bar -->
+        <ui:VisualElement name="status-bar" class="status-bar">
+            <ui:Label name="statusLabel" text="Ready" class="status-label"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

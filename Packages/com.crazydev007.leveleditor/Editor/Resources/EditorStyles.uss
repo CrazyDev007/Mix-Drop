@@ -11,9 +11,8 @@ This file contains the USS styles for the editor window, defining the visual app
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
-    border: none;
+    border-width: 0;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .button:hover {
@@ -30,7 +29,8 @@ This file contains the USS styles for the editor window, defining the visual app
     background-color: #ffffff;
     color: #000000;
     padding: 5px;
-    border: 1px solid #cccccc;
+    border-width: 1px;
+    border-color: #cccccc;
     border-radius: 3px;
 }
 
@@ -40,5 +40,6 @@ This file contains the USS styles for the editor window, defining the visual app
 
 .grid {
     background-color: rgba(255, 255, 255, 0.1);
-    border: 1px dashed #ffffff;
+    border-width: 1px;
+    border-color: #ffffff;
 }

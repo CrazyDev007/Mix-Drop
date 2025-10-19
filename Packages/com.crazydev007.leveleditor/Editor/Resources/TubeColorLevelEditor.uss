@@ -1,0 +1,536 @@
+/* 
+Tube Color Level Editor Stylesheet
+Modern, clean design with Unity Editor theme colors
+*/
+
+/* ================================================
+   ROOT CONTAINER
+   ================================================ */
+.root-container,
+#root {
+    background-color: #252526;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ================================================
+   HEADER
+   ================================================ */
+#header {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-bottom-width: 2px;
+    border-bottom-color: #007acc;
+    flex-shrink: 0;
+}
+
+#header-title {
+    font-size: 20px;
+    color: #ffffff;
+    -unity-font-style: bold;
+}
+
+/* ================================================
+   TOOLBAR
+   ================================================ */
+#toolbar {
+    background-color: #2d2d30;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: #3e3e42;
+    flex-shrink: 0;
+}
+
+.toolbar-button {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border-width: 0;
+    font-size: 12px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.primary-button {
+    background-color: #007acc;
+    color: #ffffff;
+}
+
+.primary-button:hover {
+    background-color: #005a9e;
+}
+
+.primary-button:active {
+    background-color: #003f70;
+}
+
+.success-button {
+    background-color: #0e8a16;
+    color: #ffffff;
+}
+
+.success-button:hover {
+    background-color: #0c7013;
+}
+
+.success-button:active {
+    background-color: #0a5a0f;
+}
+
+.danger-button {
+    background-color: #d73a49;
+    color: #ffffff;
+}
+
+.danger-button:hover {
+    background-color: #b92534;
+}
+
+.danger-button:active {
+    background-color: #9b1f2e;
+}
+
+.secondary-button {
+    background-color: #3e3e42;
+    color: #cccccc;
+}
+
+.secondary-button:hover {
+    background-color: #505052;
+}
+
+.secondary-button:active {
+    background-color: #2d2d30;
+}
+
+/* ================================================
+    MAIN CONTENT
+    ================================================ */
+#main-content {
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ================================================
+    LEFT PANEL - LEVEL LIST
+    ================================================ */
+#left-panel {
+    background-color: #1e1e1e;
+    min-width: 250px;
+    max-width: 400px;
+    border-right-width: 1px;
+    border-right-color: #3e3e42;
+    padding: 10px;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-height: 0;
+    align-self: stretch;
+}
+
+#search-container {
+    padding: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+#search-field {
+    background-color: #3c3c3c;
+    color: #cccccc;
+    border-width: 1px;
+    border-color: #3e3e42;
+    border-radius: 3px;
+    padding: 6px;
+}
+
+#search-field:focus {
+    border-color: #007acc;
+}
+
+.level-list {
+    background-color: #252526;
+    border-width: 1px;
+    border-color: #3e3e42;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: scroll;
+}
+
+
+.level-item {
+    background-color: #2d2d30;
+    padding: 10px;
+    margin: 2px 0;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #3e3e42;
+    flex-shrink: 0;
+}
+
+.level-item:hover {
+    background-color: #3e3e42;
+}
+
+.level-item-selected {
+    background-color: #094771;
+    border-color: #007acc;
+}
+
+.level-item-label {
+    color: #cccccc;
+    font-size: 13px;
+}
+
+.level-item-info {
+    color: #858585;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+/* ================================================
+    RIGHT PANEL - LEVEL EDITOR
+    ================================================ */
+#right-panel {
+    background-color: #252526;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 15px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Level Properties Section */
+#level-properties {
+    background-color: #1e1e1e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3e3e42;
+}
+
+.section-title {
+    font-size: 16px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+}
+
+.property-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.property-label {
+    color: #cccccc;
+    min-width: 120px;
+    font-size: 12px;
+}
+
+.property-field {
+    background-color: #3c3c3c;
+    color: #cccccc;
+    border-width: 1px;
+    border-color: #3e3e42;
+    border-radius: 3px;
+    padding: 4px 8px;
+    flex-grow: 1;
+}
+
+.property-field:focus {
+    border-color: #007acc;
+}
+
+/* Tubes Section */
+#tubes-section {
+    background-color: #1e1e1e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3e3e42;
+}
+
+#tubes-container {
+    margin-top: 10px;
+}
+
+.tube-card {
+    background-color: #2d2d30;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3e3e42;
+}
+
+.tube-card:hover {
+    background-color: #333337;
+    border-color: #007acc;
+}
+
+.tube-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.tube-title {
+    color: #ffffff;
+    font-size: 13px;
+    -unity-font-style: bold;
+}
+
+.tube-info {
+    color: #858585;
+    font-size: 11px;
+}
+
+.tube-colors {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.color-slot {
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #3e3e42;
+}
+
+.color-slot-empty {
+    background-color: #1e1e1e;
+    border-width: 2px;
+    border-color: #3e3e42;
+}
+
+.tube-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.tube-action-button {
+    padding: 4px 8px;
+    margin-left: 5px;
+    border-radius: 3px;
+    border-width: 0;
+    font-size: 11px;
+}
+
+.add-color-button {
+    background-color: #0e8a16;
+    color: #ffffff;
+}
+
+.add-color-button:hover {
+    background-color: #0c7013;
+}
+
+.clear-tube-button {
+    background-color: #d73a49;
+    color: #ffffff;
+}
+
+.clear-tube-button:hover {
+    background-color: #b92534;
+}
+
+.remove-tube-button {
+    background-color: #6a0000;
+    color: #ffffff;
+}
+
+.remove-tube-button:hover {
+    background-color: #520000;
+}
+
+#add-tube-button {
+    background-color: #0e8a16;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border-width: 0;
+    margin-top: 10px;
+}
+
+#add-tube-button:hover {
+    background-color: #0c7013;
+}
+
+/* Locked Tubes Section */
+#locked-tubes-section {
+    background-color: #1e1e1e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3e3e42;
+}
+
+#locked-tubes-display {
+    color: #cccccc;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.locked-tube-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.locked-tube-field {
+    background-color: #3c3c3c;
+    color: #cccccc;
+    border-width: 1px;
+    border-color: #3e3e42;
+    border-radius: 3px;
+    padding: 4px 8px;
+    width: 60px;
+    margin-left: 10px;
+}
+
+/* Validation Section */
+#validation-section {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3e3e42;
+}
+
+#validation-button {
+    background-color: #007acc;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border-width: 0;
+    margin-top: 10px;
+}
+
+#validation-button:hover {
+    background-color: #005a9e;
+}
+
+#validation-result {
+    color: #cccccc;
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.validation-success {
+    background-color: #0e4429;
+    border-width: 1px;
+    border-color: #0e8a16;
+}
+
+.validation-error {
+    background-color: #4b1818;
+    border-width: 1px;
+    border-color: #d73a49;
+}
+
+.validation-warning {
+    background-color: #4d3800;
+    border-width: 1px;
+    border-color: #f9c513;
+}
+
+/* ================================================
+   STATUS BAR
+   ================================================ */
+#status-bar {
+    background-color: #1e1e1e;
+    padding: 8px 15px;
+    border-top-width: 1px;
+    border-top-color: #3e3e42;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+#status-text {
+    color: #cccccc;
+    font-size: 11px;
+}
+
+/* ================================================
+    LEVEL EDITOR SCROLL
+    ================================================ */
+.level-editor-scroll,
+#levelEditorScrollView {
+    flex-grow: 1;
+    min-height: 0;
+    max-height: none;
+    width: 100%;
+    overflow: scroll;
+}
+
+/* ================================================
+    UTILITY CLASSES
+    ================================================ */
+.hidden {
+    display: none;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.text-center {
+    -unity-text-align: middle-center;
+}
+
+.text-bold {
+    -unity-font-style: bold;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.padding-small {
+    padding: 5px;
+}
+
+.padding-medium {
+    padding: 10px;
+}
+
+.padding-large {
+    padding: 15px;
+}
