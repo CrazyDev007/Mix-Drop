@@ -1,0 +1,22 @@
+{
+  "name": "crazydev007.com.crazydev007.leveleditor",
+  "version": "1.0.0",
+  "description": "A tool for creating and managing levels in Unity.",
+  "main": "Editor/LevelEditorWindow.cs",
+  "scripts": {
+    "build": "echo 'Building the project...'",
+    "test": "echo 'Running tests...'"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  },
+  "keywords": [
+    "unity",
+    "editor",
+    "level",
+    "tool"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "displayName": "Level Editor"
+}

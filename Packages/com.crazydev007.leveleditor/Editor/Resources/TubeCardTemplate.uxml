@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="tube-card-template" class="tube-card">
+        <ui:VisualElement name="tube-header" class="tube-header">
+            <ui:Label name="tube-title" text="Tube 1" class="tube-title"/>
+            <ui:Label name="tube-info" text="0/4" class="tube-info"/>
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="tube-colors" class="tube-colors">
+            <!-- Color slots will be added dynamically -->
+        </ui:VisualElement>
+        
+        <ui:VisualElement name="tube-actions" class="tube-actions">
+            <ui:Button name="add-color-btn" text="+ Add" class="tube-action-button"/>
+            <ui:Button name="clear-btn" text="Clear" class="tube-action-button"/>
+            <ui:Button name="remove-btn" text="Remove" class="tube-action-button remove-tube-button"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

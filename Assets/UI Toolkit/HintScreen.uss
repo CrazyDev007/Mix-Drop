@@ -1,0 +1,44 @@
+.hint-screen-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.hint-panel {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    min-width: 600px;
+    max-width: 1000px;
+    flex-direction: column;
+    align-items: center;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+}
+
+.hint-title {
+    font-size: 72px;
+    color: rgb(51, 51, 51);
+    margin-bottom: 40px;
+    -unity-font-style: bold;
+}
+
+.hint-text {
+    font-size: 48px;
+    color: rgb(102, 102, 102);
+    -unity-text-align: middle-center;
+    margin-bottom: 60px;
+    white-space: normal;
+}
+
+.close-btn {
+    width: 240px;
+    height: 100px;
+    background-color: rgb(76, 175, 80);
+    color: white;
+    border-width: 0;
+    border-radius: 10px;
+    font-size: 36px;
+}

@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement>
+        <ui:Label text="Level Editor" class="header"/>
+        <ui:VisualElement class="toolbar">
+            <ui:Button text="New Level" name="newLevelButton"/>
+            <ui:Button text="Load Level" name="loadLevelButton"/>
+            <ui:Button text="Save Level" name="saveLevelButton"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="content">
+            <ui:Label text="Level Properties" class="section-header"/>
+            <ui:TextField label="Level Name" name="levelNameField"/>
+            <ui:TextField label="Grid Size" name="gridSizeField"/>
+            <ui:Toggle label="Enable Grid Snapping" name="gridSnappingToggle"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="object-placement">
+            <ui:Label text="Object Placement" class="section-header"/>
+            <ui:Button text="Add Object" name="addObjectButton"/>
+            <ui:Button text="Remove Object" name="removeObjectButton"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

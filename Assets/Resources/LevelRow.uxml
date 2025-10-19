@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LevelScreen.uss?fileID=7433441132597879392&amp;guid=e4cb526a8465e894c91c39b18138a44a&amp;type=3#LevelScreen" />
+    <ui:VisualElement class="level-row">
+        <ui:Button name="level-1" text="1" class="level-button" />
+        <ui:Button name="level-2" text="2" class="level-button" />
+        <ui:Button name="level-3" text="3" class="level-button" />
+        <ui:Button name="level-4" text="4" class="level-button" />
+        <ui:Button name="level-5" text="5" class="level-button" />
+    </ui:VisualElement>
+</ui:UXML>

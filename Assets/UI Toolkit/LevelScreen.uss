@@ -1,0 +1,62 @@
+.level-screen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(240, 240, 240);
+    padding: 20px;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+}
+
+.title {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: rgb(51, 51, 51);
+}
+
+.level-list {
+    width: 80%;
+    height: 80%;
+    margin-bottom: 20px;
+}
+
+.level-row {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+}
+
+.level-button {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+    background-color: rgb(76, 175, 80);
+    color: white;
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.level-button:hover {
+    background-color: rgb(69, 160, 73);
+}
+
+.level-button:disabled {
+    background-color: rgb(204, 204, 204);
+    color: rgb(102, 102, 102);
+}
+
+.back-button {
+    width: 200px;
+    height: 60px;
+    font-size: 24px;
+    background-color: rgb(255, 87, 34);
+    color: white;
+    border-radius: 30px;
+    border-width: 0;
+}
+
+.back-button:hover {
+    background-color: rgb(216, 67, 21);
+}

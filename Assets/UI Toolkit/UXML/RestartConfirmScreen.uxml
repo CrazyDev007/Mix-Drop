@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/PauseScreen.uss?fileID=7433441132597879392&amp;guid=825aacb8f4eee264f9d211f1bc1f3ee3&amp;type=3#PauseScreen" />
+    <ui:VisualElement name="RestartConfirmScreen" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; -unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;);">
+        <ui:VisualElement name="ConfirmPanel" style="background-color: rgb(50, 50, 50); padding: 20px; border-radius: 10px; min-width: 300px;">
+            <ui:Label text="Restart Level?" name="ConfirmTitle" style="font-size: 24px; color: white; margin-bottom: 15px; align-self: center;" />
+            <ui:Label text="Are you sure you want to restart the level? All progress will be lost." name="DescriptionLabel" style="font-size: 16px; color: white; margin-bottom: 20px; white-space: normal; text-align: center;" />
+            <ui:Button text="Restart" name="RestartButton" style="margin-bottom: 10px; height: 40px;" />
+            <ui:Button text="Back" name="BackButton" style="height: 40px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

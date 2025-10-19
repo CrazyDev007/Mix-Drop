@@ -1,0 +1,81 @@
+.root-wrapper {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.failed-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    min-width: 600px;
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(255, 0, 0, 0.5);
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+}
+
+.title-label {
+    font-size: 48px;
+    -unity-font-style: bold;
+    color: rgb(255, 68, 68);
+    margin-bottom: 40px;
+    -unity-text-align: middle-center;
+}
+
+.failure-message {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    margin-bottom: 60px;
+    min-height: 30px;
+}
+
+.button-container {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 400px;
+}
+
+.retry-button {
+    height: 80px;
+    width: 150px;
+    font-size: 24px;
+    -unity-font-style: bold;
+    background-color: rgb(74, 158, 255);
+    border-width: 0;
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+}
+
+.retry-button:hover {
+    background-color: rgb(58, 142, 239);
+}
+
+.retry-button:active {
+    background-color: rgb(42, 126, 223);
+}
+
+.home-button {
+    height: 80px;
+    width: 150px;
+    font-size: 24px;
+    -unity-font-style: bold;
+    background-color: rgb(102, 102, 102);
+    border-width: 0;
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+}
+
+.home-button:hover {
+    background-color: rgb(85, 85, 85);
+}
+
+.home-button:active {
+    background-color: rgb(68, 68, 68);
+}
