@@ -4,6 +4,6 @@
         <ui:Image image="Assets/Sprites/Mix-Drop-1.png" class="logo" />
         <ui:Button name="play-button" text="PLAY" class="play-button" />
         <ui:Button name="settings-button" text="SETTINGS" class="settings-button" />
-        <ui:Button name="hits-button" text="HINTS" class="hits-button" />
+        <ui:Button name="hits-button" text="HOW TO PLAY" class="hits-button" />
     </ui:VisualElement>
 </ui:UXML>

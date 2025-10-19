@@ -13,7 +13,7 @@ namespace MixDrop.Login.UI
     public class SignupPresenter
     {
         private SignupScreen signupScreen;
-        private string mainGameSceneName = "GamePlay";
+        private string mainGameSceneName = "Main";
 
         public SignupPresenter(SignupScreen signupScreen)
         {
