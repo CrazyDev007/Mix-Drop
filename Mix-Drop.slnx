@@ -3,7 +3,6 @@
   <Project Path="Mix-Drop.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Do-Tween.csproj" />
-  <Project Path="Recyclable-ScrollRect.csproj" />
   <Project Path="CrazyDev007.LevelEditor.Editor.csproj" />
   <Project Path="CrazyDev007.LevelEditor.Runtime.csproj" />
   <Project Path="PlayMode.csproj" />
