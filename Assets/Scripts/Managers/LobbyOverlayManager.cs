@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using UI.Lobby;
 using Debug = UnityEngine.Debug;
@@ -31,6 +32,7 @@ public class LobbyOverlayManager : MonoBehaviour
 
     private readonly Dictionary<string, ILobbyOverlay> overlays = new Dictionary<string, ILobbyOverlay>();
     private readonly List<OverlayInstrumentationSample> instrumentationSamples = new List<OverlayInstrumentationSample>();
+    private readonly Queue<string> overlayQueue = new Queue<string>();
 
     private string activeOverlayId;
     private string pendingOverlayId;
@@ -102,7 +104,7 @@ public class LobbyOverlayManager : MonoBehaviour
 
     /// <summary>
     /// Attempts to present the requested overlay, enforcing the single-overlay policy.
-    /// When another overlay is visible it is closed before the new overlay is shown.
+    /// When another overlay is visible it is queued and shown after the current overlay closes.
     /// </summary>
     public bool TryShowOverlay(string overlayId)
     {
@@ -119,8 +121,12 @@ public class LobbyOverlayManager : MonoBehaviour
 
         if (HasActiveOverlay)
         {
-            pendingOverlayId = overlayId;
-            HideActiveOverlay();
+            // Queue the overlay for later display
+            if (!overlayQueue.Contains(overlayId))
+            {
+                overlayQueue.Enqueue(overlayId);
+                Debug.Log($"[LobbyOverlayManager] Queued overlay '{overlayId}' for display after current overlay closes.");
+            }
             return true;
         }
 
@@ -179,7 +185,18 @@ public class LobbyOverlayManager : MonoBehaviour
             activeOverlayId = null;
         }
 
-        if (!string.IsNullOrEmpty(pendingOverlayId))
+        // Process queued overlays first, then fall back to pending overlay
+        if (overlayQueue.Count > 0)
+        {
+            var nextId = overlayQueue.Dequeue();
+            Debug.Log($"[LobbyOverlayManager] Processing queued overlay '{nextId}' for display.");
+
+            if (overlays.TryGetValue(nextId, out var next))
+            {
+                ActivateOverlay(nextId, next);
+            }
+        }
+        else if (!string.IsNullOrEmpty(pendingOverlayId))
         {
             var nextId = pendingOverlayId;
             pendingOverlayId = null;
@@ -190,6 +207,27 @@ public class LobbyOverlayManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Clears the overlay queue, useful for scenarios where queued overlays should be discarded.
+    /// </summary>
+    public void ClearOverlayQueue()
+    {
+        var clearedCount = overlayQueue.Count;
+        overlayQueue.Clear();
+        if (clearedCount > 0)
+        {
+            Debug.Log($"[LobbyOverlayManager] Cleared {clearedCount} queued overlays.");
+        }
+    }
+
+    /// <summary>
+    /// Gets the current overlay queue state for debugging purposes.
+    /// </summary>
+    public IReadOnlyList<string> GetQueuedOverlays()
+    {
+        return overlayQueue.ToList().AsReadOnly();
+    }
+
 
     private void ActivateOverlay(string overlayId, ILobbyOverlay overlay)
     {

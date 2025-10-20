@@ -26,6 +26,7 @@ namespace UI.Lobby
         public LobbyPreferencesModel()
             : this(new PlayerPrefsStorage(), new InMemoryPreferenceStorage())
         {
+            MigrateLegacyPreferences();
         }
 
         public LobbyPreferencesModel(IPreferenceStorage primary, IPreferenceStorage fallback)
@@ -67,6 +68,90 @@ namespace UI.Lobby
             SetStringInternal(ThemeKey, DefaultThemeId, false);
             SetDateTimeInternal(LastUpdatedKey, DateTime.UtcNow, false);
             NotifyChanged();
+        }
+
+        /// <summary>
+        /// Migrates legacy preference keys to the new namespace-prefixed format.
+        /// This ensures data continuity when updating from older versions.
+        /// </summary>
+        private void MigrateLegacyPreferences()
+        {
+            // Legacy keys that might exist from previous versions
+            const string LegacySfxKey = "SfxEnabled";
+            const string LegacyVfxKey = "VfxEnabled";
+            const string LegacyThemeKey = "ThemeId";
+            
+            bool needsSave = false;
+            
+            // Migrate SFX setting if legacy key exists
+            if (TryReadBool(primaryStorage, LegacySfxKey, out var legacySfx) && 
+                !TryReadBool(primaryStorage, SfxKey, out _))
+            {
+                SetBoolInternal(SfxKey, legacySfx, false);
+                // Clear legacy key after successful migration
+                try
+                {
+                    PlayerPrefs.DeleteKey(LegacySfxKey);
+                    needsSave = true;
+                    Debug.Log($"LobbyPreferencesModel: Migrated legacy SFX setting from '{LegacySfxKey}' to '{SfxKey}'");
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning($"LobbyPreferencesModel: Failed to delete legacy SFX key. {ex.Message}");
+                }
+            }
+            
+            // Migrate VFX setting if legacy key exists
+            if (TryReadBool(primaryStorage, LegacyVfxKey, out var legacyVfx) && 
+                !TryReadBool(primaryStorage, VfxKey, out _))
+            {
+                SetBoolInternal(VfxKey, legacyVfx, false);
+                // Clear legacy key after successful migration
+                try
+                {
+                    PlayerPrefs.DeleteKey(LegacyVfxKey);
+                    needsSave = true;
+                    Debug.Log($"LobbyPreferencesModel: Migrated legacy VFX setting from '{LegacyVfxKey}' to '{VfxKey}'");
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning($"LobbyPreferencesModel: Failed to delete legacy VFX key. {ex.Message}");
+                }
+            }
+            
+            // Migrate Theme setting if legacy key exists
+            if (TryReadString(primaryStorage, LegacyThemeKey, out var legacyTheme) && 
+                !TryReadString(primaryStorage, ThemeKey, out _))
+            {
+                SetStringInternal(ThemeKey, legacyTheme, false);
+                // Clear legacy key after successful migration
+                try
+                {
+                    PlayerPrefs.DeleteKey(LegacyThemeKey);
+                    needsSave = true;
+                    Debug.Log($"LobbyPreferencesModel: Migrated legacy Theme setting from '{LegacyThemeKey}' to '{ThemeKey}'");
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning($"LobbyPreferencesModel: Failed to delete legacy Theme key. {ex.Message}");
+                }
+            }
+            
+            // Save changes if any migration occurred
+            if (needsSave)
+            {
+                try
+                {
+                    primaryStorage.Save();
+                    fallbackStorage.Save();
+                    SetDateTimeInternal(LastUpdatedKey, DateTime.UtcNow, false);
+                    NotifyChanged();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning($"LobbyPreferencesModel: Failed to save after migration. {ex.Message}");
+                }
+            }
         }
 
         private bool GetBool(string key, bool defaultValue)
@@ -211,7 +296,7 @@ namespace UI.Lobby
             void Save();
         }
 
-        private sealed class PlayerPrefsStorage : IPreferenceStorage
+        internal sealed class PlayerPrefsStorage : IPreferenceStorage
         {
             public bool TryGetBool(string key, out bool value)
             {
@@ -253,7 +338,7 @@ namespace UI.Lobby
             }
         }
 
-        private sealed class InMemoryPreferenceStorage : IPreferenceStorage
+        internal sealed class InMemoryPreferenceStorage : IPreferenceStorage
         {
             private readonly System.Collections.Generic.Dictionary<string, object> values =
                 new System.Collections.Generic.Dictionary<string, object>();
