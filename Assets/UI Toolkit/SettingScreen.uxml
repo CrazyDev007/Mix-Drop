@@ -4,7 +4,7 @@
         <ui:Button name="close-button" text="×" tabindex="1" tooltip="Close Settings" class="close-button" />
         <ui:Label text="Settings" tabindex="2" class="title" />
         <ui:ScrollView name="settings-scroll" focusable="true" tabindex="3" class="settings-container">
-            <ui:Label text="Audio Settings" class="section-title" />
+            <ui:Label text="Audio Settings" class="section-title first-section-title" />
             <ui:VisualElement class="setting-group">
                 <ui:VisualElement class="setting-item">
                     <ui:Label text="Music Volume" class="setting-label" />

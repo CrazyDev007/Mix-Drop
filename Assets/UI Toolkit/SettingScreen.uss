@@ -110,7 +110,7 @@
     width: 100%;
 }
 
-.section-title:first-child {
+.first-section-title {
     margin-top: 0;
 }
 

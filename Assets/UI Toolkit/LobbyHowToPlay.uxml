@@ -4,7 +4,7 @@
         <ui:Button name="close-button" text="×" tabindex="1" tooltip="Close How to Play instructions" class="close-button" />
         <ui:Label text="How to Play" tabindex="2" class="title" />
         <ui:ScrollView name="instructions-scroll" focusable="true" tabindex="3" class="instructions-container">
-            <ui:Label text="Welcome to Mix-Drop!" class="section-title" />
+            <ui:Label text="Welcome to Mix-Drop!" class="section-title first-section-title" />
             <ui:Label text="Mix-Drop is a challenging puzzle game where you must combine colored liquids to create new mixtures. Here&apos;s how to play:" class="instruction-text" />
             <ui:Label text="🎯 Objective" class="section-title" />
             <ui:Label text="Fill the tubes with the correct liquid combinations to complete each level. Match the target colors shown at the top of the screen." class="instruction-text" />
