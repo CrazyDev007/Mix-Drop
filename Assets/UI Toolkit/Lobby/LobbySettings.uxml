@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbySettings.uss?fileID=7433441132597879392&amp;guid=8f65e746dceb54e468f2ac73fff58e05&amp;type=3#LobbySettings" />
+    <ui:VisualElement focusable="true" tabindex="0" class="settings-overlay">
+        <ui:Button name="close-button" text="×" tabindex="1" tooltip="Close Settings" class="close-button" />
+        <ui:Label text="Settings" tabindex="2" class="title" />
+        <ui:ScrollView name="settings-scroll" focusable="true" tabindex="3" class="settings-container">
+            <ui:Label text="Audio Settings" class="section-title" />
+            <ui:VisualElement class="setting-group">
+                <ui:VisualElement class="setting-item">
+                    <ui:Label text="Sound Effects (SFX)" class="setting-label" />
+                    <ui:Toggle name="sfx-toggle" tabindex="4" class="setting-toggle" />
+                    <ui:Label text="Enable/disable game sound effects" class="setting-description" />
+                </ui:VisualElement>
+                <ui:VisualElement class="setting-item">
+                    <ui:Label text="Visual Effects (VFX)" class="setting-label" />
+                    <ui:Toggle name="vfx-toggle" tabindex="5" class="setting-toggle" />
+                    <ui:Label text="Enable/disable particle effects and animations" class="setting-description" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label text="Theme Settings" class="section-title" />
+            <ui:VisualElement class="setting-group">
+                <ui:VisualElement class="setting-item">
+                    <ui:Label text="Lobby Theme" class="setting-label" />
+                    <ui:DropdownField name="theme-dropdown" tabindex="6" class="setting-dropdown">
+                        <ui:Label text="Select theme" />
+                    </ui:DropdownField>
+                    <ui:Label text="Choose the visual theme for the lobby" class="setting-description" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="action-buttons">
+                <ui:Button name="reset-button" text="Reset to Defaults" tabindex="7" class="secondary-button" />
+                <ui:Button name="confirm-button" text="Save &amp; Close" tabindex="8" class="primary-button" />
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>
