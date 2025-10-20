@@ -1,4 +1,5 @@
 using ScreenFlow;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,9 +10,9 @@ namespace UI
         [SerializeField] private GameObject settingScreen;
 
         [Header("UI Elements")]
-        [SerializeField] private string backButtonName = "back-button";
-        [SerializeField] private string musicSliderName = "music-slider";
-        [SerializeField] private string sfxSliderName = "sfx-slider";
+        private string backButtonName = "close-button";
+        private string musicSliderName = "music-slider";
+        private string sfxSliderName = "sfx-slider";
 
         private Button backButton;
         private Slider musicSlider;
@@ -27,6 +28,8 @@ namespace UI
             sfxSlider = root.Q<Slider>(sfxSliderName);
 
             if (backButton == null) Debug.LogWarning($"Back button '{backButtonName}' not found");
+            Debug.Log($"[DEBUG] backButtonName: '{backButtonName}', backButton is null: {backButton == null}");
+            Debug.Log($"[DEBUG] Available buttons in root: {string.Join(", ", root.Query<Button>().ToList().Select(b => b.name))}");
             if (musicSlider == null) Debug.LogWarning($"Music slider '{musicSliderName}' not found");
             if (sfxSlider == null) Debug.LogWarning($"SFX slider '{sfxSliderName}' not found");
         }
@@ -86,8 +89,17 @@ namespace UI
 
         private void OnBackButtonClicked()
         {
+            Debug.Log("[DEBUG] OnBackButtonClicked called");
             SaveSettings();
-            ScreenManager.Instance.ShowScreen("LobbyScreen");
+            // Show How to Play overlay through ScreenManager
+            if (ScreenManager.Instance.GetAvailableScreenTypes().Contains("LobbyScreen"))
+            {
+                ScreenManager.Instance.ShowScreen("LobbyScreen");
+            }
+            else
+            {
+                Debug.LogWarning("LobbyScreen not found");
+            }
         }
 
         public void OnClickBtnBack()

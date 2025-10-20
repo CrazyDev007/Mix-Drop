@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 1667894375}
   - component: {fileID: 1667894374}
   m_Layer: 5
-  m_Name: How to Play
+  m_Name: How to Play Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
