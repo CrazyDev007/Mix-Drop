@@ -10,21 +10,21 @@ namespace UI
         [Header("UI Elements")]
         [SerializeField] private string playButtonName = "play-button";
         [SerializeField] private string settingsButtonName = "settings-button";
-        [SerializeField] private string hitsButtonName = "hits-button";
+        [SerializeField] private string howToPlayButtonName = "hits-button"; // Reusing existing hits-button as How to Play
 
         private Button playButton;
         private Button settingsButton;
-        private Button hitsButton;
+        private Button howToPlayButton;
 
         private void InitializeUIElements(VisualElement root)
         {
             playButton = root.Q<Button>(playButtonName);
             settingsButton = root.Q<Button>(settingsButtonName);
-            hitsButton = root.Q<Button>(hitsButtonName);
+            howToPlayButton = root.Q<Button>(howToPlayButtonName);
 
             if (playButton == null) Debug.LogWarning($"Play button '{playButtonName}' not found");
             if (settingsButton == null) Debug.LogWarning($"Settings button '{settingsButtonName}' not found");
-            if (hitsButton == null) Debug.LogWarning($"Hits button '{hitsButtonName}' not found");
+            if (howToPlayButton == null) Debug.LogWarning($"How to Play button '{howToPlayButtonName}' not found");
         }
 
         private void SetupEventHandlers()
@@ -37,9 +37,9 @@ namespace UI
             {
                 settingsButton.clicked += OnSettingsButtonClicked;
             }
-            if (hitsButton != null)
+            if (howToPlayButton != null)
             {
-                hitsButton.clicked += OnHitsButtonClicked;
+                howToPlayButton.clicked += OnHowToPlayButtonClicked;
             }
         }
 
@@ -55,11 +55,17 @@ namespace UI
             ScreenManager.Instance.ShowScreen("SettingScreen");
         }
 
-        private void OnHitsButtonClicked()
+        private void OnHowToPlayButtonClicked()
         {
-            // Show hits/high scores screen
-            // Assuming there's a screen for that, or implement later
-            Debug.Log("Hits button clicked");
+            // Show How to Play overlay through LobbyOverlayManager
+            if (LobbyOverlayManager.Instance != null)
+            {
+                LobbyOverlayManager.Instance.TryShowOverlay("HowToPlay");
+            }
+            else
+            {
+                Debug.LogWarning("LobbyOverlayManager instance not found");
+            }
         }
 
         protected override void SetupScreen(VisualElement screen)

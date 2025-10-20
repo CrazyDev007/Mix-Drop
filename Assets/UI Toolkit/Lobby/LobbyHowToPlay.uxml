@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbyHowToPlay.uss?fileID=7433441132597879392&amp;guid=353cb04be4fa9ee43ba56feb1aa4fb64&amp;type=3#LobbyHowToPlay" />
+    <ui:VisualElement focusable="true" tabindex="0" class="how-to-play-overlay">
+        <ui:Button name="close-button" text="×" tabindex="1" tooltip="Close How to Play instructions" class="close-button" />
+        <ui:Label text="How to Play" tabindex="2" class="title" />
+        <ui:ScrollView name="instructions-scroll" focusable="true" tabindex="3" class="instructions-container">
+            <ui:Label text="Welcome to Mix-Drop!" class="section-title" />
+            <ui:Label text="Mix-Drop is a challenging puzzle game where you must combine colored liquids to create new mixtures. Here&apos;s how to play:" class="instruction-text" />
+            <ui:Label text="🎯 Objective" class="section-title" />
+            <ui:Label text="Fill the tubes with the correct liquid combinations to complete each level. Match the target colors shown at the top of the screen." class="instruction-text" />
+            <ui:Label text="🎮 Controls" class="section-title" />
+            <ui:Label text="• Tap a tube to select it" class="instruction-text" />
+            <ui:Label text="• Tap another tube to pour liquid into it" class="instruction-text" />
+            <ui:Label text="• Liquids mix automatically when poured" class="instruction-text" />
+            <ui:Label text="• Complete a tube by filling it with a single color" class="instruction-text" />
+            <ui:Label text="💡 Tips" class="section-title" />
+            <ui:Label text="• Plan your moves carefully - you can&apos;t undo pours" class="instruction-text" />
+            <ui:Label text="• Look for opportunities to create intermediate colors" class="instruction-text" />
+            <ui:Label text="• Use the hint system if you get stuck" class="instruction-text" />
+            <ui:Label text="• Some levels require multiple mixing steps" class="instruction-text" />
+            <ui:Label text="🏆 Winning" class="section-title" />
+            <ui:Label text="Complete all tubes with the correct colors to advance to the next level. Good luck!" class="instruction-text" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

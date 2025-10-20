@@ -79,3 +79,11 @@ crashlytics-build.properties
 /.specify
 /specs
 /.kilocode
+# Universal ignores
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+# Environment secrets
+.env
+.env.*

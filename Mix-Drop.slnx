@@ -1,6 +1,7 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Mix-Drop.csproj" />
+  <Project Path="EditMode.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Do-Tween.csproj" />
   <Project Path="CrazyDev007.LevelEditor.Editor.csproj" />
