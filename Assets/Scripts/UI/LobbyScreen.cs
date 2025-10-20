@@ -1,3 +1,4 @@
+using System.Linq;
 using ScreenFlow;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,14 +58,14 @@ namespace UI
 
         private void OnHowToPlayButtonClicked()
         {
-            // Show How to Play overlay through LobbyOverlayManager
-            if (LobbyOverlayManager.Instance != null)
+            // Show How to Play overlay through ScreenManager
+            if (ScreenManager.Instance.GetAvailableScreenTypes().Contains("HowToPlay"))
             {
-                LobbyOverlayManager.Instance.TryShowOverlay("HowToPlay");
+                ScreenManager.Instance.ShowScreen("HowToPlay");
             }
             else
             {
-                Debug.LogWarning("LobbyOverlayManager instance not found");
+                Debug.LogWarning("HowToPlay Screen not found");
             }
         }
 

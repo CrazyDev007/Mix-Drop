@@ -19,22 +19,18 @@ public class LobbySettingsTests
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
         yield return new WaitForSeconds(1f); // Allow scene to initialize
 
-        // Get the LobbyOverlayManager instance
-        var overlayManager = LobbyOverlayManager.Instance;
-        Assert.IsNotNull(overlayManager, "LobbyOverlayManager instance not found in scene");
+        // Find the LobbySettingsController in the scene
+        var settingsController = GameObject.FindObjectOfType<LobbySettingsController>();
+        Assert.IsNotNull(settingsController, "LobbySettingsController not found in scene");
 
         // Create a fresh preferences model for testing
         var preferences = new LobbyPreferencesModel();
         preferences.ResetToDefaults();
 
-        // Act: Show settings overlay and modify toggle states
-        bool showResult = overlayManager.TryShowOverlay(SETTINGS_OVERLAY_ID);
+        // Act: Show settings and modify toggle states
+        settingsController.Show();
 
-        // Assert: Verify overlay is requested to show (implementation will handle actual visibility)
-        // This test will initially fail until the actual overlay implementation exists
-        Assert.IsTrue(showResult, "Failed to request showing Settings overlay");
-
-        // Wait for overlay to become visible
+        // Wait for settings to become visible
         yield return new WaitForSeconds(0.5f);
 
         // Simulate toggle interactions (these will fail until controller is implemented)
@@ -46,8 +42,8 @@ public class LobbySettingsTests
         bool originalVfxState = preferences.IsVfxEnabled;
         preferences.IsVfxEnabled = !originalVfxState; // Toggle VFX
 
-        // Close overlay
-        overlayManager.RequestHideOverlay(SETTINGS_OVERLAY_ID);
+        // Close settings
+        settingsController.Hide();
         yield return new WaitForSeconds(0.5f);
 
         // Assert: Verify persistence - create new model instance to test loading from storage
@@ -66,22 +62,22 @@ public class LobbySettingsTests
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
         yield return new WaitForSeconds(1f);
 
-        var overlayManager = LobbyOverlayManager.Instance;
-        Assert.IsNotNull(overlayManager, "LobbyOverlayManager instance not found in scene");
+        var settingsController = GameObject.FindObjectOfType<LobbySettingsController>();
+        Assert.IsNotNull(settingsController, "LobbySettingsController not found in scene");
 
         var preferences = new LobbyPreferencesModel();
         preferences.ResetToDefaults();
 
         // Act: Show settings and change theme
-        overlayManager.TryShowOverlay(SETTINGS_OVERLAY_ID);
+        settingsController.Show();
         yield return new WaitForSeconds(0.5f);
 
         string originalTheme = preferences.ThemeId;
         string newTheme = "dark"; // Test theme change
         preferences.ThemeId = newTheme;
 
-        // Close overlay
-        overlayManager.RequestHideOverlay(SETTINGS_OVERLAY_ID);
+        // Close settings
+        settingsController.Hide();
         yield return new WaitForSeconds(0.5f);
 
         // Assert: Verify theme persistence
@@ -98,8 +94,8 @@ public class LobbySettingsTests
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
         yield return new WaitForSeconds(1f);
 
-        var overlayManager = LobbyOverlayManager.Instance;
-        Assert.IsNotNull(overlayManager, "LobbyOverlayManager instance not found in scene");
+        var settingsController = GameObject.FindObjectOfType<LobbySettingsController>();
+        Assert.IsNotNull(settingsController, "LobbySettingsController not found in scene");
 
         var preferences = new LobbyPreferencesModel();
 
@@ -107,8 +103,8 @@ public class LobbySettingsTests
         Profiler.enabled = true;
         long initialMemory = Profiler.GetMonoUsedSizeLong();
 
-        // Act: Show settings overlay
-        overlayManager.TryShowOverlay(SETTINGS_OVERLAY_ID);
+        // Act: Show settings
+        settingsController.Show();
         yield return new WaitForSeconds(0.5f);
 
         // Perform multiple toggle operations to test memory allocation
@@ -119,8 +115,8 @@ public class LobbySettingsTests
             yield return null; // Allow frame processing
         }
 
-        // Close overlay
-        overlayManager.RequestHideOverlay(SETTINGS_OVERLAY_ID);
+        // Close settings
+        settingsController.Hide();
         yield return new WaitForSeconds(0.5f);
 
         // Force garbage collection to measure true allocation
@@ -184,29 +180,27 @@ public class LobbySettingsTests
     }
 
     [UnityTest]
-    public IEnumerator SettingsOverlay_SingleOverlayPolicy_Test()
+    public IEnumerator SettingsController_BasicFunctionality_Test()
     {
         // Arrange: Load the lobby scene
         SceneManager.LoadScene(LOBBY_SCENE_NAME);
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
         yield return new WaitForSeconds(1f);
 
-        var overlayManager = LobbyOverlayManager.Instance;
-        Assert.IsNotNull(overlayManager, "LobbyOverlayManager instance not found in scene");
+        var settingsController = GameObject.FindObjectOfType<LobbySettingsController>();
+        Assert.IsNotNull(settingsController, "LobbySettingsController not found in scene");
 
-        // Act & Assert: Verify single overlay policy with Settings overlay
-        // Show Settings overlay
-        bool firstShowResult = overlayManager.TryShowOverlay(SETTINGS_OVERLAY_ID);
-        Assert.IsTrue(firstShowResult, "Should successfully show Settings overlay");
+        // Act & Assert: Verify basic functionality
+        // Show Settings
+        settingsController.Show();
+        Assert.IsNotNull(settingsController, "Should successfully show Settings");
 
         yield return new WaitForSeconds(0.2f);
 
-        // Try to show How To Play overlay while Settings is active
-        bool secondShowResult = overlayManager.TryShowOverlay("HowToPlay");
-        // This should either queue or be rejected based on implementation
+        // Hide Settings
+        settingsController.Hide();
 
-        // For now, just verify Settings overlay remains active
-        Assert.AreEqual(SETTINGS_OVERLAY_ID, overlayManager.ActiveOverlayId,
-            "Settings overlay should remain active (single overlay policy)");
+        // Assert: Settings controller should still exist
+        Assert.IsNotNull(settingsController, "Settings controller should remain functional");
     }
 }

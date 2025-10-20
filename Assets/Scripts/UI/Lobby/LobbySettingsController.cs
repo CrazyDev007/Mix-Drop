@@ -276,27 +276,14 @@ namespace UI.Lobby
             if (settingsContainer != null)
             {
                 settingsContainer.style.display = DisplayStyle.Flex;
-                
-                // Notify the overlay manager that we're ready
-                if (LobbyOverlayManager.Instance != null)
-                {
-                    LobbyOverlayManager.Instance.NotifyOverlayReady(OverlayId);
-                }
             }
         }
-        
+
         public void Hide()
         {
             if (settingsContainer != null)
             {
                 settingsContainer.style.display = DisplayStyle.None;
-                
-                // Notify the overlay manager that we're hidden
-                if (LobbyOverlayManager.Instance != null)
-                {
-                    LobbyOverlayManager.Instance.NotifyOverlayHidden(OverlayId);
-                }
-                
                 OnOverlayClosed?.Invoke();
             }
         }

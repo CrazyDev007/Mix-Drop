@@ -3,8 +3,7 @@ using UnityEngine.UIElements;
 namespace UI.Lobby
 {
     /// <summary>
-    /// Describes the contract expected by <see cref="LobbyOverlayManager"/> for lobby overlays
-    /// rendered via Unity UI Toolkit.
+    /// Describes the contract for lobby overlays rendered via Unity UI Toolkit.
     /// </summary>
     public interface ILobbyOverlay
     {

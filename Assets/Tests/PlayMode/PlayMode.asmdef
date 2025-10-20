@@ -2,8 +2,9 @@
     "name": "PlayMode",
     "rootNamespace": "",
     "references": [
-        "UnityEngine.TestRunner",
-        "Mix-Drop"
+      "UnityEngine.TestRunner",
+      "Mix-Drop",
+      "com.crazydev007.screenflow.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

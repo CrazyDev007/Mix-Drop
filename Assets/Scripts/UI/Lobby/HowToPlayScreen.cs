@@ -1,31 +1,16 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UI.Lobby;
+using ScreenFlow;
 
 namespace UI.Lobby
 {
     /// <summary>
-    /// Controller for the How to Play overlay, implementing the ILobbyOverlay interface.
-    /// Manages UXML loading, content population, user interactions, and overlay lifecycle.
+    /// Controller for the How to Play screen, implementing the ScreenUI base class.
+    /// Manages UXML loading, content population, user interactions, and screen lifecycle.
     /// </summary>
-    public class LobbyHowToPlayController : MonoBehaviour, ILobbyOverlay
+    public class HowToPlayScreen : ScreenUI
     {
-        /// <summary>
-        /// Unique identifier for this overlay type, used by LobbyOverlayManager.
-        /// </summary>
-        public string OverlayId => "HowToPlay";
-
-        /// <summary>
-        /// Gets the root VisualElement containing the overlay UI.
-        /// </summary>
-        public VisualElement RootElement { get; private set; }
-
-        /// <summary>
-        /// Indicates whether the overlay is currently visible.
-        /// </summary>
-        public bool IsVisible { get; private set; }
-
         // UI element references
         private Button closeButton;
         private ScrollView instructionsScroll;
@@ -51,32 +36,20 @@ namespace UI.Lobby
 
         private void Awake()
         {
-            InitializeOverlay();
-            RegisterWithManager();
+            // Screen initialization is handled by the ScreenUI base class
         }
 
         /// <summary>
-        /// Initializes the overlay by loading UXML and setting up the UI structure.
+        /// Sets up the screen UI elements and event handlers.
         /// </summary>
-        private void InitializeOverlay()
+        /// <param name="screen">The root VisualElement of the screen.</param>
+        protected override void SetupScreen(VisualElement screen)
         {
-            // Load the UXML asset
-            var uxmlAsset = Resources.Load<VisualTreeAsset>("UI Toolkit/Lobby/LobbyHowToPlay");
-            if (uxmlAsset == null)
-            {
-                Debug.LogError("Failed to load LobbyHowToPlay UXML asset");
-                return;
-            }
-
-            // Instantiate the UXML
-            RootElement = uxmlAsset.Instantiate();
-            RootElement.style.display = DisplayStyle.None; // Start hidden
-
             // Load and apply the USS stylesheet
             var ussAsset = Resources.Load<StyleSheet>("UI Toolkit/Lobby/LobbyHowToPlay");
             if (ussAsset != null)
             {
-                RootElement.styleSheets.Add(ussAsset);
+                screen.styleSheets.Add(ussAsset);
             }
             else
             {
@@ -84,8 +57,8 @@ namespace UI.Lobby
             }
 
             // Find UI elements
-            closeButton = RootElement.Q<Button>("close-button");
-            instructionsScroll = RootElement.Q<ScrollView>("instructions-scroll");
+            closeButton = screen.Q<Button>("close-button");
+            instructionsScroll = screen.Q<ScrollView>("instructions-scroll");
 
             // Validate required elements
             if (closeButton == null)
@@ -97,24 +70,14 @@ namespace UI.Lobby
                 Debug.LogError("Instructions scroll view not found in LobbyHowToPlay UXML");
             }
 
+            // Set up event handlers
+            if (closeButton != null)
+            {
+                closeButton.clicked += OnCloseButtonClicked;
+            }
+
             // Populate content
             PopulateContent();
-        }
-
-        /// <summary>
-        /// Registers this overlay with the LobbyOverlayManager.
-        /// </summary>
-        private void RegisterWithManager()
-        {
-            if (LobbyOverlayManager.Instance != null)
-            {
-                LobbyOverlayManager.Instance.RegisterOverlay(this);
-                Debug.Log("LobbyHowToPlayController registered with LobbyOverlayManager");
-            }
-            else
-            {
-                Debug.LogWarning("LobbyOverlayManager instance not found during registration");
-            }
         }
 
         /// <summary>
@@ -129,20 +92,11 @@ namespace UI.Lobby
         }
 
         /// <summary>
-        /// Shows the overlay and sets up event handlers.
+        /// Shows the screen and sets up event handlers.
         /// </summary>
-        public void Show()
+        public override void Show()
         {
-            if (RootElement == null) return;
-
-            IsVisible = true;
-            RootElement.style.display = DisplayStyle.Flex;
-
-            // Set up event handlers
-            if (closeButton != null)
-            {
-                closeButton.clicked += OnCloseButtonClicked;
-            }
+            base.Show();
 
             // Focus management - set initial focus to close button for accessibility
             if (closeButton != null)
@@ -150,30 +104,22 @@ namespace UI.Lobby
                 closeButton.Focus();
             }
 
-            // Emit analytics event for overlay opened
+            // Emit analytics event for screen opened
             EmitAnalyticsEvent("how_to_play_opened");
-
-            // Notify manager that overlay is ready
-            LobbyOverlayManager.Instance.NotifyOverlayReady(OverlayId);
         }
 
         /// <summary>
-        /// Hides the overlay and cleans up event handlers.
+        /// Hides the screen and cleans up event handlers.
         /// </summary>
         public void Hide()
         {
-            if (RootElement == null) return;
-
-            IsVisible = false;
-            RootElement.style.display = DisplayStyle.None;
-
             // Clean up event handlers
             if (closeButton != null)
             {
                 closeButton.clicked -= OnCloseButtonClicked;
             }
 
-            // Emit analytics event for overlay closed
+            // Emit analytics event for screen closed
             EmitAnalyticsEvent("how_to_play_closed");
         }
 
@@ -185,8 +131,8 @@ namespace UI.Lobby
             // Emit analytics event for close button interaction
             EmitAnalyticsEvent("how_to_play_close_clicked");
 
-            // Request overlay hide through manager
-            LobbyOverlayManager.Instance.RequestHideOverlay(OverlayId);
+            // Hide the screen
+            Hide();
         }
 
         /// <summary>
@@ -202,7 +148,7 @@ namespace UI.Lobby
             // Example of what a real analytics call might look like:
             // AnalyticsManager.Instance.TrackEvent(eventName, new Dictionary<string, object>
             // {
-            //     { "overlay_id", OverlayId },
+            //     { "overlay_id", "HowToPlay" },
             //     { "timestamp", DateTime.UtcNow }
             // });
         }

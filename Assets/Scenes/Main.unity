@@ -255,6 +255,7 @@ Transform:
   - {fileID: 1415908008}
   - {fileID: 648932955}
   - {fileID: 1459667054}
+  - {fileID: 1667894375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &496162993
@@ -278,6 +279,9 @@ MonoBehaviour:
     isDefault: 0
   - type: LevelScreen
     screen: {fileID: 1459667055}
+    isDefault: 0
+  - type: HowToPlay
+    screen: {fileID: 1667894374}
     isDefault: 0
 --- !u!1 &519420028
 GameObject:
@@ -581,7 +585,7 @@ MonoBehaviour:
   screenAsset: {fileID: 9197481963319205126, guid: a9a59135a61c87649876cccfef83fce1, type: 3}
   playButtonName: play-button
   settingsButtonName: settings-button
-  hitsButtonName: hits-button
+  howToPlayButtonName: hits-button
 --- !u!4 &1415908008
 Transform:
   m_ObjectHideFlags: 0
@@ -642,6 +646,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::UI.LevelScreen
   screenAsset: {fileID: 9197481963319205126, guid: 706be60a8af03b04694c8d0295c45a66, type: 3}
+--- !u!1 &1667894373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1667894375}
+  - component: {fileID: 1667894374}
+  m_Layer: 5
+  m_Name: How to Play
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1667894374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667894373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b084ebd4de37e4f828e35b3eb6acbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mix-Drop::UI.Lobby.LobbyHowToPlayController
+  screenAsset: {fileID: 9197481963319205126, guid: fac0f996e31dc174abc851850f6d3e1b, type: 3}
+--- !u!4 &1667894375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667894373}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 496162992}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
