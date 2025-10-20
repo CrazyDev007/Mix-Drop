@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ScreenFlow;
+using System.Linq;
 
 namespace UI.Lobby
 {
@@ -45,17 +46,6 @@ namespace UI.Lobby
         /// <param name="screen">The root VisualElement of the screen.</param>
         protected override void SetupScreen(VisualElement screen)
         {
-            // Load and apply the USS stylesheet
-            var ussAsset = Resources.Load<StyleSheet>("UI Toolkit/Lobby/LobbyHowToPlay");
-            if (ussAsset != null)
-            {
-                screen.styleSheets.Add(ussAsset);
-            }
-            else
-            {
-                Debug.LogWarning("Failed to load LobbyHowToPlay USS asset");
-            }
-
             // Find UI elements
             closeButton = screen.Q<Button>("close-button");
             instructionsScroll = screen.Q<ScrollView>("instructions-scroll");
@@ -131,8 +121,15 @@ namespace UI.Lobby
             // Emit analytics event for close button interaction
             EmitAnalyticsEvent("how_to_play_close_clicked");
 
-            // Hide the screen
-            Hide();
+            // Navigate back to the lobby screen
+            if (ScreenManager.Instance.GetAvailableScreenTypes().Contains("LobbyScreen"))
+            {
+                ScreenManager.Instance.ShowScreen("LobbyScreen");
+            }
+            else
+            {
+                Debug.LogWarning("Lobby screen not found");
+            }
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbyHowToPlay.uss?fileID=7433441132597879392&amp;guid=353cb04be4fa9ee43ba56feb1aa4fb64&amp;type=3#LobbyHowToPlay" />
+    <Style src="project://database/Assets/UI%20Toolkit/USS/LobbyHowToPlay.uss?fileID=7433441132597879392&amp;guid=353cb04be4fa9ee43ba56feb1aa4fb64&amp;type=3#LobbyHowToPlay" />
     <ui:VisualElement focusable="true" tabindex="0" class="how-to-play-overlay">
         <ui:Button name="close-button" text="×" tabindex="1" tooltip="Close How to Play instructions" class="close-button" />
         <ui:Label text="How to Play" tabindex="2" class="title" />
