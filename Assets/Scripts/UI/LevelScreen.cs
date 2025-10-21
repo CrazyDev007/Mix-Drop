@@ -30,7 +30,7 @@ namespace UI
             levelList.Clear();
             int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
 
-            for (int row = 0; row < 200; row++) // 200 rows for 1000 levels with 5 per row
+            for (int row = 0; row < 44; row++) // 200 rows for 1000 levels with 5 per row
             {
                 var rowElement = levelRowTemplate.CloneTree();
                 for (int col = 0; col < 5; col++)
