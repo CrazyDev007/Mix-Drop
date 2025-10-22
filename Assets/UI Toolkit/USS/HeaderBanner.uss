@@ -1,0 +1,248 @@
+/* Header Banner Styles */
+
+/* Main Container */
+.header-banner-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--background-alt-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Left Section: Title and Subtitle */
+.header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.header-title {
+    font-size: 28px;
+    color: var(--primary-text-color);
+    -unity-font-style: bold;
+    margin-bottom: 5px;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+/* Center Section: Progress Bar */
+.header-center {
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 2;
+    flex-basis: 0;
+}
+
+.progress-label {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: var(--disabled-color);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+/* Right Section: Stats */
+.header-right {
+    flex-direction: column;
+    align-items: flex-end;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.stats-container {
+    flex-direction: row;
+    align-items: center;
+}
+
+.stat-item {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.stat-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#stat-icon-stars {
+    /* Background image removed due to invalid asset path */
+}
+
+#stat-icon-levels {
+    /* Background image removed due to invalid asset path */
+}
+
+.stat-value {
+    font-size: 18px;
+    color: var(--primary-text-color);
+    -unity-font-style: bold;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+}
+
+.stat-divider {
+    width: 1px;
+    height: 40px;
+    background-color: var(--border-color);
+    margin: 0 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .header-banner-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .header-left, .header-center, .header-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        flex-grow: 0;
+        flex-basis: auto;
+    }
+    
+    .header-left {
+        margin-bottom: 15px;
+    }
+    
+    .header-center {
+        width: 100%;
+    }
+    
+    .progress-bar-container {
+        flex-grow: 1;
+        margin: 0 15px;
+    }
+    
+    .header-right {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 24px;
+    }
+    
+    .header-subtitle {
+        font-size: 12px;
+    }
+    
+    .stat-value {
+        font-size: 16px;
+    }
+    
+    .stat-label {
+        font-size: 10px;
+    }
+    
+    .stat-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-banner-container {
+        padding: 10px 15px;
+    }
+    
+    .header-title {
+        font-size: 20px;
+    }
+    
+    .header-subtitle {
+        font-size: 11px;
+    }
+    
+    .progress-bar-container {
+        height: 8px;
+    }
+    
+    .stat-value {
+        font-size: 14px;
+    }
+    
+    .stat-label {
+        font-size: 9px;
+    }
+    
+    .stat-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .stat-item {
+        margin: 0 5px;
+    }
+}
+
+/* High Contrast Mode */
+.header-banner-container.high-contrast {
+    background-color: var(--high-contrast-background-color);
+    border-width: 2px;
+    border-color: var(--high-contrast-border-color);
+}
+
+.header-banner-container.high-contrast .header-title,
+.header-banner-container.high-contrast .header-subtitle,
+.header-banner-container.high-contrast .progress-label,
+.header-banner-container.high-contrast .progress-text,
+.header-banner-container.high-contrast .stat-value,
+.header-banner-container.high-contrast .stat-label {
+    color: var(--high-contrast-text-color);
+}
+
+.header-banner-container.high-contrast .progress-bar-container {
+    background-color: var(--high-contrast-disabled-color);
+}
+
+.header-banner-container.high-contrast .progress-bar-fill {
+    background-color: var(--high-contrast-accent-color);
+}
+
+.header-banner-container.high-contrast .stat-divider {
+    background-color: var(--high-contrast-border-color);
+}
+
+/* Filter property removed as it's not supported in Unity UI Toolkit */
+
+/* Animation Classes */
+/* Animation properties removed as they're not supported in Unity UI Toolkit */

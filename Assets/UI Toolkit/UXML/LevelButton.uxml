@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI Toolkit/USS/DesignSystem.uss" />
+    <Style src="project://database/Assets/UI Toolkit/USS/LevelSelectScreen.uss" />
+    
+    <ui:VisualElement name="level-button-container" class="level-button-container">
+        <!-- Level Number -->
+        <ui:Label name="level-number" text="1" class="level-number" />
+        
+        <!-- Level Name -->
+        <ui:Label name="level-name" text="Level 1" class="level-name" />
+        
+        <!-- Stars Container -->
+        <ui:VisualElement name="stars-container" class="stars-container">
+            <ui:VisualElement name="star-1" class="star empty-star" />
+            <ui:VisualElement name="star-2" class="star empty-star" />
+            <ui:VisualElement name="star-3" class="star empty-star" />
+        </ui:VisualElement>
+        
+        <!-- Status Icons -->
+        <ui:VisualElement name="status-container" class="status-container">
+            <ui:VisualElement name="lock-icon" class="status-icon lock-icon" style="display: none;" />
+            <ui:VisualElement name="new-icon" class="status-icon new-icon" style="display: none;" />
+            <ui:VisualElement name="completed-icon" class="status-icon completed-icon" style="display: none;" />
+        </ui:VisualElement>
+        
+        <!-- Preview Image -->
+        <ui:VisualElement name="preview-image" class="preview-image" />
+        
+        <!-- Loading State Elements -->
+        <ui:VisualElement name="loading-overlay" class="loading-overlay" />
+        <ui:VisualElement name="loading-spinner" class="loading-spinner" />
+    </ui:VisualElement>
+</ui:UXML>

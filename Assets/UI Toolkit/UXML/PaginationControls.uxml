@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI Toolkit/USS/DesignSystem.uss" />
+    <Style src="project://database/Assets/UI Toolkit/USS/LevelSelectScreen.uss" />
+    
+    <ui:VisualElement name="pagination-container" class="pagination-container">
+        <!-- Previous Button -->
+        <ui:Button name="previous-page-button" class="pagination-button previous-button">
+            <ui:VisualElement name="button-content" class="button-content">
+                <ui:VisualElement name="previous-icon" class="button-icon previous-icon" />
+                <ui:Label name="previous-text" text="Previous" class="button-text" />
+            </ui:VisualElement>
+        </ui:Button>
+        
+        <!-- Page Indicators -->
+        <ui:VisualElement name="page-indicators" class="page-indicators">
+            <!-- Page indicators will be dynamically added here -->
+        </ui:VisualElement>
+        
+        <!-- Next Button -->
+        <ui:Button name="next-page-button" class="pagination-button next-button">
+            <ui:VisualElement name="button-content" class="button-content">
+                <ui:Label name="next-text" text="Next" class="button-text" />
+                <ui:VisualElement name="next-icon" class="button-icon next-icon" />
+            </ui:VisualElement>
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>

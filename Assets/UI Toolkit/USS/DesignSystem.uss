@@ -1,0 +1,72 @@
+/* Design System Variables */
+
+/* Colors */
+--color-background-primary: rgb(255, 255, 255);
+--color-background-secondary: rgb(245, 245, 245);
+--color-text-primary: rgb(66, 66, 66);
+--color-text-secondary: rgb(158, 158, 158);
+--color-text-on-color: rgb(255, 255, 255);
+--color-button-primary: rgb(76, 175, 80);
+--color-button-secondary: rgb(158, 158, 158);
+--color-button-secondary-hover: rgb(189, 189, 189);
+--color-accent: rgb(255, 152, 0);
+--color-error: rgb(244, 67, 54);
+--color-success: rgb(76, 175, 80);
+--color-warning: rgb(255, 152, 0);
+--color-level-unlocked: rgb(76, 175, 80);
+--color-level-locked: rgb(149, 165, 166);
+--color-level-border: rgb(255, 255, 255);
+--color-star-earned: rgb(255, 215, 0);
+--color-star-empty: rgb(189, 195, 199);
+--color-border: rgb(224, 224, 224);
+--color-focus: rgb(33, 150, 243);
+
+/* Spacing */
+--spacing-xs: 4px;
+--spacing-sm: 8px;
+--spacing-md: 16px;
+--spacing-lg: 24px;
+--spacing-xl: 32px;
+--spacing-xxl: 48px;
+
+/* Font Sizes */
+--font-size-caption: 12px;
+--font-size-body-small: 14px;
+--font-size-body-medium: 16px;
+--font-size-body-large: 18px;
+--font-size-heading-small: 20px;
+--font-size-heading-medium: 24px;
+--font-size-heading-large: 32px;
+
+/* Font Weights */
+--font-weight-regular: 400;
+--font-weight-bold: 700;
+
+/* Border Radius */
+--border-radius-sm: 4px;
+--border-radius-md: 8px;
+--border-radius-lg: 12px;
+--border-radius-full: 50%;
+
+/* Shadows */
+--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+--shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+--shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+/* Level Button Size */
+--level-button-size: 80px;
+
+/* Transitions */
+--transition-fast: 0.15s ease;
+--transition-normal: 0.2s ease;
+--transition-slow: 0.3s ease;
+
+/* Z-Index */
+--z-dropdown: 1000;
+--z-modal: 1100;
+--z-tooltip: 1200;
+
+/* Breakpoints */
+--breakpoint-mobile: 480px;
+--breakpoint-tablet: 768px;
+--breakpoint-desktop: 1024px;

@@ -1,0 +1,297 @@
+/* Pagination Controls Styles */
+
+/* Main Container */
+.pagination-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+/* Pagination Buttons */
+.pagination-button {
+    min-width: 120px;
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 20px;
+    background-color: var(--button-normal-color);
+    color: var(--primary-text-color);
+    font-size: 16px;
+    -unity-font-style: normal;
+    transition: all 0.2s ease;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.pagination-button:active {
+    background-color: var(--button-pressed-color);
+}
+
+.pagination-button:disabled {
+    background-color: var(--button-disabled-color);
+    color: var(--disabled-text-color);
+    opacity: 0.6;
+}
+
+/* Button Content */
+.button-content {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-text {
+    margin: 0 5px;
+}
+
+/* Button Icons */
+.button-icon {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.previous-icon {
+    /* Background image removed due to invalid asset path */
+    /* background-image: url('project://database/Assets/UI Toolkit/Textures/arrow_left.png'); */
+}
+
+.next-icon {
+    /* Background image removed due to invalid asset path */
+    /* background-image: url('project://database/Assets/UI Toolkit/Textures/arrow_right.png'); */
+}
+
+/* Page Indicators */
+.page-indicators {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.page-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--disabled-color);
+    margin: 0 5px;
+    transition: all 0.2s ease;
+    /* Cursor property removed as it's not supported in Unity UI Toolkit */
+    /* cursor: pointer; */
+}
+
+.page-indicator.active {
+    background-color: var(--accent-color);
+    /* Transform property removed as it's not supported in Unity UI Toolkit */
+    /* transform: scale(1.2); */
+}
+
+.page-indicator:hover {
+    background-color: var(--button-hover-color);
+}
+
+.page-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: var(--button-normal-color);
+    color: var(--primary-text-color);
+    font-size: 14px;
+    -unity-font-style: normal;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    transition: all 0.2s ease;
+    /* Cursor property removed as it's not supported in Unity UI Toolkit */
+    /* cursor: pointer; */
+}
+
+.page-number:hover {
+    background-color: var(--button-hover-color);
+}
+
+.page-number.active {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    /* Font-weight property removed as it's not supported in Unity UI Toolkit */
+    /* font-weight: bold; */
+    -unity-font-style: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pagination-button {
+        min-width: 100px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    .button-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .page-indicator {
+        width: 10px;
+        height: 10px;
+        margin: 0 3px;
+    }
+    
+    .page-number {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+        margin: 0 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pagination-container {
+        padding: 5px;
+    }
+    
+    .pagination-button {
+        min-width: 80px;
+        height: 32px;
+        font-size: 12px;
+        padding: 0 10px;
+    }
+    
+    .button-text {
+        display: none;
+    }
+    
+    .button-icon {
+        width: 14px;
+        height: 14px;
+        margin: 0;
+    }
+    
+    .page-indicator {
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
+    }
+    
+    .page-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+        margin: 0 2px;
+    }
+}
+
+/* High Contrast Mode */
+.pagination-container.high-contrast .pagination-button {
+    background-color: var(--high-contrast-button-color);
+    color: var(--high-contrast-text-color);
+    /* Border shorthand property removed as it's not supported in Unity UI Toolkit */
+    /* border: 2px solid var(--high-contrast-border-color); */
+    border-width: 2px;
+    border-color: var(--high-contrast-border-color);
+}
+
+.pagination-container.high-contrast .pagination-button:hover {
+    background-color: var(--high-contrast-button-hover-color);
+}
+
+.pagination-container.high-contrast .pagination-button:disabled {
+    background-color: var(--high-contrast-disabled-color);
+    color: var(--high-contrast-disabled-text-color);
+}
+
+.pagination-container.high-contrast .page-indicator {
+    background-color: var(--high-contrast-disabled-color);
+}
+
+.pagination-container.high-contrast .page-indicator.active {
+    background-color: var(--high-contrast-accent-color);
+}
+
+.pagination-container.high-contrast .page-number {
+    background-color: var(--high-contrast-button-color);
+    color: var(--high-contrast-text-color);
+    /* Border shorthand property removed as it's not supported in Unity UI Toolkit */
+    /* border: 1px solid var(--high-contrast-border-color); */
+    border-width: 1px;
+    border-color: var(--high-contrast-border-color);
+}
+
+.pagination-container.high-contrast .page-number:hover {
+    background-color: var(--high-contrast-button-hover-color);
+}
+
+.pagination-container.high-contrast .page-number.active {
+    background-color: var(--high-contrast-accent-color);
+    color: var(--high-contrast-text-color);
+}
+
+.pagination-container.high-contrast .previous-icon,
+.pagination-container.high-contrast .next-icon {
+    /* Filter property removed as it's not supported in Unity UI Toolkit */
+    /* filter: brightness(0) invert(1); */
+}
+
+/* Animation Classes */
+.page-indicator.page-animate {
+    /* Animation property removed as it's not supported in Unity UI Toolkit */
+    /* animation: page-pulse 0.3s ease; */
+}
+
+.page-number.page-animate {
+    /* Animation property removed as it's not supported in Unity UI Toolkit */
+    /* animation: page-pop 0.3s ease; */
+}
+
+@keyframes page-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes page-pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Focus Styles for Accessibility */
+.pagination-button:focus {
+    /* Outline properties removed as they're not supported in Unity UI Toolkit */
+    /* outline: 2px solid var(--focus-color); */
+    /* outline-offset: 2px; */
+}
+
+.page-indicator:focus,
+.page-number:focus {
+    /* Outline properties removed as they're not supported in Unity UI Toolkit */
+    /* outline: 2px solid var(--focus-color); */
+    /* outline-offset: 2px; */
+}
+
+.pagination-container.high-contrast .pagination-button:focus,
+.pagination-container.high-contrast .page-indicator:focus,
+.pagination-container.high-contrast .page-number:focus {
+    /* Outline-color property removed as it's not supported in Unity UI Toolkit */
+    /* outline-color: var(--high-contrast-focus-color); */
+}

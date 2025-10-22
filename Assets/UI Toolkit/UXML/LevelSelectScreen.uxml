@@ -1,0 +1,37 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI Toolkit/USS/DesignSystem.uss" />
+    <Style src="project://database/Assets/UI Toolkit/USS/LevelSelectScreen.uss" />
+    
+    <ui:VisualElement name="root-container" class="root-container">
+        <!-- Header Section -->
+        <ui:VisualElement name="header" class="header">
+            <ui:Label name="screen-title" text="Level Select" class="screen-title" />
+            <ui:VisualElement name="progress-container" class="progress-container">
+                <ui:Label name="progress-text" text="0/0" class="progress-text" />
+                <ui:VisualElement name="progress-bar-container" class="progress-bar-container">
+                    <ui:VisualElement name="progress-bar-fill" class="progress-bar-fill" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Level Grid Section -->
+        <ui:ScrollView name="level-scroll-view" class="level-scroll-view">
+            <ui:VisualElement name="level-grid-container" class="level-grid-container">
+                <!-- Level buttons will be dynamically added here -->
+            </ui:VisualElement>
+        </ui:ScrollView>
+        
+        <!-- Pagination Section -->
+        <ui:VisualElement name="pagination-container" class="pagination-container">
+            <ui:Button name="previous-page-button" text="Previous" class="pagination-button" />
+            <ui:Label name="page-indicator" text="1 / 1" class="page-indicator" />
+            <ui:Button name="next-page-button" text="Next" class="pagination-button" />
+        </ui:VisualElement>
+        
+        <!-- Navigation Section -->
+        <ui:VisualElement name="navigation-container" class="navigation-container">
+            <ui:Button name="back-button" text="Back" class="navigation-button" />
+            <ui:Button name="settings-button" text="Settings" class="navigation-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
