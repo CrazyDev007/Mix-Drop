@@ -1,62 +1,498 @@
-.level-screen {
+/* Level Screen Styles - Combined from LevelSelectScreen.uss and LevelScreen.uss */
+
+/* Root Container */
+.root-container {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+}
+
+/* Header Banner Section */
+.header-banner-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--background-alt-color);
+    border-radius: 8px;
+}
+
+.header-left {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-title {
+    font-size: 28px;
+    -unity-font-style: bold;
+    color: var(--primary-text-color);
+    margin-bottom: 5px;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+.header-center {
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    height: 100%;
-    width: 100%;
-    background-color: rgb(240, 240, 240);
-    padding: 20px;
-    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    flex-grow: 1;
+    margin: 0 20px;
 }
 
-.title {
-    font-size: 48px;
-    margin-bottom: 20px;
-    color: rgb(51, 51, 51);
+.progress-label {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: var(--secondary-text-color);
+    margin-bottom: 8px;
+    -unity-text-align: middle-center;
 }
 
-.level-list {
-    width: 80%;
-    height: 80%;
-    margin-bottom: 20px;
-}
-
-.level-row {
-    flex-direction: row;
-    justify-content: space-around;
-    margin-bottom: 10px;
-    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
-}
-
-.level-button {
-    width: 80px;
-    height: 80px;
-    font-size: 24px;
-    background-color: rgb(76, 175, 80);
-    color: white;
-    border-radius: 10px;
-    border-width: 0;
-}
-
-.level-button:hover {
-    background-color: rgb(69, 160, 73);
-}
-
-.level-button:disabled {
-    background-color: rgb(204, 204, 204);
-    color: rgb(102, 102, 102);
-}
-
-.back-button {
+.progress-bar-container {
     width: 200px;
-    height: 60px;
-    font-size: 24px;
-    background-color: rgb(255, 87, 34);
-    color: white;
-    border-radius: 30px;
-    border-width: 0;
+    height: 10px;
+    background-color: var(--disabled-color);
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.back-button:hover {
-    background-color: rgb(216, 67, 21);
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    margin-top: 5px;
+}
+
+.header-right {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.stats-container {
+    flex-direction: row;
+    align-items: center;
+}
+
+.stat-item {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.stat-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.stat-value {
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: var(--primary-text-color);
+    margin-right: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+    -unity-text-align: upper-center;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 30px;
+    background-color: var(--border-color);
+    margin: 0 10px;
+}
+
+/* Level Grid Section */
+.level-scroll-view {
+    flex-grow: 1;
+    border-radius: 8px;
+    background-color: var(--background-alt-color);
+    padding: 15px;
+}
+
+.level-grid-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Level Button Styles */
+.level-button-container {
+    width: 150px;
+    height: 180px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--button-normal-color);
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    cursor: link;
+}
+
+.level-button-container:hover {
+    background-color: var(--button-hover-color);
+    scale: 1.05;
+}
+
+.level-button-container:active {
+    background-color: var(--button-pressed-color);
+    scale: 0.95;
+}
+
+.level-button-container:disabled {
+    background-color: var(--button-disabled-color);
+    cursor: arrow;
+}
+
+.level-button-container.locked {
+    background-color: var(--button-locked-color);
+}
+
+.level-button-container.new {
+    background-color: var(--button-new-color);
+}
+
+.level-button-container.completed {
+    background-color: var(--button-completed-color);
+}
+
+.level-number {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: var(--primary-text-color);
+}
+
+.level-name {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    -unity-text-align: middle-center;
+}
+
+.stars-container {
+    flex-direction: row;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.star {
+    width: 20px;
+    height: 20px;
+    margin: 0 2px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.star.filled-star {
+    /* Background image would be set here */
+}
+
+.star.empty-star {
+    /* Background image would be set here */
+}
+
+.status-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+}
+
+.status-icon {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.lock-icon {
+    /* Background image would be set here */
+}
+
+.new-icon {
+    /* Background image would be set here */
+}
+
+.completed-icon {
+    /* Background image would be set here */
+}
+
+.preview-image {
+    width: 100px;
+    height: 60px;
+    border-radius: 4px;
+    background-color: var(--background-color);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Pagination Section */
+.pagination-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination-button {
+    min-width: 100px;
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 20px;
+    background-color: var(--button-normal-color);
+    color: var(--primary-text-color);
+    font-size: 16px;
+    -unity-font-style: normal;
+    transition: all 0.2s ease;
+}
+
+.pagination-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.pagination-button:active {
+    background-color: var(--button-pressed-color);
+}
+
+.pagination-button:disabled {
+    background-color: var(--button-disabled-color);
+    color: var(--disabled-text-color);
+}
+
+.button-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.previous-icon {
+    /* Background image would be set here */
+}
+
+.next-icon {
+    /* Background image would be set here */
+}
+
+.button-text {
+    font-size: 16px;
+    -unity-font-style: normal;
+}
+
+.page-indicators {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px;
+}
+
+/* Navigation Section */
+.navigation-container {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.navigation-button {
+    min-width: 120px;
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 20px;
+    background-color: var(--button-normal-color);
+    color: var(--primary-text-color);
+    font-size: 16px;
+    -unity-font-style: normal;
+    transition: all 0.2s ease;
+}
+
+.navigation-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.navigation-button:active {
+    background-color: var(--button-pressed-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .level-button-container {
+        width: 120px;
+        height: 150px;
+    }
+
+    .header-title {
+        font-size: 24px;
+    }
+
+    .progress-bar-container {
+        width: 150px;
+    }
+
+    .pagination-button, .navigation-button {
+        min-width: 80px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .level-button-container {
+        width: 100px;
+        height: 130px;
+    }
+
+    .header-title {
+        font-size: 20px;
+    }
+
+    .progress-bar-container {
+        width: 120px;
+    }
+
+    .header-banner-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-center {
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+
+    .header-right {
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+}
+
+/* High Contrast Mode */
+.root-container.high-contrast {
+    background-color: var(--high-contrast-background-color);
+}
+
+.root-container.high-contrast .header-title {
+    color: var(--high-contrast-text-color);
+}
+
+.root-container.high-contrast .level-button-container {
+    background-color: var(--high-contrast-button-color);
+    border-width: 2px;
+    border-color: var(--high-contrast-border-color);
+}
+
+.root-container.high-contrast .level-button-container:hover {
+    background-color: var(--high-contrast-button-hover-color);
+}
+
+.root-container.high-contrast .level-button-container:disabled {
+    background-color: var(--high-contrast-disabled-color);
+    color: var(--high-contrast-disabled-text-color);
+}
+
+.root-container.high-contrast .level-number,
+.root-container.high-contrast .level-name {
+    color: var(--high-contrast-text-color);
+}
+
+.root-container.high-contrast .star.filled-star {
+    /* Background image would be set here for high contrast */
+}
+
+.root-container.high-contrast .lock-icon,
+.root-container.high-contrast .new-icon,
+.root-container.high-contrast .completed-icon {
+    /* Filter would be applied here if supported */
+}
+
+.root-container.high-contrast .pagination-button,
+.root-container.high-contrast .navigation-button {
+    background-color: var(--high-contrast-button-color);
+    color: var(--high-contrast-text-color);
+    border-width: 2px;
+    border-color: var(--high-contrast-border-color);
+}
+
+.root-container.high-contrast .pagination-button:hover,
+.root-container.high-contrast .navigation-button:hover {
+    background-color: var(--high-contrast-button-hover-color);
+}
+
+/* Animation Classes */
+.level-button-container.new-pulse {
+    /* Animation would be defined here if supported */
+}
+
+.star.star-pop {
+    /* Animation would be defined here if supported */
+}
+
+/* Loading State */
+.level-button-container.loading {
+    position: relative;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    display: none;
+}
+
+.level-button-container.loading .loading-overlay {
+    display: flex;
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    display: none;
+}
+
+.level-button-container.loading .loading-spinner {
+    display: flex;
+    /* Animation would be defined here if supported */
 }
