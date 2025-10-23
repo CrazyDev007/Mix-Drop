@@ -7,6 +7,7 @@ using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using UnityEngine.SceneManagement;
+using MixDrop.Data;
 
 [DefaultExecutionOrder(0)]
 public class GameManager : MonoBehaviour
@@ -20,6 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeToMove = 1f;
     [SerializeField] private float timeToRotate = 1f;
     [SerializeField] private float tubeUpOffset = 1f;
+    
+    [Header("Text File Storage")]
+    [Tooltip("Reference to the text file storage system")]
+    [SerializeField] private TextFileGameDataStorage textFileStorage;
+    
     public int Level { get; private set; }
     private string levelName;
 
@@ -71,6 +77,15 @@ public class GameManager : MonoBehaviour
             // Load login scene if not authenticated
             //SceneManager.LoadScene("Main");
             //return;
+        }
+        
+        // Initialize text file storage if available
+        if (textFileStorage != null)
+        {
+            textFileStorage.Initialize();
+            
+            // Sync current level with text file storage
+            Level = Mathf.Max(Level, textFileStorage.CurrentLevel);
         }
         
         // Proceed with game initialization
@@ -155,6 +170,13 @@ public class GameManager : MonoBehaviour
         int starsEarned = CalculateStars();
         SaveStarsForLevel(Level, starsEarned);
         
+        // Save to text file storage if available
+        if (textFileStorage != null)
+        {
+            textFileStorage.CompleteLevel(Level, starsEarned, timeUsed, movesUsed);
+            textFileStorage.SetCurrentLevel(Level + 1);
+        }
+        
         RestartGame();
     }
     
@@ -219,6 +241,12 @@ public class GameManager : MonoBehaviour
     {
         // Ensure Level property is up to date before loading level data
         Level = PlayerPrefs.GetInt("ActiveLevel", 1);
+        
+        // Sync with text file storage if available
+        if (textFileStorage != null)
+        {
+            Level = Mathf.Max(Level, textFileStorage.CurrentLevel);
+        }
         
         var model = GetLevelData();      // Load level & set currentLevelData
         SetupLevelRules();           // Setup timer & move limit
