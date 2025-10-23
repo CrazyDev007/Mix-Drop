@@ -1,6 +1,3 @@
-/* Level Button Styles */
-
-/* Main Container */
 .level-button-container {
     width: 150px;
     height: 180px;
@@ -43,23 +40,20 @@
     background-color: var(--button-completed-color);
 }
 
-/* Level Number */
 .level-number {
-    font-size: 24px;
+    font-size: 40px;
     color: var(--primary-text-color);
     -unity-font-style: bold;
     margin-top: 5px;
 }
 
-/* Level Name */
 .level-name {
-    font-size: 14px;
+    font-size: 25px;
     color: var(--secondary-text-color);
     -unity-text-align: middle-center;
     margin: 5px 0;
 }
 
-/* Stars Container */
 .stars-container {
     flex-direction: row;
     justify-content: center;
@@ -73,19 +67,15 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Misc/LevelStarSmall.png?fileID=2800000&guid=1869cf343e4d32c40b87ff0679be2c47&type=3#LevelStarSmall");
 }
 
 .star.empty-star {
-    /* Background image removed due to invalid asset path */
-    /* background-image: url('project://database/Assets/UI Toolkit/Textures/star_empty.png'); */
 }
 
 .star.filled-star {
-    /* Background image removed due to invalid asset path */
-    /* background-image: url('project://database/Assets/UI Toolkit/Textures/star_filled.png'); */
 }
 
-/* Status Icons */
 .status-container {
     position: absolute;
     top: 5px;
@@ -103,21 +93,17 @@
 }
 
 .lock-icon {
-    /* Background image removed due to invalid asset path */
-    /* background-image: url('project://database/Assets/UI Toolkit/Textures/lock_icon.png'); */
+    background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/Lock02.png?fileID=2800000&guid=faa279d4b52994c469ada40751501df0&type=3#Lock02");
 }
 
 .new-icon {
-    /* Background image removed due to invalid asset path */
-    /* background-image: url('project://database/Assets/UI Toolkit/Textures/new_icon.png'); */
+    background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/Aid.png?fileID=2800000&guid=081d48b176c76924b8d66434498229ec&type=3#Aid");
 }
 
 .completed-icon {
-    /* Background image removed due to invalid asset path */
-    /* background-image: url('project://database/Assets/UI Toolkit/Textures/checkmark_icon.png'); */
+    background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/Checkmark02.png?fileID=2800000&guid=6d603c712e9c4814289933e733341d44&type=3#Checkmark02");
 }
 
-/* Preview Image */
 .preview-image {
     width: 100px;
     height: 60px;
@@ -129,58 +115,6 @@
     margin-bottom: 5px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .level-button-container {
-        width: 120px;
-        height: 150px;
-    }
-    
-    .level-number {
-        font-size: 20px;
-    }
-    
-    .level-name {
-        font-size: 12px;
-    }
-    
-    .star {
-        width: 16px;
-        height: 16px;
-    }
-    
-    .preview-image {
-        width: 80px;
-        height: 48px;
-    }
-}
-
-@media (max-width: 480px) {
-    .level-button-container {
-        width: 100px;
-        height: 130px;
-    }
-    
-    .level-number {
-        font-size: 18px;
-    }
-    
-    .level-name {
-        font-size: 11px;
-    }
-    
-    .star {
-        width: 14px;
-        height: 14px;
-    }
-    
-    .preview-image {
-        width: 70px;
-        height: 42px;
-    }
-}
-
-/* High Contrast Mode */
 .level-button-container.high-contrast {
     background-color: var(--high-contrast-button-color);
     border-width: 2px;
@@ -196,63 +130,34 @@
     color: var(--high-contrast-disabled-text-color);
 }
 
-.level-button-container.high-contrast .level-number,
+.level-button-container.high-contrast .level-number {
+    color: var(--high-contrast-text-color);
+}
+
 .level-button-container.high-contrast .level-name {
     color: var(--high-contrast-text-color);
 }
 
 .level-button-container.high-contrast .star.filled-star {
-    /* Background image removed due to invalid asset path */
-    /* background-image: url('project://database/Assets/UI Toolkit/Textures/star_filled_high_contrast.png'); */
 }
 
-.level-button-container.high-contrast .lock-icon,
-.level-button-container.high-contrast .new-icon,
+.level-button-container.high-contrast .lock-icon {
+}
+
+.level-button-container.high-contrast .new-icon {
+}
+
 .level-button-container.high-contrast .completed-icon {
-    /* Filter property removed as it's not supported in Unity UI Toolkit */
-    /* filter: brightness(0) invert(1); */
 }
 
-/* Animation Classes */
 .level-button-container.new-pulse {
-    /* Animation property removed as it's not supported in Unity UI Toolkit */
-    /* animation: pulse 2s infinite; */
-}
-
-@keyframes pulse {
-    0% {
-        scale: 1;
-    }
-    50% {
-        scale: 1.05;
-    }
-    100% {
-        scale: 1;
-    }
 }
 
 .star.star-pop {
-    /* Animation property removed as it's not supported in Unity UI Toolkit */
-    /* animation: pop 0.3s ease; */
 }
 
-@keyframes pop {
-    0% {
-        scale: 1;
-    }
-    50% {
-        scale: 1.5;
-    }
-    100% {
-        scale: 1;
-    }
-}
-
-/* Loading State */
 .level-button-container.loading {
     position: relative;
-    /* Pointer-events property removed as it's not supported in Unity UI Toolkit */
-    /* pointer-events: none; */
 }
 
 .loading-overlay {
@@ -287,24 +192,10 @@
 
 .level-button-container.loading .loading-spinner {
     display: flex;
-    /* Animation property removed as it's not supported in Unity UI Toolkit */
-    /* animation: spin 1s ease-in-out infinite; */
 }
 
-@keyframes spin {
-    to {
-        rotate: 360deg;
-    }
-}
-
-/* Focus Styles for Accessibility */
 .level-button-container:focus {
-    /* Outline properties removed as they're not supported in Unity UI Toolkit */
-    /* outline: 2px solid var(--focus-color); */
-    /* outline-offset: 2px; */
 }
 
 .level-button-container.high-contrast:focus {
-    /* Outline-color property removed as it's not supported in Unity UI Toolkit */
-    /* outline-color: var(--high-contrast-focus-color); */
 }

@@ -1,4 +1,5 @@
 using ScreenFlow;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -89,20 +90,53 @@ namespace UI
             }
 
             // Load templates
-            levelRowTemplate = Resources.Load<VisualTreeAsset>("LevelRow");
+            levelRowTemplate = Resources.Load<VisualTreeAsset>("LevelButton");
             if (levelRowTemplate == null)
             {
-                Debug.LogError("LevelRow template not found in Resources!");
+                Debug.LogError("LevelButton template not found in Resources!");
                 return;
             }
             
             // Calculate total pages
             totalPages = Mathf.CeilToInt((float)totalLevels / levelsPerPage);
             
+            // Add diagnostic logging for initial setup
+            Debug.Log("[LevelScreen] SetupScreen - Starting setup");
+            Debug.Log($"[LevelScreen] Total Levels: {totalLevels}, Levels Per Page: {levelsPerPage}, Total Pages: {totalPages}");
+            
             // Initialize screen
             UpdateHeaderStats();
             SetupLevelGrid();
             UpdatePagination();
+            
+            // Log initial layout after a delay to ensure UI is fully initialized
+            StartCoroutine(LogInitialLayoutInfo());
+        }
+        
+        private IEnumerator LogInitialLayoutInfo()
+        {
+            // Wait for a few frames to ensure UI is fully initialized
+            yield return null;
+            yield return null;
+            
+            // Log root container layout
+            var rootContainer = levelScrollView.parent;
+            Debug.Log($"[LevelScreen] Root Container Layout: {rootContainer.layout.width}x{rootContainer.layout.height}");
+            
+            // Log all main sections layout
+            var headerSection = rootContainer.Q<VisualElement>("header-banner-container");
+            var scrollViewSection = rootContainer.Q<ScrollView>("level-scroll-view");
+            var paginationSection = rootContainer.Q<VisualElement>("pagination-container");
+            var navigationSection = rootContainer.Q<VisualElement>("navigation-container");
+            
+            Debug.Log($"[LevelScreen] Header Section Layout: {headerSection?.layout.width}x{headerSection?.layout.height}");
+            Debug.Log($"[LevelScreen] ScrollView Section Layout: {scrollViewSection?.layout.width}x{scrollViewSection?.layout.height}");
+            Debug.Log($"[LevelScreen] Pagination Section Layout: {paginationSection?.layout.width}x{paginationSection?.layout.height}");
+            Debug.Log($"[LevelScreen] Navigation Section Layout: {navigationSection?.layout.width}x{navigationSection?.layout.height}");
+            
+            // Check flex styles
+            Debug.Log($"[LevelScreen] ScrollView FlexGrow: {scrollViewSection?.resolvedStyle.flexGrow}");
+            Debug.Log($"[LevelScreen] ScrollView Height: {scrollViewSection?.resolvedStyle.height}");
         }
 
         private void UpdateHeaderStats()
@@ -141,44 +175,99 @@ namespace UI
             int startLevel = currentPage * levelsPerPage + 1;
             int endLevel = Mathf.Min(startLevel + levelsPerPage - 1, totalLevels);
             
-            // Calculate how many rows we need (5 levels per row)
-            int levelsInThisPage = endLevel - startLevel + 1;
-            int rowsNeeded = Mathf.CeilToInt((float)levelsInThisPage / 5);
+            // Add diagnostic logging
+            Debug.Log($"[LevelScreen] SetupLevelGrid - Page: {currentPage}, StartLevel: {startLevel}, EndLevel: {endLevel}");
             
-            for (int row = 0; row < rowsNeeded; row++)
+            // Create level buttons for each level in this page
+            for (int levelNumber = startLevel; levelNumber <= endLevel; levelNumber++)
             {
-                var rowElement = levelRowTemplate.CloneTree();
+                var levelButtonElement = levelRowTemplate.CloneTree();
                 
-                // Setup each button in the row
-                for (int col = 0; col < 5; col++)
+                // Get the container element
+                var buttonContainer = levelButtonElement.Q<VisualElement>("level-button-container");
+                if (buttonContainer != null)
                 {
-                    int levelNumber = startLevel + row * 5 + col;
-                    if (levelNumber > endLevel)
+                    // Set up click handler for the container
+                    buttonContainer.AddManipulator(new Clickable(() => OnLevelSelected(levelNumber)));
+                    
+                    // Update level number
+                    var levelNumberLabel = buttonContainer.Q<Label>("level-number");
+                    if (levelNumberLabel != null)
                     {
-                        // Hide extra buttons in the last row
-                        var extraButton = rowElement.Q<Button>($"level-{col + 1}");
-                        if (extraButton != null)
-                        {
-                            extraButton.style.display = DisplayStyle.None;
-                        }
-                        continue;
+                        levelNumberLabel.text = $"{levelNumber}";
                     }
                     
-                    var button = rowElement.Q<Button>($"level-{col + 1}");
-                    if (button != null)
+                    // Update level name
+                    var levelNameLabel = buttonContainer.Q<Label>("level-name");
+                    if (levelNameLabel != null)
                     {
-                        bool isLocked = levelNumber > completedLevels + 1;
-                        button.text = $"{levelNumber}";
-                        button.SetEnabled(!isLocked);
-                        
-                        // Remove existing click handlers to avoid duplicates
-                        button.clicked -= () => OnLevelSelected(levelNumber);
-                        button.clicked += () => OnLevelSelected(levelNumber);
+                        levelNameLabel.text = $"Level {levelNumber}";
+                    }
+                    
+                    // Set locked state
+                    bool isLocked = levelNumber > completedLevels + 1;
+                    var lockIcon = buttonContainer.Q<VisualElement>("lock-icon");
+                    if (lockIcon != null)
+                    {
+                        lockIcon.style.display = isLocked ? DisplayStyle.Flex : DisplayStyle.None;
+                    }
+                    
+                    // Set new state for the first unlocked level
+                    var newIcon = buttonContainer.Q<VisualElement>("new-icon");
+                    if (newIcon != null)
+                    {
+                        newIcon.style.display = (levelNumber == completedLevels + 1) ? DisplayStyle.Flex : DisplayStyle.None;
+                    }
+                    
+                    // Set completed state
+                    var completedIcon = buttonContainer.Q<VisualElement>("completed-icon");
+                    if (completedIcon != null)
+                    {
+                        completedIcon.style.display = (levelNumber <= completedLevels) ? DisplayStyle.Flex : DisplayStyle.None;
+                    }
+                    
+                    // Update stars (for completed levels)
+                    if (levelNumber <= completedLevels)
+                    {
+                        int starsEarned = PlayerPrefs.GetInt($"Level{levelNumber}Stars", Random.Range(1, 4));
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            var star = buttonContainer.Q<VisualElement>($"star-{i}");
+                            if (star != null)
+                            {
+                                star.RemoveFromClassList("empty-star");
+                                star.AddToClassList(i <= starsEarned ? "filled-star" : "empty-star");
+                            }
+                        }
                     }
                 }
                 
-                levelGridContainer.Add(rowElement);
+                levelGridContainer.Add(levelButtonElement);
             }
+            
+            // Add layout diagnostic logging
+            StartCoroutine(LogLayoutInfoAfterFrame());
+        }
+        
+        private System.Collections.IEnumerator LogLayoutInfoAfterFrame()
+        {
+            // Wait for the next frame to ensure layout is calculated
+            yield return null;
+            
+            // Log layout information
+            Debug.Log($"[LevelScreen] Layout Info - ScrollView: {levelScrollView.layout.width}x{levelScrollView.layout.height}");
+            Debug.Log($"[LevelScreen] Layout Info - GridContainer: {levelGridContainer.layout.width}x{levelGridContainer.layout.height}");
+            Debug.Log($"[LevelScreen] Layout Info - GridContainer ChildCount: {levelGridContainer.childCount}");
+            
+            // Check if ScrollView has flex-grow style
+            var scrollViewStyle = levelScrollView.resolvedStyle;
+            Debug.Log($"[LevelScreen] ScrollView FlexGrow: {scrollViewStyle.flexGrow}");
+            
+            // Check if GridContainer has proper layout
+            var gridContainerStyle = levelGridContainer.resolvedStyle;
+            Debug.Log($"[LevelScreen] GridContainer FlexGrow: {gridContainerStyle.flexGrow}");
+            Debug.Log($"[LevelScreen] GridContainer Width: {gridContainerStyle.width}");
+            Debug.Log($"[LevelScreen] GridContainer Height: {gridContainerStyle.height}");
         }
 
         private void UpdatePagination()

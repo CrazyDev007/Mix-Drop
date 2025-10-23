@@ -13,10 +13,11 @@
 /* Header Banner Section */
 .header-banner-container {
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 15px;
     background-color: var(--background-alt-color);
     border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .header-top {
@@ -134,6 +135,8 @@
 /* Level Grid Section */
 .level-scroll-view {
     flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
     border-radius: 8px;
     background-color: var(--background-alt-color);
     padding: 15px;
@@ -143,9 +146,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
+    width: 100%;
+    flex-grow: 1;
 }
+
+/* Level row styles are now handled in LevelButton.uss */
 
 /* Level Button Styles */
 .level-button-container {
@@ -267,7 +274,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 10px 0;
+    flex-shrink: 0;
 }
 
 .pagination-button {
@@ -333,7 +341,8 @@
 .navigation-container {
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 10px;
+    flex-shrink: 0;
 }
 
 .navigation-button {
