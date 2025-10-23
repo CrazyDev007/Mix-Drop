@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using MixDrop.Data;
 
 namespace UI
 {
@@ -105,9 +106,7 @@ namespace UI
             Debug.Log($"[LevelScreen] Total Levels: {totalLevels}, Levels Per Page: {levelsPerPage}, Total Pages: {totalPages}");
             
             // Initialize screen
-            UpdateHeaderStats();
-            SetupLevelGrid();
-            UpdatePagination();
+            RefreshLevelData();
             
             // Log initial layout after a delay to ensure UI is fully initialized
             StartCoroutine(LogInitialLayoutInfo());
@@ -141,13 +140,45 @@ namespace UI
 
         private void UpdateHeaderStats()
         {
-            int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
-            int totalStars = PlayerPrefs.GetInt("TotalStars", 0);
+            // Get data from TextFileGameDataStorage instead of PlayerPrefs
+            int completedLevels = 0;
+            int totalStars = 0;
+            TextFileGameDataStorage textFileStorage = null;
+            
+            // First try to get the TextFileGameDataStorage from GameManager
+            if (GameManager.Instance != null)
+            {
+                // Use reflection to get the private field since it's not exposed publicly
+                var field = typeof(GameManager).GetField("textFileStorage",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (field != null)
+                {
+                    textFileStorage = field.GetValue(GameManager.Instance) as TextFileGameDataStorage;
+                }
+            }
+            
+            // If not found in GameManager, try to find it in the scene
+            if (textFileStorage == null)
+            {
+                textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
+            }
+            
+            if (textFileStorage != null)
+            {
+                completedLevels = textFileStorage.CompletedLevelsCount;
+                totalStars = textFileStorage.TotalStars;
+                Debug.Log($"[LevelScreen] UpdateHeaderStats - Completed Levels: {completedLevels}, Total Stars: {totalStars}");
+            }
+            else
+            {
+                // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
+                completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
+                totalStars = PlayerPrefs.GetInt("TotalStars", 0);
+                Debug.LogWarning("[LevelScreen] UpdateHeaderStats - TextFileGameDataStorage not found, using PlayerPrefs fallback");
+            }
             
             // Update progress
             if (progressBarFill != null)
-
-            for (int row = 0; row < 44; row++) // 200 rows for 1000 levels with 5 per row
             {
                 float progress = totalLevels > 0 ? (float)completedLevels / totalLevels : 0;
                 progressBarFill.style.width = new Length(progress * 100, LengthUnit.Percent);
@@ -173,12 +204,61 @@ namespace UI
         private void SetupLevelGrid()
         {
             levelGridContainer.Clear();
-            int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
+            
+            // Get data from TextFileGameDataStorage instead of PlayerPrefs
+            int completedLevels = 0;
+            TextFileGameDataStorage textFileStorage = null;
+            
+            // First try to get the TextFileGameDataStorage from GameManager
+            if (GameManager.Instance != null)
+            {
+                // Use reflection to get the private field since it's not exposed publicly
+                var field = typeof(GameManager).GetField("textFileStorage",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (field != null)
+                {
+                    textFileStorage = field.GetValue(GameManager.Instance) as TextFileGameDataStorage;
+                }
+            }
+            
+            // If not found in GameManager, try to find it in the scene
+            if (textFileStorage == null)
+            {
+                textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
+            }
+            
+            if (textFileStorage != null)
+            {
+                // Ensure textFileStorage is initialized
+                if (!textFileStorage.enabled)
+                {
+                    Debug.LogWarning("[LevelScreen] TextFileGameDataStorage found but not enabled");
+                }
+                
+                completedLevels = textFileStorage.CompletedLevelsCount;
+                Debug.Log($"[LevelScreen] TextFileGameDataStorage found - Completed Levels: {completedLevels}, Total Stars: {textFileStorage.TotalStars}");
+                
+                // Log some sample level data for debugging
+                for (int i = 1; i <= Mathf.Min(5, completedLevels); i++)
+                {
+                    bool isCompleted = textFileStorage.IsLevelCompleted(i);
+                    int stars = textFileStorage.GetLevelStars(i);
+                    Debug.Log($"[LevelScreen] Sample Data - Level {i}: Completed={isCompleted}, Stars={stars}");
+                }
+            }
+            else
+            {
+                // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
+                completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
+                Debug.LogWarning("[LevelScreen] TextFileGameDataStorage not found, using PlayerPrefs fallback");
+            }
+            
             int startLevel = currentPage * levelsPerPage + 1;
             int endLevel = Mathf.Min(startLevel + levelsPerPage - 1, totalLevels);
             
             // Add diagnostic logging
             Debug.Log($"[LevelScreen] SetupLevelGrid - Page: {currentPage}, StartLevel: {startLevel}, EndLevel: {endLevel}");
+            Debug.Log($"[LevelScreen] Completed Levels: {completedLevels}");
             
             // Create level buttons for each level in this page
             for (int levelNumber = startLevel; levelNumber <= endLevel; levelNumber++)
@@ -201,6 +281,18 @@ namespace UI
                     if (levelNameLabel != null)
                     {
                         levelNameLabel.text = $"Level {levelNumber}";
+                    }
+                    
+                    // Check if level is completed
+                    bool isCompleted = false;
+                    if (textFileStorage != null)
+                    {
+                        isCompleted = textFileStorage.IsLevelCompleted(levelNumber);
+                    }
+                    else
+                    {
+                        // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
+                        isCompleted = levelNumber <= completedLevels;
                     }
                     
                     // Set locked state
@@ -228,20 +320,66 @@ namespace UI
                     var completedIcon = buttonContainer.Q<VisualElement>("completed-icon");
                     if (completedIcon != null)
                     {
-                        completedIcon.style.display = (levelNumber <= completedLevels) ? DisplayStyle.Flex : DisplayStyle.None;
+                        completedIcon.style.display = isCompleted ? DisplayStyle.Flex : DisplayStyle.None;
                     }
                     
                     // Update stars (for completed levels)
-                    if (levelNumber <= completedLevels)
+                    if (isCompleted)
                     {
-                        int starsEarned = PlayerPrefs.GetInt($"Level{levelNumber}Stars", 0);
+                        int starsEarned = 0;
+                        if (textFileStorage != null)
+                        {
+                            starsEarned = textFileStorage.GetLevelStars(levelNumber);
+                            Debug.Log($"[LevelScreen] TextFileStorage - Level {levelNumber} completed with {starsEarned} stars");
+                        }
+                        else
+                        {
+                            // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
+                            starsEarned = PlayerPrefs.GetInt($"Level{levelNumber}Stars", 0);
+                            Debug.Log($"[LevelScreen] PlayerPrefs - Level {levelNumber} completed with {starsEarned} stars");
+                        }
+                        
+                        // Find the stars container
+                        var starsContainer = buttonContainer.Q<VisualElement>("stars-container");
+                        if (starsContainer != null)
+                        {
+                            Debug.Log($"[LevelScreen] Found stars container for level {levelNumber}");
+                        }
+                        else
+                        {
+                            Debug.LogError($"[LevelScreen] Stars container not found for level {levelNumber}");
+                        }
+                        
                         for (int i = 1; i <= 3; i++)
                         {
                             var star = buttonContainer.Q<VisualElement>($"star-{i}");
                             if (star != null)
                             {
+                                // Clear existing star classes
+                                star.RemoveFromClassList("level-button__star--earned");
+                                star.RemoveFromClassList("level-button__star--empty");
+                                star.RemoveFromClassList("star");
                                 star.RemoveFromClassList("empty-star");
-                                star.AddToClassList(i <= starsEarned ? "filled-star" : "empty-star");
+                                star.RemoveFromClassList("filled-star");
+                                
+                                // Add base star class
+                                star.AddToClassList("star");
+                                
+                                // Add appropriate class based on stars earned
+                                if (i <= starsEarned)
+                                {
+                                    star.AddToClassList("level-button__star--earned");
+                                    Debug.Log($"[LevelScreen] Added earned class to star {i} for level {levelNumber}");
+                                }
+                                else
+                                {
+                                    star.AddToClassList("level-button__star--empty");
+                                    Debug.Log($"[LevelScreen] Added empty class to star {i} for level {levelNumber}");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError($"[LevelScreen] Star element {i} not found for level {levelNumber}");
                             }
                         }
                     }
@@ -325,6 +463,38 @@ namespace UI
         {
             PlayerPrefs.SetInt("Hardness", 0);
             PlayerPrefs.SetInt("ActiveLevel", levelNumber);
+            
+            // Also update the current level in TextFileGameDataStorage if available
+            TextFileGameDataStorage textFileStorage = null;
+            
+            // First try to get the TextFileGameDataStorage from GameManager
+            if (GameManager.Instance != null)
+            {
+                // Use reflection to get the private field since it's not exposed publicly
+                var field = typeof(GameManager).GetField("textFileStorage",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (field != null)
+                {
+                    textFileStorage = field.GetValue(GameManager.Instance) as TextFileGameDataStorage;
+                }
+            }
+            
+            // If not found in GameManager, try to find it in the scene
+            if (textFileStorage == null)
+            {
+                textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
+            }
+            
+            if (textFileStorage != null)
+            {
+                textFileStorage.SetCurrentLevel(levelNumber);
+                Debug.Log($"[LevelScreen] Set current level to {levelNumber} in TextFileGameDataStorage");
+            }
+            else
+            {
+                Debug.LogWarning("[LevelScreen] TextFileGameDataStorage not found, could not update current level");
+            }
+            
             SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Single);
         }
 
@@ -337,5 +507,76 @@ namespace UI
         {
             ScreenManager.Instance.ShowScreen("SettingsScreen");
         }
+        /// <summary>
+        /// Refreshes the level screen data, useful when returning from gameplay
+        /// </summary>
+        public void RefreshLevelData()
+        {
+            UpdateHeaderStats();
+            SetupLevelGrid();
+            UpdatePagination();
+        }
+        
+        /// <summary>
+        /// Test method to verify TextFileGameDataStorage is working correctly
+        /// Call this from the Unity Console: FindObjectOfType<LevelScreen>().TestStorageData()
+        /// </summary>
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+        public void TestStorageData()
+        {
+            Debug.Log("=== Testing TextFileGameDataStorage ===");
+            
+            TextFileGameDataStorage textFileStorage = null;
+            
+            // First try to get the TextFileGameDataStorage from GameManager
+            if (GameManager.Instance != null)
+            {
+                // Use reflection to get the private field since it's not exposed publicly
+                var field = typeof(GameManager).GetField("textFileStorage",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (field != null)
+                {
+                    textFileStorage = field.GetValue(GameManager.Instance) as TextFileGameDataStorage;
+                    Debug.Log("Found TextFileGameDataStorage through GameManager");
+                }
+            }
+            
+            // If not found in GameManager, try to find it in the scene
+            if (textFileStorage == null)
+            {
+                textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
+                if (textFileStorage != null)
+                {
+                    Debug.Log("Found TextFileGameDataStorage through FindObjectOfType");
+                }
+            }
+            
+            if (textFileStorage != null)
+            {
+                Debug.Log($"TextFileGameDataStorage found and initialized: {textFileStorage.enabled}");
+                Debug.Log($"Current Level: {textFileStorage.CurrentLevel}");
+                Debug.Log($"Completed Levels Count: {textFileStorage.CompletedLevelsCount}");
+                Debug.Log($"Total Stars: {textFileStorage.TotalStars}");
+                
+                // Test first 5 levels
+                for (int i = 1; i <= 5; i++)
+                {
+                    bool isCompleted = textFileStorage.IsLevelCompleted(i);
+                    int stars = textFileStorage.GetLevelStars(i);
+                    float bestTime = textFileStorage.GetLevelBestTime(i);
+                    int attempts = textFileStorage.GetLevelAttempts(i);
+                    
+                    Debug.Log($"Level {i}: Completed={isCompleted}, Stars={stars}, BestTime={bestTime}s, Attempts={attempts}");
+                }
+            }
+            else
+            {
+                Debug.LogError("TextFileGameDataStorage NOT FOUND!");
+            }
+            
+            Debug.Log("=== End Test ===");
+        }
+        
+        
     }
 }

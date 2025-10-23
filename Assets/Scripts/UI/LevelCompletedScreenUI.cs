@@ -120,6 +120,7 @@ namespace UI
 
         private void OnClickBtnNext()
         {
+            RefreshLevelData();
             ScreenManager.Instance.ShowScreen("gameplay-screen");
             GameManager.Instance.ProceedToNextLevel();
         }
@@ -132,7 +133,21 @@ namespace UI
 
         private void OnClickBtnHome()
         {
+            RefreshLevelData();
             SceneManager.LoadSceneAsync("Main");
+        }
+        
+        /// <summary>
+        /// Refreshes level data when returning to level select screen
+        /// </summary>
+        private void RefreshLevelData()
+        {
+            // Find the LevelScreen and refresh its data
+            var levelScreen = FindObjectOfType<LevelScreen>();
+            if (levelScreen != null)
+            {
+                levelScreen.RefreshLevelData();
+            }
         }
 
         protected override void SetupScreen(VisualElement screen)
