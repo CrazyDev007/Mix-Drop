@@ -56,9 +56,14 @@ namespace UI
             
             if (GameManager.Instance != null)
             {
-                // CurrentLevel is already incremented in GameWin, so we need to subtract 1
-                currentLevel = Mathf.Max(1, GameManager.Instance.GetCurrentLevel() - 1);
+                Debug.Log($"[LevelCompletedScreenUI] GameManager.Instance.GetCurrentLevel() returns: {GameManager.Instance.GetCurrentLevel()}");
+                
+                // Get the current level directly from GameManager without subtracting 1
+                // The level is incremented in TextFileGameDataStorage, not in GameManager
+                currentLevel = GameManager.Instance.GetCurrentLevel();
                 starsEarned = GameManager.Instance.GetLevelStars(currentLevel);
+                
+                Debug.Log($"[LevelCompletedScreenUI] Using currentLevel as: {currentLevel}");
             }
             else
             {
@@ -82,6 +87,7 @@ namespace UI
             if (successMsgText != null)
             {
                 successMsgText.text = $"Level {currentLevel} Completed!";
+                Debug.Log($"[LevelCompletedScreenUI] Success message set to: {successMsgText.text}");
             }
             
             Debug.Log($"Displayed {starsEarned} stars for level {currentLevel}");

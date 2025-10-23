@@ -190,11 +190,11 @@ public class GameManager : MonoBehaviour
         // Save to text file storage if available
         if (textFileStorage != null)
         {
-            Debug.Log($"[GameManager] Before CompleteLevel - CurrentLevel: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
+            Debug.Log($"[GameManager] Before CompleteLevel - GameManager.Level: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
             
             textFileStorage.CompleteLevel(Level, starsEarned, timeUsed, movesUsed);
             
-            Debug.Log($"[GameManager] After CompleteLevel - CurrentLevel: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
+            Debug.Log($"[GameManager] After CompleteLevel - GameManager.Level: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
             
             // NOTE: We no longer increment the level here because TextFileGameDataStorage.CompleteLevel()
             // already handles incrementing the current level. This prevents double incrementation.
@@ -205,6 +205,7 @@ public class GameManager : MonoBehaviour
         
         // Don't restart immediately - wait for user action
         // This allows the level completed screen to be shown first
+        Debug.Log($"[GameManager] About to invoke OnLevelComplteted event. GameManager.Level is still: {Level}");
         EventManager.OnLevelComplteted?.Invoke();
     }
     
