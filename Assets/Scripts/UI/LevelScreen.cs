@@ -94,7 +94,7 @@ namespace UI
             levelRowTemplate = Resources.Load<VisualTreeAsset>("LevelButton");
             if (levelRowTemplate == null)
             {
-                Debug.LogError("LevelButton template not found in Resources!");
+                //Debug.LogError("LevelButton template not found in Resources!");
                 return;
             }
             
@@ -102,14 +102,14 @@ namespace UI
             totalPages = Mathf.CeilToInt((float)totalLevels / levelsPerPage);
             
             // Add diagnostic logging for initial setup
-            Debug.Log("[LevelScreen] SetupScreen - Starting setup");
-            Debug.Log($"[LevelScreen] Total Levels: {totalLevels}, Levels Per Page: {levelsPerPage}, Total Pages: {totalPages}");
+            //Debug.Log("[LevelScreen] SetupScreen - Starting setup");
+            //Debug.Log($"[LevelScreen] Total Levels: {totalLevels}, Levels Per Page: {levelsPerPage}, Total Pages: {totalPages}");
             
             // Initialize screen
             RefreshLevelData();
             
             // Log initial layout after a delay to ensure UI is fully initialized
-            StartCoroutine(LogInitialLayoutInfo());
+            //StartCoroutine(LogInitialLayoutInfo());
         }
         
         private IEnumerator LogInitialLayoutInfo()
@@ -276,15 +276,15 @@ namespace UI
                     if (!isLocked)
                     {
                         // Add diagnostic logging to verify closure issue
-                        Debug.Log($"[LevelScreen] Setting up click handler for Level {levelNumber}");
+                        //Debug.Log($"[LevelScreen] Setting up click handler for Level {levelNumber}");
                         
                         // Capture the levelNumber in a local variable to fix closure issue
                         int capturedLevelNumber = levelNumber;
-                        Debug.Log($"[LevelScreen] Captured level number: {capturedLevelNumber} for Level {levelNumber}");
+                        //Debug.Log($"[LevelScreen] Captured level number: {capturedLevelNumber} for Level {levelNumber}");
                         
                         buttonContainer.AddManipulator(new Clickable(() =>
                         {
-                            Debug.Log($"[LevelScreen] Button clicked - Original levelNumber: {levelNumber}, Captured levelNumber: {capturedLevelNumber}");
+                            //Debug.Log($"[LevelScreen] Button clicked - Original levelNumber: {levelNumber}, Captured levelNumber: {capturedLevelNumber}");
                             OnLevelSelected(capturedLevelNumber);
                         }));
                     }
@@ -310,25 +310,14 @@ namespace UI
                         if (textFileStorage != null)
                         {
                             starsEarned = textFileStorage.GetLevelStars(levelNumber);
-                            Debug.Log($"[LevelScreen] TextFileStorage - Level {levelNumber} completed with {starsEarned} stars");
+                            //Debug.Log($"[LevelScreen] TextFileStorage - Level {levelNumber} completed with {starsEarned} stars");
                         }
                         else
                         {
                             // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
                             starsEarned = PlayerPrefs.GetInt($"Level{levelNumber}Stars", 0);
-                            Debug.Log($"[LevelScreen] PlayerPrefs - Level {levelNumber} completed with {starsEarned} stars");
-                        }
-                        
-                        // Find the stars container
-                        var starsContainer = buttonContainer.Q<VisualElement>("stars-container");
-                        if (starsContainer != null)
-                        {
-                            Debug.Log($"[LevelScreen] Found stars container for level {levelNumber}");
-                        }
-                        else
-                        {
-                            Debug.LogError($"[LevelScreen] Stars container not found for level {levelNumber}");
-                        }
+                            //Debug.Log($"[LevelScreen] PlayerPrefs - Level {levelNumber} completed with {starsEarned} stars");
+                        }                      
                         
                         for (int i = 1; i <= 3; i++)
                         {
@@ -349,17 +338,17 @@ namespace UI
                                 if (i <= starsEarned)
                                 {
                                     star.AddToClassList("level-button__star--earned");
-                                    Debug.Log($"[LevelScreen] Added earned class to star {i} for level {levelNumber}");
+                                    //Debug.Log($"[LevelScreen] Added earned class to star {i} for level {levelNumber}");
                                 }
                                 else
                                 {
                                     star.AddToClassList("level-button__star--empty");
-                                    Debug.Log($"[LevelScreen] Added empty class to star {i} for level {levelNumber}");
+                                    //Debug.Log($"[LevelScreen] Added empty class to star {i} for level {levelNumber}");
                                 }
                             }
                             else
                             {
-                                Debug.LogError($"[LevelScreen] Star element {i} not found for level {levelNumber}");
+                                //Debug.LogError($"[LevelScreen] Star element {i} not found for level {levelNumber}");
                             }
                         }
                     }
@@ -369,7 +358,7 @@ namespace UI
             }
             
             // Add layout diagnostic logging
-            StartCoroutine(LogLayoutInfoAfterFrame());
+            //StartCoroutine(LogLayoutInfoAfterFrame());
         }
         
         private System.Collections.IEnumerator LogLayoutInfoAfterFrame()
@@ -441,18 +430,10 @@ namespace UI
 
         private void OnLevelSelected(int levelNumber)
         {
-            //PlayerPrefs.SetInt("Hardness", 0);
-            //PlayerPrefs.SetInt("ActiveLevel", levelNumber);
-            //PlayerPrefs.Save();
             Debug.Log($"[LevelScreen] Level {levelNumber} selected, loading gameplay scene");
-            // Also update the current level in TextFileGameDataStorage if available
-            TextFileGameDataStorage textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
             
-            // If not found in GameManager, try to find it in the scene
-            if (textFileStorage == null)
-            {
-                textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
-            }
+            // Update the current level in TextFileGameDataStorage
+            TextFileGameDataStorage textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
             
             if (textFileStorage != null)
             {

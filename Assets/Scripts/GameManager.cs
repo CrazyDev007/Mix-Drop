@@ -240,29 +240,17 @@ public class GameManager : MonoBehaviour
 
     internal void RestartGame()
     {
-        // First check if we have a level selected from PlayerPrefs (set by LevelScreen)
-        int selectedLevel = PlayerPrefs.GetInt("ActiveLevel", 0);
-        
-        if (selectedLevel > 0)
+        // Use TextFileGameDataStorage for level selection
+        if (textFileStorage != null)
         {
-            // Use the level selected by the user
-            Level = selectedLevel;
-            Debug.Log($"[GameManager] Using selected level from PlayerPrefs: {Level}");
-            
-            // Clear the selected level from PlayerPrefs after using it
-            PlayerPrefs.DeleteKey("ActiveLevel");
-        }
-        else if (textFileStorage != null)
-        {
-            // Fall back to TextFileGameDataStorage if no level was selected
             Level = textFileStorage.CurrentLevel;
             Debug.Log($"[GameManager] Using current level from TextFileGameDataStorage: {Level}");
         }
         else
         {
-            // Default to level 1 if no other source is available
+            // Default to level 1 if TextFileGameDataStorage is not available
             Level = 1;
-            Debug.Log("[GameManager] Using default level: 1");
+            Debug.Log("[GameManager] TextFileGameDataStorage not available, using default level: 1");
         }
         
         var model = GetLevelData();      // Load level & set currentLevelData
@@ -348,15 +336,12 @@ public class GameManager : MonoBehaviour
     public void ProceedToNextLevel()
     {
         // Clear any manually selected level to ensure we use the progression
-        PlayerPrefs.DeleteKey("ActiveLevel");
         
         // Increment the current level in storage
-        if (textFileStorage != null)
-        {
+       
             int nextLevel = textFileStorage.CurrentLevel + 1;
             textFileStorage.SetCurrentLevel(nextLevel);
-            Debug.Log($"[GameManager] Proceeding to next level: {nextLevel}");
-        }
+            Debug.Log($"[GameManager] Proceeding to next level: {nextLevel}");      
         
         RestartGame();
     }
