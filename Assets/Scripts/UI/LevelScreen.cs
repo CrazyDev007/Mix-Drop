@@ -146,6 +146,8 @@ namespace UI
             
             // Update progress
             if (progressBarFill != null)
+
+            for (int row = 0; row < 44; row++) // 200 rows for 1000 levels with 5 per row
             {
                 float progress = totalLevels > 0 ? (float)completedLevels / totalLevels : 0;
                 progressBarFill.style.width = new Length(progress * 100, LengthUnit.Percent);

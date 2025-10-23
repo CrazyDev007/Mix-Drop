@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         Level = PlayerPrefs.GetInt("ActiveLevel", 1);
         //
-        var TubeLiquidModel = JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("color_sort_1000_levels").text);
+        var TubeLiquidModel = JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("color_sort_220_levels").text);
         //Debug.Log("==> Level count : "+ TubeLiquidModel.TotalLevels);
         currentLevelData = TubeLiquidModel.levels[Level - 1]; // Load current level
         return TubeLiquidModel;
