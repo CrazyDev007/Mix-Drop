@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
             Level = 1;
         }
         UpdateLevelText();
+        Debug.Log($"[GameManager] Initialized game at level: {Level}");
     }
 
     private TubeLiquidData currentLevelData;
@@ -184,18 +185,19 @@ public class GameManager : MonoBehaviour
         // Calculate stars earned
         int starsEarned = CalculateStars();
         
+        Debug.Log($"[GameManager] GameWin() called for Level {Level}");
+        
         // Save to text file storage if available
         if (textFileStorage != null)
         {
+            Debug.Log($"[GameManager] Before CompleteLevel - CurrentLevel: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
+            
             textFileStorage.CompleteLevel(Level, starsEarned, timeUsed, movesUsed);
             
-            // Only increment the current level if this was part of the natural progression
-            // (i.e., if the completed level matches the current level in storage)
-            if (Level == textFileStorage.CurrentLevel)
-            {
-                textFileStorage.SetCurrentLevel(Level + 1);
-                Debug.Log($"[GameManager] Incrementing current level from {Level} to {Level + 1}");
-            }
+            Debug.Log($"[GameManager] After CompleteLevel - CurrentLevel: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
+            
+            // NOTE: We no longer increment the level here because TextFileGameDataStorage.CompleteLevel()
+            // already handles incrementing the current level. This prevents double incrementation.
             
             // Force immediate save to ensure data is written
             textFileStorage.ForceSaveGameData();
@@ -240,18 +242,8 @@ public class GameManager : MonoBehaviour
 
     internal void RestartGame()
     {
-        // Use TextFileGameDataStorage for level selection
-        if (textFileStorage != null)
-        {
             Level = textFileStorage.CurrentLevel;
-            Debug.Log($"[GameManager] Using current level from TextFileGameDataStorage: {Level}");
-        }
-        else
-        {
-            // Default to level 1 if TextFileGameDataStorage is not available
-            Level = 1;
-            Debug.Log("[GameManager] TextFileGameDataStorage not available, using default level: 1");
-        }
+            Debug.Log($"[GameManager] RestartGame() - Using current level from TextFileGameDataStorage: {Level}");
         
         var model = GetLevelData();      // Load level & set currentLevelData
         SetupLevelRules();           // Setup timer & move limit
@@ -259,9 +251,14 @@ public class GameManager : MonoBehaviour
 
         OnRestartGame?.Invoke(model);
         UpdateLevelText();
+        Debug.Log($"[GameManager] Restarted game at level: {Level}");
     }
 
-    private void UpdateLevelText() => gamePlayScreenUIref.UpdateLevel(Level);
+    private void UpdateLevelText()
+    {
+        Debug.Log($"[GameManager] Current Level: {Level}");
+        gamePlayScreenUIref.UpdateLevel(Level);
+    }
     
     #region Public API for Level Data
     
@@ -337,11 +334,11 @@ public class GameManager : MonoBehaviour
     {
         // Clear any manually selected level to ensure we use the progression
         
-        // Increment the current level in storage
-       
-            int nextLevel = textFileStorage.CurrentLevel + 1;
-            textFileStorage.SetCurrentLevel(nextLevel);
-            Debug.Log($"[GameManager] Proceeding to next level: {nextLevel}");      
+        Debug.Log($"[GameManager] ProceedToNextLevel() called. Current Level: {Level}, TextFileStorage.CurrentLevel: {textFileStorage.CurrentLevel}");
+        
+        // NOTE: We no longer increment the level here because TextFileGameDataStorage.CompleteLevel()
+        // already handled incrementing the current level when the level was completed.
+        // We just need to restart the game with the already incremented level.
         
         RestartGame();
     }

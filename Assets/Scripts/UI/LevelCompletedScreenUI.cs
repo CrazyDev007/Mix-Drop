@@ -120,6 +120,7 @@ namespace UI
 
         private void OnClickBtnNext()
         {
+            Debug.Log("[LevelCompletedScreenUI] OnClickBtnNext() called");
             RefreshLevelData();
             ScreenManager.Instance.ShowScreen("gameplay-screen");
             GameManager.Instance.ProceedToNextLevel();

@@ -192,6 +192,8 @@ public class TextFileGameDataStorage : MonoBehaviour
         if (level < 1)
             return;
             
+        Debug.Log($"[TextFileGameDataStorage] CompleteLevel() called for level {level}. Current currentLevel before: {currentLevel}");
+            
         // Add to completed levels
         completedLevels.Add(level);
         
@@ -218,11 +220,16 @@ public class TextFileGameDataStorage : MonoBehaviour
         if (level >= currentLevel)
         {
             currentLevel = level + 1;
+            Debug.Log($"[TextFileGameDataStorage] Auto-incrementing currentLevel from {level} to {currentLevel}");
+        }
+        else
+        {
+            Debug.Log($"[TextFileGameDataStorage] NOT auto-incrementing currentLevel. level ({level}) < currentLevel ({currentLevel})");
         }
         
         MarkAsDirty();
         
-        Debug.Log($"TextFileGameDataStorage: Level {level} completed with {stars} stars in {timeSeconds} seconds.");
+        Debug.Log($"TextFileGameDataStorage: Level {level} completed with {stars} stars in {timeSeconds} seconds. Final currentLevel: {currentLevel}");
     }
     
     /// <summary>
