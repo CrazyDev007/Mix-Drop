@@ -34,7 +34,7 @@ namespace UI
         // Data
         private int currentPage = 0;
         private int levelsPerPage = 15; // 3x5 grid
-        private int totalLevels = 1000;
+        private int totalLevels = 220;
         private int totalPages;
 
         protected override void SetupScreen(VisualElement screen)
