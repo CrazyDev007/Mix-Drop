@@ -1,25 +1,32 @@
 /* Design System Variables */
 
-/* Colors */
---color-background-primary: rgb(255, 255, 255);
---color-background-secondary: rgb(245, 245, 245);
---color-text-primary: rgb(66, 66, 66);
---color-text-secondary: rgb(158, 158, 158);
+/* Colors - Dark Neon Theme */
+--color-background-primary: rgb(15, 15, 30);
+--color-background-secondary: rgb(25, 25, 45);
+--color-text-primary: rgb(240, 240, 255);
+--color-text-secondary: rgb(180, 180, 220);
 --color-text-on-color: rgb(255, 255, 255);
---color-button-primary: rgb(76, 175, 80);
---color-button-secondary: rgb(158, 158, 158);
---color-button-secondary-hover: rgb(189, 189, 189);
---color-accent: rgb(255, 152, 0);
---color-error: rgb(244, 67, 54);
---color-success: rgb(76, 175, 80);
---color-warning: rgb(255, 152, 0);
---color-level-unlocked: rgb(76, 175, 80);
---color-level-locked: rgb(149, 165, 166);
---color-level-border: rgb(255, 255, 255);
---color-star-earned: rgb(255, 215, 0);
---color-star-empty: rgb(189, 195, 199);
---color-border: rgb(224, 224, 224);
---color-focus: rgb(33, 150, 243);
+--color-button-primary: rgb(0, 200, 255);
+--color-button-secondary: rgb(80, 80, 120);
+--color-button-secondary-hover: rgb(100, 100, 150);
+--color-accent: rgb(0, 255, 200);
+--color-error: rgb(255, 80, 120);
+--color-success: rgb(80, 255, 120);
+--color-warning: rgb(255, 200, 0);
+--color-level-unlocked: rgb(0, 200, 255);
+--color-level-locked: rgb(60, 60, 80);
+--color-level-border: rgb(0, 200, 255);
+--color-star-earned: rgb(255, 220, 0);
+--color-star-empty: rgb(60, 60, 80);
+--color-border: rgb(60, 60, 80);
+--color-focus: rgb(0, 255, 200);
+
+/* Neon Glow Effects */
+--neon-glow-blue: 0 0 10px rgb(0, 200, 255), 0 0 20px rgb(0, 150, 255);
+--neon-glow-cyan: 0 0 10px rgb(0, 255, 200), 0 0 20px rgb(0, 200, 255);
+--neon-glow-pink: 0 0 10px rgb(255, 80, 120), 0 0 20px rgb(255, 50, 150);
+--neon-glow-green: 0 0 10px rgb(80, 255, 120), 0 0 20px rgb(50, 255, 150);
+--neon-glow-yellow: 0 0 10px rgb(255, 220, 0), 0 0 20px rgb(255, 200, 0);
 
 /* Spacing */
 --spacing-xs: 6px;
