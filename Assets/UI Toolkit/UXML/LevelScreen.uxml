@@ -3,29 +3,31 @@
     <Style src="project://database/Assets/UI%20Toolkit/USS/LevelScreen.uss?fileID=7433441132597879392&amp;guid=e4cb526a8465e894c91c39b18138a44a&amp;type=3#LevelScreen" />
     <ui:VisualElement name="root-container" class="root-container">
         <ui:VisualElement name="header-banner-container" class="header-banner-container">
-            <ui:VisualElement name="header-left" class="header-left">
+            <ui:VisualElement name="header-top" class="header-top">
                 <ui:Label name="header-title" text="Level Select" class="header-title" />
                 <ui:Label name="header-subtitle" text="Choose your next challenge" class="header-subtitle" />
             </ui:VisualElement>
-            <ui:VisualElement name="header-center" class="header-center">
-                <ui:Label name="progress-label" text="PROGRESS" class="progress-label" />
-                <ui:VisualElement name="progress-bar-container" class="progress-bar-container">
-                    <ui:VisualElement name="progress-bar-fill" class="progress-bar-fill" />
-                </ui:VisualElement>
-                <ui:Label name="progress-text" text="0/0" class="progress-text" />
-            </ui:VisualElement>
-            <ui:VisualElement name="header-right" class="header-right">
-                <ui:VisualElement name="stats-container" class="stats-container">
-                    <ui:VisualElement name="stat-item" class="stat-item">
-                        <ui:VisualElement name="stat-icon-stars" class="stat-icon" />
-                        <ui:Label name="stat-value-stars" text="0" class="stat-value" />
-                        <ui:Label name="stat-label-stars" text="STARS" class="stat-label" />
+            <ui:VisualElement name="header-content" class="header-content">
+                <ui:VisualElement name="header-center" class="header-center">
+                    <ui:Label name="progress-label" text="PROGRESS" class="progress-label" />
+                    <ui:VisualElement name="progress-bar-container" class="progress-bar-container">
+                        <ui:VisualElement name="progress-bar-fill" class="progress-bar-fill" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="stat-divider" class="stat-divider" />
-                    <ui:VisualElement name="stat-item" class="stat-item">
-                        <ui:VisualElement name="stat-icon-levels" class="stat-icon" />
-                        <ui:Label name="stat-value-levels" text="0" class="stat-value" />
-                        <ui:Label name="stat-label-levels" text="LEVELS" class="stat-label" />
+                    <ui:Label name="progress-text" text="0/0" class="progress-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="header-right" class="header-right">
+                    <ui:VisualElement name="stats-container" class="stats-container">
+                        <ui:VisualElement name="stat-item" class="stat-item">
+                            <ui:VisualElement name="stat-icon-stars" class="stat-icon" />
+                            <ui:Label name="stat-value-stars" text="0" class="stat-value" />
+                            <ui:Label name="stat-label-stars" text="STARS" class="stat-label" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="stat-divider" class="stat-divider" />
+                        <ui:VisualElement name="stat-item" class="stat-item">
+                            <ui:VisualElement name="stat-icon-levels" class="stat-icon" />
+                            <ui:Label name="stat-value-levels" text="0" class="stat-value" />
+                            <ui:Label name="stat-label-levels" text="LEVELS" class="stat-label" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

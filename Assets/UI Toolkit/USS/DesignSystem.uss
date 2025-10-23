@@ -22,21 +22,21 @@
 --color-focus: rgb(33, 150, 243);
 
 /* Spacing */
---spacing-xs: 4px;
---spacing-sm: 8px;
---spacing-md: 16px;
---spacing-lg: 24px;
---spacing-xl: 32px;
---spacing-xxl: 48px;
+--spacing-xs: 6px;
+--spacing-sm: 12px;
+--spacing-md: 20px;
+--spacing-lg: 28px;
+--spacing-xl: 36px;
+--spacing-xxl: 56px;
 
 /* Font Sizes */
---font-size-caption: 12px;
---font-size-body-small: 14px;
---font-size-body-medium: 16px;
---font-size-body-large: 18px;
---font-size-heading-small: 20px;
---font-size-heading-medium: 24px;
---font-size-heading-large: 32px;
+--font-size-caption: 14px;
+--font-size-body-small: 16px;
+--font-size-body-medium: 18px;
+--font-size-body-large: 20px;
+--font-size-heading-small: 24px;
+--font-size-heading-medium: 28px;
+--font-size-heading-large: 36px;
 
 /* Font Weights */
 --font-weight-regular: 400;
@@ -54,7 +54,7 @@
 --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
 
 /* Level Button Size */
---level-button-size: 80px;
+--level-button-size: 100px;
 
 /* Transitions */
 --transition-fast: 0.15s ease;
@@ -70,3 +70,4 @@
 --breakpoint-mobile: 480px;
 --breakpoint-tablet: 768px;
 --breakpoint-desktop: 1024px;
+--breakpoint-mobile-large: 1080px;

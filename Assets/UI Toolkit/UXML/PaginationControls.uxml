@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI Toolkit/USS/DesignSystem.uss" />
-    <Style src="project://database/Assets/UI Toolkit/USS/LevelSelectScreen.uss" />
+    <Style src="project://database/Assets/UI Toolkit/USS/LevelScreen.uss" />
     
     <ui:VisualElement name="pagination-container" class="pagination-container">
         <!-- Previous Button -->
