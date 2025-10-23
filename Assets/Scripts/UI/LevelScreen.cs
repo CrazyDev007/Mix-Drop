@@ -275,10 +275,17 @@ namespace UI
                     // Only set up click handler for unlocked levels
                     if (!isLocked)
                     {
+                        // Add diagnostic logging to verify closure issue
+                        Debug.Log($"[LevelScreen] Setting up click handler for Level {levelNumber}");
+                        
+                        // Capture the levelNumber in a local variable to fix closure issue
+                        int capturedLevelNumber = levelNumber;
+                        Debug.Log($"[LevelScreen] Captured level number: {capturedLevelNumber} for Level {levelNumber}");
+                        
                         buttonContainer.AddManipulator(new Clickable(() =>
                         {
-                            Debug.Log($"[LevelScreen] Level {levelNumber} button clicked");
-                            //OnLevelSelected(levelNumber);
+                            Debug.Log($"[LevelScreen] Button clicked - Original levelNumber: {levelNumber}, Captured levelNumber: {capturedLevelNumber}");
+                            OnLevelSelected(capturedLevelNumber);
                         }));
                     }
                     
