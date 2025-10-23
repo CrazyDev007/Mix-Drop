@@ -188,7 +188,15 @@ public class GameManager : MonoBehaviour
         if (textFileStorage != null)
         {
             textFileStorage.CompleteLevel(Level, starsEarned, timeUsed, movesUsed);
-            textFileStorage.SetCurrentLevel(Level + 1);
+            
+            // Only increment the current level if this was part of the natural progression
+            // (i.e., if the completed level matches the current level in storage)
+            if (Level == textFileStorage.CurrentLevel)
+            {
+                textFileStorage.SetCurrentLevel(Level + 1);
+                Debug.Log($"[GameManager] Incrementing current level from {Level} to {Level + 1}");
+            }
+            
             // Force immediate save to ensure data is written
             textFileStorage.ForceSaveGameData();
         }
@@ -232,14 +240,29 @@ public class GameManager : MonoBehaviour
 
     internal void RestartGame()
     {
-        // Ensure Level property is up to date before loading level data
-        if (textFileStorage != null)
+        // First check if we have a level selected from PlayerPrefs (set by LevelScreen)
+        int selectedLevel = PlayerPrefs.GetInt("ActiveLevel", 0);
+        
+        if (selectedLevel > 0)
         {
+            // Use the level selected by the user
+            Level = selectedLevel;
+            Debug.Log($"[GameManager] Using selected level from PlayerPrefs: {Level}");
+            
+            // Clear the selected level from PlayerPrefs after using it
+            PlayerPrefs.DeleteKey("ActiveLevel");
+        }
+        else if (textFileStorage != null)
+        {
+            // Fall back to TextFileGameDataStorage if no level was selected
             Level = textFileStorage.CurrentLevel;
+            Debug.Log($"[GameManager] Using current level from TextFileGameDataStorage: {Level}");
         }
         else
         {
-            Level = 1; // Default to level 1 if text file storage is not available
+            // Default to level 1 if no other source is available
+            Level = 1;
+            Debug.Log("[GameManager] Using default level: 1");
         }
         
         var model = GetLevelData();      // Load level & set currentLevelData
@@ -324,6 +347,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ProceedToNextLevel()
     {
+        // Clear any manually selected level to ensure we use the progression
+        PlayerPrefs.DeleteKey("ActiveLevel");
+        
+        // Increment the current level in storage
+        if (textFileStorage != null)
+        {
+            int nextLevel = textFileStorage.CurrentLevel + 1;
+            textFileStorage.SetCurrentLevel(nextLevel);
+            Debug.Log($"[GameManager] Proceeding to next level: {nextLevel}");
+        }
+        
         RestartGame();
     }
     
