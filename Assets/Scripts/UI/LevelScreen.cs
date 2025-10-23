@@ -189,9 +189,6 @@ namespace UI
                 var buttonContainer = levelButtonElement.Q<VisualElement>("level-button-container");
                 if (buttonContainer != null)
                 {
-                    // Set up click handler for the container
-                    buttonContainer.AddManipulator(new Clickable(() => OnLevelSelected(levelNumber)));
-                    
                     // Update level number
                     var levelNumberLabel = buttonContainer.Q<Label>("level-number");
                     if (levelNumberLabel != null)
@@ -212,6 +209,12 @@ namespace UI
                     if (lockIcon != null)
                     {
                         lockIcon.style.display = isLocked ? DisplayStyle.Flex : DisplayStyle.None;
+                    }
+                    
+                    // Only set up click handler for unlocked levels
+                    if (!isLocked)
+                    {
+                        buttonContainer.AddManipulator(new Clickable(() => OnLevelSelected(levelNumber)));
                     }
                     
                     // Set new state for the first unlocked level
