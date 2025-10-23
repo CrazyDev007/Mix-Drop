@@ -207,25 +207,8 @@ namespace UI
             
             // Get data from TextFileGameDataStorage instead of PlayerPrefs
             int completedLevels = 0;
-            TextFileGameDataStorage textFileStorage = null;
+            TextFileGameDataStorage textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
             
-            // First try to get the TextFileGameDataStorage from GameManager
-            if (GameManager.Instance != null)
-            {
-                // Use reflection to get the private field since it's not exposed publicly
-                var field = typeof(GameManager).GetField("textFileStorage",
-                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                if (field != null)
-                {
-                    textFileStorage = field.GetValue(GameManager.Instance) as TextFileGameDataStorage;
-                }
-            }
-            
-            // If not found in GameManager, try to find it in the scene
-            if (textFileStorage == null)
-            {
-                textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
-            }
             
             if (textFileStorage != null)
             {
@@ -243,22 +226,16 @@ namespace UI
                 {
                     bool isCompleted = textFileStorage.IsLevelCompleted(i);
                     int stars = textFileStorage.GetLevelStars(i);
-                    Debug.Log($"[LevelScreen] Sample Data - Level {i}: Completed={isCompleted}, Stars={stars}");
+                    //Debug.Log($"[LevelScreen] Sample Data - Level {i}: Completed={isCompleted}, Stars={stars}");
                 }
-            }
-            else
-            {
-                // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
-                completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0);
-                Debug.LogWarning("[LevelScreen] TextFileGameDataStorage not found, using PlayerPrefs fallback");
             }
             
             int startLevel = currentPage * levelsPerPage + 1;
             int endLevel = Mathf.Min(startLevel + levelsPerPage - 1, totalLevels);
             
             // Add diagnostic logging
-            Debug.Log($"[LevelScreen] SetupLevelGrid - Page: {currentPage}, StartLevel: {startLevel}, EndLevel: {endLevel}");
-            Debug.Log($"[LevelScreen] Completed Levels: {completedLevels}");
+            //Debug.Log($"[LevelScreen] SetupLevelGrid - Page: {currentPage}, StartLevel: {startLevel}, EndLevel: {endLevel}");
+            //Debug.Log($"[LevelScreen] Completed Levels: {completedLevels}");
             
             // Create level buttons for each level in this page
             for (int levelNumber = startLevel; levelNumber <= endLevel; levelNumber++)
@@ -285,16 +262,8 @@ namespace UI
                     
                     // Check if level is completed
                     bool isCompleted = false;
-                    if (textFileStorage != null)
-                    {
-                        isCompleted = textFileStorage.IsLevelCompleted(levelNumber);
-                    }
-                    else
-                    {
-                        // Fallback to PlayerPrefs if TextFileGameDataStorage is not available
-                        isCompleted = levelNumber <= completedLevels;
-                    }
-                    
+                    isCompleted = textFileStorage.IsLevelCompleted(levelNumber);
+
                     // Set locked state
                     bool isLocked = levelNumber > completedLevels + 1;
                     var lockIcon = buttonContainer.Q<VisualElement>("lock-icon");
@@ -302,11 +271,15 @@ namespace UI
                     {
                         lockIcon.style.display = isLocked ? DisplayStyle.Flex : DisplayStyle.None;
                     }
-                    
+
                     // Only set up click handler for unlocked levels
                     if (!isLocked)
                     {
-                        buttonContainer.AddManipulator(new Clickable(() => OnLevelSelected(levelNumber)));
+                        buttonContainer.AddManipulator(new Clickable(() =>
+                        {
+                            Debug.Log($"[LevelScreen] Level {levelNumber} button clicked");
+                            //OnLevelSelected(levelNumber);
+                        }));
                     }
                     
                     // Set new state for the first unlocked level
@@ -461,23 +434,12 @@ namespace UI
 
         private void OnLevelSelected(int levelNumber)
         {
-            PlayerPrefs.SetInt("Hardness", 0);
-            PlayerPrefs.SetInt("ActiveLevel", levelNumber);
-            
+            //PlayerPrefs.SetInt("Hardness", 0);
+            //PlayerPrefs.SetInt("ActiveLevel", levelNumber);
+            //PlayerPrefs.Save();
+            Debug.Log($"[LevelScreen] Level {levelNumber} selected, loading gameplay scene");
             // Also update the current level in TextFileGameDataStorage if available
-            TextFileGameDataStorage textFileStorage = null;
-            
-            // First try to get the TextFileGameDataStorage from GameManager
-            if (GameManager.Instance != null)
-            {
-                // Use reflection to get the private field since it's not exposed publicly
-                var field = typeof(GameManager).GetField("textFileStorage",
-                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                if (field != null)
-                {
-                    textFileStorage = field.GetValue(GameManager.Instance) as TextFileGameDataStorage;
-                }
-            }
+            TextFileGameDataStorage textFileStorage = FindObjectOfType<TextFileGameDataStorage>();
             
             // If not found in GameManager, try to find it in the scene
             if (textFileStorage == null)
