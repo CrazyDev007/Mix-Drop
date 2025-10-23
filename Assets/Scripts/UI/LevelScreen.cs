@@ -234,7 +234,7 @@ namespace UI
                     // Update stars (for completed levels)
                     if (levelNumber <= completedLevels)
                     {
-                        int starsEarned = PlayerPrefs.GetInt($"Level{levelNumber}Stars", Random.Range(1, 4));
+                        int starsEarned = PlayerPrefs.GetInt($"Level{levelNumber}Stars", 0);
                         for (int i = 1; i <= 3; i++)
                         {
                             var star = buttonContainer.Q<VisualElement>($"star-{i}");

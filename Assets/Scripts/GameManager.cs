@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     private TubeLiquidData currentLevelData;
     private TubeLiquidModel GetLevelData()
     {
-        Level = PlayerPrefs.GetInt("ActiveLevel", 1);
+        // Level property is already set in RestartGame(), so we don't need to set it again here
         //
         var TubeLiquidModel = JsonUtility.FromJson<TubeLiquidModel>(Resources.Load<TextAsset>("color_sort_220_levels").text);
         //Debug.Log("==> Level count : "+ TubeLiquidModel.TotalLevels);
@@ -78,12 +78,16 @@ public class GameManager : MonoBehaviour
     }
     public int RemainingMoves = 0;
     public float LevelTime = 0;
+    private int movesUsed = 0;
+    private float timeUsed = 0;
     private Coroutine timerCoroutine;
 
     private void SetupLevelRules()
     {
         RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
         LevelTime = currentLevelData.timeLimit;
+        movesUsed = 0; // Reset moves counter
+        timeUsed = 0; // Reset time counter
         var _movesLeft = RemainingMoves >= 50000 ? "Unlimited Moves" : $"{RemainingMoves} Moves left";
         gamePlayScreenUIref.UpdateMoves(_movesLeft);
         if (LevelTime > 0)
@@ -108,8 +112,26 @@ public class GameManager : MonoBehaviour
             gamePlayScreenUIref.UpdateTimer(_timeLeft);
             yield return new WaitForSeconds(1f);
             timeLeft -= 1f;
+            timeUsed += 1f; // Track time used
         }
         OnLevelFailed();
+    }
+    
+    // Call this method whenever a move is made
+    public void OnMoveMade()
+    {
+        movesUsed++;
+        // Update UI to show remaining moves
+        if (RemainingMoves < 50000)
+        {
+            int movesLeft = RemainingMoves - movesUsed;
+            if (movesLeft < 0)
+            {
+                OnLevelFailed();
+                return;
+            }
+            gamePlayScreenUIref.UpdateMoves($"{movesLeft} Moves left");
+        }
     }
     public void OnLevelFailed()
     {
@@ -128,11 +150,76 @@ public class GameManager : MonoBehaviour
         if (completedLevel <= Level)
             PlayerPrefs.SetInt("CompletedLevels", Level);
         PlayerPrefs.SetInt("ActiveLevel", Level + 1);
+        
+        // Calculate and save stars
+        int starsEarned = CalculateStars();
+        SaveStarsForLevel(Level, starsEarned);
+        
         RestartGame();
+    }
+    
+    private int CalculateStars()
+    {
+        int stars = 1; // Minimum 1 star for completing the level
+        
+        // Check if level has move limit
+        if (currentLevelData.maxMoves > 0 && currentLevelData.maxMoves < 50000)
+        {
+            // Calculate star rating based on moves used
+            float moveRatio = (float)movesUsed / currentLevelData.maxMoves;
+            if (moveRatio <= 0.5f) // Used 50% or less of allowed moves
+                stars = 3;
+            else if (moveRatio <= 0.75f) // Used 75% or less of allowed moves
+                stars = 2;
+        }
+        else if (currentLevelData.timeLimit > 0)
+        {
+            // Calculate star rating based on time used
+            float timeRatio = timeUsed / currentLevelData.timeLimit;
+            if (timeRatio <= 0.5f) // Used 50% or less of allowed time
+                stars = 3;
+            else if (timeRatio <= 0.75f) // Used 75% or less of allowed time
+                stars = 2;
+        }
+        else
+        {
+            // If no move or time limit, give 3 stars by default
+            stars = 3;
+        }
+        
+        return stars;
+    }
+    
+    private void SaveStarsForLevel(int level, int stars)
+    {
+        // Get existing stars for this level
+        int existingStars = PlayerPrefs.GetInt($"Level{level}Stars", 0);
+        
+        // Only update if new stars are better
+        if (stars > existingStars)
+        {
+            PlayerPrefs.SetInt($"Level{level}Stars", stars);
+            
+            // Update total stars
+            int totalStars = PlayerPrefs.GetInt("TotalStars", 0);
+            totalStars += (stars - existingStars); // Add the difference
+            PlayerPrefs.SetInt("TotalStars", totalStars);
+            
+            PlayerPrefs.Save(); // Ensure data is saved immediately
+            
+            Debug.Log($"Level {level} completed with {stars} stars! Total stars: {totalStars}");
+        }
+        else
+        {
+            Debug.Log($"Level {level} completed with {stars} stars (no improvement from {existingStars})");
+        }
     }
 
     internal void RestartGame()
     {
+        // Ensure Level property is up to date before loading level data
+        Level = PlayerPrefs.GetInt("ActiveLevel", 1);
+        
         var model = GetLevelData();      // Load level & set currentLevelData
         SetupLevelRules();           // Setup timer & move limit
         SetupTwists();

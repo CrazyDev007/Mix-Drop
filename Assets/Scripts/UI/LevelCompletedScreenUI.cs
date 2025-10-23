@@ -13,11 +13,13 @@ namespace UI
         private string nextButtonName = "NextButton";
         private string retryButtonName = "RetryButton";
         private string homeButtonName = "HomeButton";
+        private string starsContainerName = "stars-container";
         
         private Button nextButton;
         private Button retryButton;
         private Button homeButton;
         private Label successMsgText;
+        private VisualElement starsContainer;
 
         private void OnEnable()
         {
@@ -36,6 +38,38 @@ namespace UI
             Debug.Log("Level completed screen shown");
             //this.Show();
             ScreenManager.Instance.ShowScreen("level-completed-screen");
+            
+            // Display stars after screen is shown
+            DisplayStars();
+        }
+        
+        private void DisplayStars()
+        {
+            if (starsContainer == null) return;
+            
+            int currentLevel = PlayerPrefs.GetInt("ActiveLevel", 1) - 1; // ActiveLevel was already incremented in GameWin
+            int starsEarned = PlayerPrefs.GetInt($"Level{currentLevel}Stars", 0);
+            
+            // Clear existing stars
+            starsContainer.Clear();
+            
+            // Create star elements
+            for (int i = 1; i <= 3; i++)
+            {
+                var star = new Label();
+                star.text = i <= starsEarned ? "★" : "☆";
+                star.name = $"star-{i}";
+                star.AddToClassList(i <= starsEarned ? "filled-star" : "empty-star");
+                starsContainer.Add(star);
+            }
+            
+            // Update success message
+            if (successMsgText != null)
+            {
+                successMsgText.text = $"Level {currentLevel} Completed!";
+            }
+            
+            Debug.Log($"Displayed {starsEarned} stars for level {currentLevel}");
         }
 
         private void InitializeUIElements(VisualElement root)
@@ -44,11 +78,13 @@ namespace UI
             nextButton = root.Q<Button>(nextButtonName);
             retryButton = root.Q<Button>(retryButtonName);
             homeButton = root.Q<Button>(homeButtonName);
+            starsContainer = root.Q<VisualElement>(starsContainerName);
             
             if (successMsgText == null) Debug.LogWarning($"Success message lable '{successMsgText}' not found");
             if (nextButton == null) Debug.LogWarning($"Next button '{nextButton}' not found");
             if (retryButton == null) Debug.LogWarning($"Retry button '{retryButton}' not found");
             if (homeButton == null) Debug.LogWarning($"Home button '{homeButton}' not found");
+            if (starsContainer == null) Debug.LogWarning($"Stars container '{starsContainerName}' not found");
         }
         
         private void SetupEventHandlers()

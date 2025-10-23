@@ -4,6 +4,7 @@
         <engine:VisualElement name="success-container" class="success-container" style="border-left-color: rgba(47, 255, 0, 0.5); border-right-color: rgba(47, 255, 0, 0.5); border-top-color: rgba(47, 255, 0, 0.5); border-bottom-color: rgba(47, 255, 0, 0.5);">
             <engine:Label text="Level Completed" emoji-fallback-support="false" class="title-label" style="color: rgb(94, 255, 68);" />
             <engine:Label name="SuccessMessageLabel" text="Success Message" class="success-message" />
+            <engine:VisualElement name="stars-container" class="stars-container" />
             <engine:VisualElement name="button-container" class="button-container" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; max-width: 500px;">
                 <engine:Button name="NextButton" text="Next" class="next-button" style="background-color: rgb(74, 158, 255); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-bottom-left-radius: 6px;" />
                 <engine:Button name="RetryButton" text="Retry" enabled="true" class="retry-button" style="display: none;" />

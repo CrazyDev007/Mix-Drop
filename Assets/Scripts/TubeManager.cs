@@ -180,6 +180,10 @@ public class TubeManager : MonoBehaviour
             selectedTube = null;
             var direction = tempSelectedTube.transform.position.x > tubeController.transform.position.x ? -1 : 1;
             await tubeController.PourLiquid(tempSelectedTube, direction);
+            
+            // Notify GameManager that a move was made
+            GameManager.Instance.OnMoveMade();
+            
             CheckWinCondition(tubeController);
         }
         else

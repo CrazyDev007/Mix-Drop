@@ -39,6 +39,35 @@
     min-height: 30px;
 }
 
+.stars-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    height: 60px;
+    width: 200px;
+}
+
+.filled-star {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    font-size: 40px;
+    color: #FFD700;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+.empty-star {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    font-size: 40px;
+    color: #666666;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
 .button-container {
     flex-direction: row;
     justify-content: space-around;
