@@ -5,7 +5,7 @@
     padding: 20px;
     border-radius: 8px;
     -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
-    background-image: url("project://database/Assets/Sprites/Backgrounds/background4.png?fileID=2800000&guid=4ad9db9e113c63d4ea9065f6a380c28c&type=3#background4");
+    background-image: url("project://database/Assets/Sprites/Backgrounds/temp_yfpmd_00001_.png?fileID=2800000&guid=ab6ecaa90ff43a74c9437cf35966af2a&type=3#temp_yfpmd_00001_");
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
@@ -197,7 +197,6 @@
     align-items: center;
     justify-content: space-between;
     transition: all 0.2s ease;
-    cursor: link;
 }
 
 .level-button-container:hover {
@@ -212,7 +211,6 @@
 
 .level-button-container:disabled {
     background-color: var(--button-disabled-color);
-    cursor: arrow;
 }
 
 .level-button-container.locked {
