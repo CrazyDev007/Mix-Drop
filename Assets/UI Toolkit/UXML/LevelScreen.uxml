@@ -5,7 +5,7 @@
     <ui:VisualElement name="root-container" class="root-container">
         <ui:VisualElement name="header-banner-container" class="header-banner-container">
             <ui:VisualElement name="header-top" class="header-top">
-                <ui:Label name="header-title" text="Level Select" class="header-title" />
+                <ui:Label name="header-title" text="LEVEL SELECT" class="header-title" />
                 <ui:Label name="header-subtitle" text="Choose your next challenge" class="header-subtitle" />
             </ui:VisualElement>
             <ui:VisualElement name="header-content" class="header-content">
@@ -40,20 +40,20 @@
             <ui:Button name="previous-page-button" class="play-button">
                 <ui:VisualElement name="button-content" class="button-content">
                     <ui:VisualElement name="previous-icon" class="button-icon previous-icon" />
-                    <ui:Label name="previous-text" text="Previous" class="button-text" />
+                    <ui:Label name="previous-text" text="PREVIOUS" class="button-text" />
                 </ui:VisualElement>
             </ui:Button>
             <ui:VisualElement name="page-indicators" class="page-indicators" />
             <ui:Button name="next-page-button" class="play-button">
                 <ui:VisualElement name="button-content" class="button-content">
-                    <ui:Label name="next-text" text="Next" class="button-text" />
+                    <ui:Label name="next-text" text="NEXT" class="button-text" />
                     <ui:VisualElement name="next-icon" class="button-icon next-icon" />
                 </ui:VisualElement>
             </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="navigation-container" class="navigation-container">
-            <ui:Button name="back-button" text="Back" class="settings-button" />
-            <ui:Button name="settings-button" text="Settings" class="settings-button" />
+            <ui:Button name="back-button" text="BACK" class="settings-button" />
+            <ui:Button name="settings-button" text="SETTINGS" class="settings-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
