@@ -218,6 +218,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -239,6 +241,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
@@ -331,7 +334,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -339,6 +341,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -465,6 +468,7 @@ MonoBehaviour:
   timeToMove: 0.4
   timeToRotate: 0.4
   tubeUpOffset: 0.5
+  textFileStorage: {fileID: 1166074814}
   RemainingMoves: 0
   LevelTime: 0
 --- !u!4 &575234205
@@ -677,9 +681,13 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 17426edb7d8479d45819b6cde3a60b28, type: 3}
   m_SortingOrder: 0
+  m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!4 &1149053013
 Transform:
   m_ObjectHideFlags: 0
@@ -699,6 +707,54 @@ Transform:
   - {fileID: 1281163224}
   - {fileID: 1219532075}
   - {fileID: 2051489436}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1166074813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1166074815}
+  - component: {fileID: 1166074814}
+  m_Layer: 0
+  m_Name: TextFileStorage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1166074814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166074813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e0f3919d29e9549a0e988bc87cb488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mix-Drop::TextFileGameDataStorage
+  saveFileName: MixDrop_GameData.txt
+  createBackupOnSave: 1
+  autoSave: 1
+  autoSaveDelay: 2
+--- !u!4 &1166074815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166074813}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219532073
@@ -821,7 +877,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::UI.LevelFailedScreenUI
   screenAsset: {fileID: 9197481963319205126, guid: fefb21d5f9fc54947bb56e50923ecf91, type: 3}
-  levelFailedScreen: {fileID: 0}
 --- !u!4 &1555168217
 Transform:
   m_ObjectHideFlags: 0
@@ -927,10 +982,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::UI.LevelFailedScreenUI
   screenAsset: {fileID: 9197481963319205126, guid: c9f291b835fd4c440bdb6caabc557745, type: 3}
-  sucessMessageLableName: success-message
-  nextButtonName: next-button
-  retryButtonName: retry-button
-  homeButtonName: home-button
 --- !u!1 &1816778621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1098,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1068,6 +1121,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
@@ -1158,3 +1212,4 @@ SceneRoots:
   - {fileID: 1816778624}
   - {fileID: 185434928}
   - {fileID: 1126939320}
+  - {fileID: 1166074815}

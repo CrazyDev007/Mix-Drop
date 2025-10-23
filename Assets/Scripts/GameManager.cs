@@ -50,7 +50,15 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGame()
     {
-        Level = PlayerPrefs.GetInt("ActiveLevel", 1);
+        // Use text file storage if available, otherwise default to level 1
+        if (textFileStorage != null && textFileStorage.CurrentLevel > 0)
+        {
+            Level = textFileStorage.CurrentLevel;
+        }
+        else
+        {
+            Level = 1;
+        }
         UpdateLevelText();
     }
 
@@ -152,6 +160,18 @@ public class GameManager : MonoBehaviour
     {
         //do stuff here on level failed
         Debug.Log("Level Failed! Try Again.");
+        
+        // Save attempt data even when level fails
+        if (textFileStorage != null)
+        {
+            // Save attempt data for failed level
+            // We don't have a SaveLevelAttempt method, so we'll just increment the attempt count
+            int currentAttempts = textFileStorage.GetLevelAttempts(Level);
+            textFileStorage.CompleteLevel(Level, 0, timeUsed, currentAttempts + 1);
+            // Force immediate save to ensure data is written
+            textFileStorage.ForceSaveGameData();
+        }
+        
         gamePlayScreenUIref.OnLevelFailed();
     }
     private void SetupTwists() //Will work on this later
@@ -161,23 +181,21 @@ public class GameManager : MonoBehaviour
     }
     public void GameWin()
     {
-        var completedLevel = PlayerPrefs.GetInt("CompletedLevels", 0);
-        if (completedLevel <= Level)
-            PlayerPrefs.SetInt("CompletedLevels", Level);
-        PlayerPrefs.SetInt("ActiveLevel", Level + 1);
-        
-        // Calculate and save stars
+        // Calculate stars earned
         int starsEarned = CalculateStars();
-        SaveStarsForLevel(Level, starsEarned);
         
         // Save to text file storage if available
         if (textFileStorage != null)
         {
             textFileStorage.CompleteLevel(Level, starsEarned, timeUsed, movesUsed);
             textFileStorage.SetCurrentLevel(Level + 1);
+            // Force immediate save to ensure data is written
+            textFileStorage.ForceSaveGameData();
         }
         
-        RestartGame();
+        // Don't restart immediately - wait for user action
+        // This allows the level completed screen to be shown first
+        EventManager.OnLevelComplteted?.Invoke();
     }
     
     private int CalculateStars()
@@ -211,41 +229,17 @@ public class GameManager : MonoBehaviour
         
         return stars;
     }
-    
-    private void SaveStarsForLevel(int level, int stars)
-    {
-        // Get existing stars for this level
-        int existingStars = PlayerPrefs.GetInt($"Level{level}Stars", 0);
-        
-        // Only update if new stars are better
-        if (stars > existingStars)
-        {
-            PlayerPrefs.SetInt($"Level{level}Stars", stars);
-            
-            // Update total stars
-            int totalStars = PlayerPrefs.GetInt("TotalStars", 0);
-            totalStars += (stars - existingStars); // Add the difference
-            PlayerPrefs.SetInt("TotalStars", totalStars);
-            
-            PlayerPrefs.Save(); // Ensure data is saved immediately
-            
-            Debug.Log($"Level {level} completed with {stars} stars! Total stars: {totalStars}");
-        }
-        else
-        {
-            Debug.Log($"Level {level} completed with {stars} stars (no improvement from {existingStars})");
-        }
-    }
 
     internal void RestartGame()
     {
         // Ensure Level property is up to date before loading level data
-        Level = PlayerPrefs.GetInt("ActiveLevel", 1);
-        
-        // Sync with text file storage if available
         if (textFileStorage != null)
         {
-            Level = Mathf.Max(Level, textFileStorage.CurrentLevel);
+            Level = textFileStorage.CurrentLevel;
+        }
+        else
+        {
+            Level = 1; // Default to level 1 if text file storage is not available
         }
         
         var model = GetLevelData();      // Load level & set currentLevelData
@@ -257,6 +251,83 @@ public class GameManager : MonoBehaviour
     }
 
     private void UpdateLevelText() => gamePlayScreenUIref.UpdateLevel(Level);
+    
+    #region Public API for Level Data
+    
+    /// <summary>
+    /// Gets the current level number
+    /// </summary>
+    /// <returns>Current level number</returns>
+    public int GetCurrentLevel()
+    {
+        return Level;
+    }
+    
+    /// <summary>
+    /// Gets the stars earned for a specific level
+    /// </summary>
+    /// <param name="level">Level number</param>
+    /// <returns>Stars earned (0-3)</returns>
+    public int GetLevelStars(int level)
+    {
+        if (textFileStorage != null)
+        {
+            return textFileStorage.GetLevelStars(level);
+        }
+        return 0;
+    }
+    
+    /// <summary>
+    /// Gets the best completion time for a specific level
+    /// </summary>
+    /// <param name="level">Level number</param>
+    /// <returns>Best time in seconds, or 0 if not completed</returns>
+    public float GetLevelBestTime(int level)
+    {
+        if (textFileStorage != null)
+        {
+            return textFileStorage.GetLevelBestTime(level);
+        }
+        return 0f;
+    }
+    
+    /// <summary>
+    /// Gets the number of attempts for a specific level
+    /// </summary>
+    /// <param name="level">Level number</param>
+    /// <returns>Number of attempts</returns>
+    public int GetLevelAttempts(int level)
+    {
+        if (textFileStorage != null)
+        {
+            return textFileStorage.GetLevelAttempts(level);
+        }
+        return 0;
+    }
+    
+    /// <summary>
+    /// Checks if a level is completed
+    /// </summary>
+    /// <param name="level">Level number</param>
+    /// <returns>True if the level is completed</returns>
+    public bool IsLevelCompleted(int level)
+    {
+        if (textFileStorage != null)
+        {
+            return textFileStorage.IsLevelCompleted(level);
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// Proceeds to the next level
+    /// </summary>
+    public void ProceedToNextLevel()
+    {
+        RestartGame();
+    }
+    
+    #endregion
 }
 
 [Serializable]

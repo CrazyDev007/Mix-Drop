@@ -15,6 +15,9 @@ namespace UI
         private string homeButtonName = "HomeButton";
         private string starsContainerName = "stars-container";
         
+        [Header("References")]
+        // TextFileGameDataStorage reference removed - now using GameManager
+        
         private Button nextButton;
         private Button retryButton;
         private Button homeButton;
@@ -47,8 +50,20 @@ namespace UI
         {
             if (starsContainer == null) return;
             
-            int currentLevel = PlayerPrefs.GetInt("ActiveLevel", 1) - 1; // ActiveLevel was already incremented in GameWin
-            int starsEarned = PlayerPrefs.GetInt($"Level{currentLevel}Stars", 0);
+            // Get current level and stars from GameManager
+            int currentLevel = 1;
+            int starsEarned = 0;
+            
+            if (GameManager.Instance != null)
+            {
+                // CurrentLevel is already incremented in GameWin, so we need to subtract 1
+                currentLevel = Mathf.Max(1, GameManager.Instance.GetCurrentLevel() - 1);
+                starsEarned = GameManager.Instance.GetLevelStars(currentLevel);
+            }
+            else
+            {
+                Debug.LogWarning("GameManager instance not available in LevelCompletedScreenUI");
+            }
             
             // Clear existing stars
             starsContainer.Clear();
@@ -106,7 +121,7 @@ namespace UI
         private void OnClickBtnNext()
         {
             ScreenManager.Instance.ShowScreen("gameplay-screen");
-            GameManager.Instance.GameWin();
+            GameManager.Instance.ProceedToNextLevel();
         }
 
         private void OnClickBtnRestart()

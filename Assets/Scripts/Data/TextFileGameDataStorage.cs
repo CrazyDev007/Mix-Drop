@@ -113,6 +113,36 @@ public class TextFileGameDataStorage : MonoBehaviour
         }
     }
     
+    private void OnDestroy()
+    {
+        // Save data when the object is destroyed
+        if (isDirty)
+        {
+            Debug.Log("TextFileGameDataStorage: OnDestroy called, saving data...");
+            SaveGameData();
+        }
+    }
+    
+    private void OnDisable()
+    {
+        // Save data when the object is disabled
+        if (isDirty)
+        {
+            Debug.Log("TextFileGameDataStorage: OnDisable called, saving data...");
+            SaveGameData();
+        }
+    }
+    
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        // Save data when the application loses focus
+        if (!hasFocus && isDirty)
+        {
+            Debug.Log("TextFileGameDataStorage: Application lost focus, saving data...");
+            SaveGameData();
+        }
+    }
+    
     #endregion
     
     #region Public Methods
@@ -276,17 +306,41 @@ public class TextFileGameDataStorage : MonoBehaviour
         
         try
         {
+            Debug.Log($"TextFileGameDataStorage: Starting save process to {saveFilePath}");
+            
+            // Ensure directory exists
+            string directory = Path.GetDirectoryName(saveFilePath);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+                Debug.Log($"TextFileGameDataStorage: Created directory {directory}");
+            }
+            
             // Create backup if requested and file exists
             if (createBackupOnSave && File.Exists(saveFilePath))
             {
                 File.Copy(saveFilePath, backupFilePath, true);
+                Debug.Log($"TextFileGameDataStorage: Created backup at {backupFilePath}");
             }
             
             // Create the save data string
             string saveData = CreateSaveDataString();
+            Debug.Log($"TextFileGameDataStorage: Generated save data ({saveData.Length} characters)");
             
             // Write to file
             File.WriteAllText(saveFilePath, saveData);
+            
+            // Verify file was written
+            if (File.Exists(saveFilePath))
+            {
+                FileInfo fileInfo = new FileInfo(saveFilePath);
+                Debug.Log($"TextFileGameDataStorage: File written successfully ({fileInfo.Length} bytes)");
+            }
+            else
+            {
+                Debug.LogError("TextFileGameDataStorage: File was not created after write operation!");
+                return;
+            }
             
             // Reset dirty flag
             isDirty = false;
@@ -294,10 +348,32 @@ public class TextFileGameDataStorage : MonoBehaviour
             
             Debug.Log($"TextFileGameDataStorage: Game data saved successfully to {saveFilePath}");
         }
-        catch (Exception e)
+        catch (UnauthorizedAccessException e)
         {
-            Debug.LogError($"TextFileGameDataStorage: Failed to save game data: {e.Message}");
+            Debug.LogError($"TextFileGameDataStorage: Access denied when saving. Check file permissions. {e.Message}");
         }
+        catch (DirectoryNotFoundException e)
+        {
+            Debug.LogError($"TextFileGameDataStorage: Directory not found when saving. {e.Message}");
+        }
+        catch (IOException e)
+        {
+            Debug.LogError($"TextFileGameDataStorage: IO error when saving. {e.Message}");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"TextFileGameDataStorage: Failed to save game data: {e.Message}\n{e.StackTrace}");
+        }
+    }
+    
+    /// <summary>
+    /// Forces an immediate save of game data, even if not marked as dirty
+    /// </summary>
+    public void ForceSaveGameData()
+    {
+        Debug.Log("TextFileGameDataStorage: Force save requested");
+        isDirty = true;
+        SaveGameData();
     }
     
     /// <summary>
