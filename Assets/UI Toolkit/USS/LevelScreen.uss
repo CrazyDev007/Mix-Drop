@@ -369,18 +369,18 @@
 
 .navigation-container {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 10px;
     flex-shrink: 0;
 }
 
 .navigation-button {
-    min-width: 160px;
-    height: 50px;
+    width: 100%;
+    height: 80px;
     padding: 0 20px;
-    border-radius: 25px;
-    background-color: var(--color-button-primary);
-    color: var(--color-text-on-color);
+    border-radius: 40px;
+    background-color: #FFA07A;
+    color: white;
     font-size: 40px;
     -unity-font-style: normal;
     transition: all 0.2s ease;
