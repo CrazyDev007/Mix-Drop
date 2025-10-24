@@ -22,10 +22,7 @@
             <ui:VisualElement name="new-icon" class="status-icon new-icon" style="display: none;" />
             <ui:VisualElement name="completed-icon" class="status-icon completed-icon" style="display: none;" />
         </ui:VisualElement>
-        
-        <!-- Preview Image -->
-        <ui:VisualElement name="preview-image" class="preview-image" />
-        
+
         <!-- Loading State Elements -->
         <ui:VisualElement name="loading-overlay" class="loading-overlay" />
         <ui:VisualElement name="loading-spinner" class="loading-spinner" />
