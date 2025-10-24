@@ -1,7 +1,7 @@
 .level-button-container {
-    width: 150px;
-    height: 180px;
-    margin: 10px;
+    width: 200px;
+    height: 250px;
+    margin: 15px;
     padding: 12px;
     border-radius: 12px;
     background-color: rgb(35, 35, 60);
@@ -22,6 +22,7 @@
     -unity-outline-width: 2px;
     -unity-outline-color: rgba(0, 200, 255, 0.3);
     -unity-font-definition: url("project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&guid=be68d239a772c0e4686c5887287361cc&type=3#BebasNeue-Regular");
+    flex-shrink: 0;
 }
 
 .level-button-container:hover {
@@ -89,7 +90,7 @@
 }
 
 .level-number {
-    font-size: 40px;
+    font-size: 50px;
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     margin-top: 5px;
@@ -97,7 +98,7 @@
 }
 
 .level-name {
-    font-size: 25px;
+    font-size: 30px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     margin: 5px 0;
@@ -110,9 +111,9 @@
 }
 
 .star {
-    width: 20px;
-    height: 20px;
-    margin: 0 2px;
+    width: 25px;
+    height: 25px;
+    margin: 0 3px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -157,8 +158,8 @@
 }
 
 .preview-image {
-    width: 100px;
-    height: 60px;
+    width: 140px;
+    height: 90px;
     border-radius: 8px;
     background-color: var(--background-color);
     background-size: cover;
