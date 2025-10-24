@@ -1,87 +1,115 @@
-.level-button {
+.level-button-container {
     width: 150px;
     height: 180px;
     margin: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: var(--color-background-secondary);
+    padding: 12px;
+    border-radius: 12px;
+    background-color: rgb(35, 35, 60);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    transition: all 0.2s ease;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-left-color: var(--color-level-border);
-    border-right-color: var(--color-level-border);
-    border-top-color: var(--color-level-border);
-    border-bottom-color: var(--color-level-border);
+    transition: all 0.3s ease;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-color: rgb(61, 61, 103);
+    border-right-color: rgb(61, 61, 103);
+    border-top-color: rgb(61, 61, 103);
+    border-bottom-color: rgb(61, 61, 103);
+    -unity-outline-width: 2px;
+    -unity-outline-color: rgba(0, 200, 255, 0.3);
+    -unity-font-definition: url("project://database/Assets/Fonts/BebasNeue-Regular.ttf?fileID=12800000&guid=be68d239a772c0e4686c5887287361cc&type=3#BebasNeue-Regular");
 }
 
-.level-button:hover {
+.level-button-container:hover {
     background-color: var(--color-button-secondary-hover);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
     scale: 1.05;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: var(--color-accent);
+    border-right-color: var(--color-accent);
+    border-top-color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+    -unity-outline-width: 4px;
+    -unity-outline-color: rgba(0, 255, 200, 0.5);
 }
 
-.level-button:active {
+.level-button-container:active {
     background-color: var(--color-button-secondary);
     scale: 0.95;
+    -unity-outline-width: 1px;
+    -unity-outline-color: rgba(0, 200, 255, 0.2);
 }
 
-.level-button:disabled {
+.level-button-container:disabled {
     background-color: var(--color-level-locked);
 }
 
-.level-button--locked {
+.level-button-container--locked {
     background-color: var(--color-level-locked);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
     border-left-color: var(--color-level-locked);
     border-right-color: var(--color-level-locked);
     border-top-color: var(--color-level-locked);
     border-bottom-color: var(--color-level-locked);
+    -unity-outline-width: 1px;
+    -unity-outline-color: rgba(0, 0, 0, 0.3);
 }
 
-.level-button--completed {
+.level-button-container--completed {
     background-color: var(--color-background-secondary);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
     border-left-color: var(--color-success);
     border-right-color: var(--color-success);
     border-top-color: var(--color-success);
     border-bottom-color: var(--color-success);
+    -unity-outline-width: 3px;
+    -unity-outline-color: rgba(80, 255, 120, 0.4);
 }
 
-.level-button--hover {
+.level-button-container--hover {
     background-color: var(--color-button-secondary-hover);
 }
 
-.level-button--pressed {
+.level-button-container--pressed {
     background-color: var(--color-button-secondary);
     scale: 0.95;
 }
 
-.level-button__number {
+.level-number {
     font-size: 40px;
-    color: var(--color-text-primary);
+    color: rgb(255, 255, 255);
     -unity-font-style: bold;
     margin-top: 5px;
     text-shadow: var(--neon-glow-cyan);
 }
 
-.level-button__name {
+.level-name {
     font-size: 25px;
-    color: var(--color-text-secondary);
+    color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     margin: 5px 0;
-    text-shadow: 0 0 5px rgba(0, 255, 200, 0.5);
 }
 
-.level-button__stars {
+.stars-container {
     flex-direction: row;
     justify-content: center;
     margin: 5px 0;
 }
 
-.level-button__star {
+.star {
     width: 20px;
     height: 20px;
     margin: 0 2px;
@@ -91,12 +119,11 @@
     background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Misc/LevelStarSmall.png?fileID=2800000&guid=1869cf343e4d32c40b87ff0679be2c47&type=3#LevelStarSmall");
 }
 
-.level-button__star--empty {
+.star.empty-star {
     opacity: 0.5;
 }
 
-.level-button__star--earned {
-    /* Unity UI Toolkit doesn't support drop-shadow filter */
+.star.filled-star {
 }
 
 .status-container {
@@ -118,29 +145,36 @@
 .lock-icon {
     background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/Lock02.png?fileID=2800000&guid=faa279d4b52994c469ada40751501df0&type=3#Lock02");
     background-color: var(--color-level-locked);
-    /* Unity UI Toolkit doesn't support drop-shadow filter */
 }
 
 .new-icon {
     background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/Aid.png?fileID=2800000&guid=081d48b176c76924b8d66434498229ec&type=3#Aid");
-    /* Unity UI Toolkit doesn't support drop-shadow filter */
 }
 
 .completed-icon {
     background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/Checkmark02.png?fileID=2800000&guid=6d603c712e9c4814289933e733341d44&type=3#Checkmark02");
     background-color: var(--color-success);
-    /* Unity UI Toolkit doesn't support drop-shadow filter */
 }
 
 .preview-image {
     width: 100px;
     height: 60px;
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: var(--background-color);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 5px;
+    -unity-outline-width: 1px;
+    -unity-outline-color: rgba(0, 200, 255, 0.3);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(0, 200, 255, 0.3);
+    border-right-color: rgba(0, 200, 255, 0.3);
+    border-top-color: rgba(0, 200, 255, 0.3);
+    border-bottom-color: rgba(0, 200, 255, 0.3);
 }
 
 .level-button-container.high-contrast {
@@ -240,4 +274,27 @@
 }
 
 .level-button-container.high-contrast:focus {
+}
+
+.level-button-container.card-elevated {
+    background-color: rgb(40, 40, 70);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35), 0 3px 6px rgba(0, 0, 0, 0.25);
+    -unity-outline-width: 4px;
+    -unity-outline-color: rgba(0, 200, 255, 0.5);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-color: var(--color-accent);
+    border-right-color: var(--color-accent);
+    border-top-color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+}
+
+.level-button-container.card-elevated:hover {
+    background-color: rgb(50, 50, 80);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45), 0 5px 10px rgba(0, 0, 0, 0.35);
+    -unity-outline-width: 6px;
+    -unity-outline-color: rgba(0, 255, 200, 0.7);
+    scale: 1.08;
 }
