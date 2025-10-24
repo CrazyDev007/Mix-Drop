@@ -15,8 +15,6 @@ public class TubeManager : MonoBehaviour
 
     private List<Task> tasks = new List<Task>();
     private InputAction clickAction;
-    [SerializeField] private AudioClip tapClip;
-    private AudioSource audioSource;
 
     private int availableSwaps;
 
@@ -36,8 +34,6 @@ public class TubeManager : MonoBehaviour
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
         clickAction.performed += ctx => HandleMouseClick(Mouse.current.position.ReadValue());
         clickAction.Enable();
-        // Setup audio source for tap sound
-        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void InitializeTubes(int tubeCount)
@@ -99,9 +95,9 @@ public class TubeManager : MonoBehaviour
         // Play tap sound on tube click
         Vector2 testPos = Camera.main.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D testHit = Physics2D.Raycast(testPos, Vector2.zero);
-        if (testHit.collider != null && tapClip != null)
+        if (testHit.collider != null)
         {
-            audioSource.PlayOneShot(tapClip);
+            AudioManager.Instance.PlayButtonClickAudio();
         }
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
