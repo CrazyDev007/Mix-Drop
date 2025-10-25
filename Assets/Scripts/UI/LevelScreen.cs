@@ -30,7 +30,6 @@ namespace UI
         
         // Navigation elements
         private Button backButton;
-        private Button settingsButton;
         
         // Data
         private int currentPage = 0;
@@ -60,7 +59,6 @@ namespace UI
             
             // Navigation elements
             backButton = screen.Q<Button>("back-button");
-            settingsButton = screen.Q<Button>("settings-button");
 
             // Check for critical UI elements
             if (levelGridContainer == null)
@@ -73,11 +71,6 @@ namespace UI
             if (backButton != null)
             {
                 backButton.clicked += OnClickBackButton;
-            }
-            
-            if (settingsButton != null)
-            {
-                settingsButton.clicked += OnClickSettingsButton;
             }
             
             if (previousPageButton != null)
@@ -453,10 +446,6 @@ namespace UI
             ScreenManager.Instance.ShowScreen("LobbyScreen");
         }
         
-        private void OnClickSettingsButton()
-        {
-            ScreenManager.Instance.ShowScreen("SettingsScreen");
-        }
         /// <summary>
         /// Refreshes the level screen data, useful when returning from gameplay
         /// </summary>

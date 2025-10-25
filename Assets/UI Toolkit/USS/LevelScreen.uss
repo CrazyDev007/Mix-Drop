@@ -334,6 +334,11 @@
     color: var(--color-text-secondary);
 }
 
+.play-button {
+    justify-content: center;
+    align-items: center;
+}
+
 .button-content {
     flex-direction: row;
     align-items: center;
@@ -341,8 +346,8 @@
 }
 
 .button-icon {
-    width: 24px;
-    height: 24px;
+    width: 64px;
+    height: 64px;
     margin: 0 8px;
     background-size: contain;
     background-repeat: no-repeat;
@@ -350,9 +355,11 @@
 }
 
 .previous-icon {
+    background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/ArrowLeft02.png?fileID=21300000&guid=4d282895640c88047b739ca7de746056&type=3#ArrowLeft02");
 }
 
 .next-icon {
+    background-image: url("project://database/Assets/Sprites/Honeti/FlatMinimalistGUI2.0/Textures/Icons/64/ArrowRight02.png?fileID=21300000&guid=41c78793d77486245b5e6285785733af&type=3#ArrowRight02");
 }
 
 .button-text {
@@ -369,18 +376,18 @@
 
 .navigation-container {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 10px;
     flex-shrink: 0;
 }
 
 .navigation-button {
-    min-width: 160px;
-    height: 50px;
+    width: 100%;
+    height: 80px;
     padding: 0 20px;
-    border-radius: 25px;
-    background-color: var(--color-button-primary);
-    color: var(--color-text-on-color);
+    border-radius: 40px;
+    background-color: rgb(255, 160, 122);
+    color: white;
     font-size: 40px;
     -unity-font-style: normal;
     transition: all 0.2s ease;
