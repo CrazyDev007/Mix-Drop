@@ -118,6 +118,7 @@ namespace UI.Lobby
         /// </summary>
         private void OnCloseButtonClicked()
         {
+            AudioManager.Instance?.PlayButtonTap();
             // Emit analytics event for close button interaction
             EmitAnalyticsEvent("how_to_play_close_clicked");
 

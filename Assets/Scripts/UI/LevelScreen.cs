@@ -408,6 +408,7 @@ namespace UI
                 currentPage--;
                 SetupLevelGrid();
                 UpdatePagination();
+                AudioManager.Instance?.PlayButtonTap();
             }
         }
 
@@ -418,6 +419,7 @@ namespace UI
                 currentPage++;
                 SetupLevelGrid();
                 UpdatePagination();
+                AudioManager.Instance?.PlayButtonTap();
             }
         }
 
@@ -443,6 +445,7 @@ namespace UI
 
         public void OnClickBackButton()
         {
+            AudioManager.Instance?.PlayButtonTap();
             ScreenManager.Instance.ShowScreen("LobbyScreen");
         }
         

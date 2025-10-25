@@ -37,11 +37,13 @@ namespace UI
         
         private void OnClickBtnRestart()
         {
+            AudioManager.Instance?.PlayButtonTap();
             GameManager.Instance.RestartGame();
         }
 
         private void OnClickBtnHome()
         {
+            AudioManager.Instance?.PlayButtonTap();
             SceneManager.LoadSceneAsync("Main");
         }
 

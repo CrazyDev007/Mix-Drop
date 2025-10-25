@@ -97,7 +97,7 @@ public class TubeManager : MonoBehaviour
         RaycastHit2D testHit = Physics2D.Raycast(testPos, Vector2.zero);
         if (testHit.collider != null)
         {
-            AudioManager.Instance.PlayButtonClickAudio();
+            AudioManager.Instance.PlayBottlePick();
         }
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
@@ -136,6 +136,7 @@ public class TubeManager : MonoBehaviour
     {
         if (tubeController.IsLocked)
         {
+            AudioManager.Instance?.PlayBottlePickPourRestrict();
             tubeController.ShakeTube();
             return;
         }
@@ -159,6 +160,7 @@ public class TubeManager : MonoBehaviour
     {
         if (tubeController.IsEmpty)
         {
+            AudioManager.Instance?.PlayBottlePickPourRestrict();
             tubeController.ShakeTube();
         }
         else
@@ -175,6 +177,7 @@ public class TubeManager : MonoBehaviour
             var tempSelectedTube = selectedTube;
             selectedTube = null;
             var direction = tempSelectedTube.transform.position.x > tubeController.transform.position.x ? -1 : 1;
+            AudioManager.Instance?.PlayLiquidPour();
             await tubeController.PourLiquid(tempSelectedTube, direction);
             
             // Notify GameManager that a move was made
@@ -185,6 +188,7 @@ public class TubeManager : MonoBehaviour
         else
         {
             selectedTube.ShakeTube();
+            AudioManager.Instance?.PlayBottlePickPourRestrict();
         }
     }
 

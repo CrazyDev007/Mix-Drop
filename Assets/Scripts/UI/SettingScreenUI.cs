@@ -7,7 +7,6 @@ namespace UI
 {
     public class SettingScreenUI : ScreenUI
     {
-        [SerializeField] private GameObject settingScreen;
 
         [Header("UI Elements")]
         private string backButtonName = "close-button";
@@ -89,6 +88,7 @@ namespace UI
 
         private void OnBackButtonClicked()
         {
+            AudioManager.Instance?.PlayButtonTap();
             Debug.Log("[DEBUG] OnBackButtonClicked called");
             SaveSettings();
             // Show How to Play overlay through ScreenManager

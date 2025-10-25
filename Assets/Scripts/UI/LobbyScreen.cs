@@ -45,18 +45,21 @@ namespace UI
 
         private void OnPlayButtonClicked()
         {
+            AudioManager.Instance?.PlayButtonTap();
             // Show level selection screen
             ScreenManager.Instance.ShowScreen("LevelScreen");
         }
 
         private void OnSettingsButtonClicked()
         {
+            AudioManager.Instance?.PlayButtonTap();
             // Show settings screen
             ScreenManager.Instance.ShowScreen("SettingScreen");
         }
 
         private void OnHowToPlayButtonClicked()
         {
+            AudioManager.Instance?.PlayButtonTap();
             // Show How to Play overlay through ScreenManager
             if (ScreenManager.Instance.GetAvailableScreenTypes().Contains("HowToPlay"))
             {

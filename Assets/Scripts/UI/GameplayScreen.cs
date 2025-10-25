@@ -13,21 +13,25 @@ namespace UI
 
         public void OnClickBtnAddTube()
         {
+            AudioManager.Instance?.PlayButtonTap();
             TubeManager.Instance.AddEmptyTube();
         }
 
         public void OnClickBtnPause()
         {
+            AudioManager.Instance?.PlayButtonTap();
             ScreenManager.Instance.ShowScreen("pause-screen");
         }
 
         public void OnLevelFailed()
         {
+            AudioManager.Instance?.PlayLevelFail();
             ScreenManager.Instance.ShowScreen("level-failed-screen");
         }
 
         private void OnClickBtnHint()
         {
+            AudioManager.Instance?.PlayButtonTap();
             ScreenManager.Instance.ShowScreen("hint-screen");
         }
 

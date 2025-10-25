@@ -40,6 +40,7 @@ namespace UI
         {
             Debug.Log("Level completed screen shown");
             //this.Show();
+            AudioManager.Instance?.PlayLevelComplete();
             ScreenManager.Instance.ShowScreen("level-completed-screen");
             
             // Display stars after screen is shown
@@ -126,6 +127,7 @@ namespace UI
 
         private void OnClickBtnNext()
         {
+            AudioManager.Instance?.PlayButtonTap();
             Debug.Log("[LevelCompletedScreenUI] OnClickBtnNext() called");
             RefreshLevelData();
             ScreenManager.Instance.ShowScreen("gameplay-screen");
@@ -134,12 +136,14 @@ namespace UI
 
         private void OnClickBtnRestart()
         {
+            AudioManager.Instance?.PlayButtonTap();
             //GameManager.Instance.RestartGame();
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void OnClickBtnHome()
         {
+            AudioManager.Instance?.PlayButtonTap();
             RefreshLevelData();
             SceneManager.LoadSceneAsync("Main");
         }
