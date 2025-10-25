@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     public float TimeToMove => timeToMove;
     public float TimeToRotate => timeToRotate;
     public float TubeUpOffset => tubeUpOffset;
+    
+    public GameObject WinEffectObj;
 
     /// <summary>
     /// Gets or sets whether UI is currently open
@@ -213,7 +216,12 @@ public class GameManager : MonoBehaviour
         // Don't restart immediately - wait for user action
         // This allows the level completed screen to be shown first
         //Debug.Log($"[GameManager] About to invoke OnLevelComplteted event. GameManager.Level is still: {Level}");
-        EventManager.OnLevelComplteted?.Invoke();
+        WinEffectObj.SetActive(true);
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            WinEffectObj.SetActive(false);
+            EventManager.OnLevelComplteted?.Invoke();
+        });
     }
     
     private int CalculateStars()
