@@ -20,15 +20,16 @@
 }
 
 .play-button {
-    width: 400px;
+    width: 420px;
     height: 100px;
     margin: 10px;
-    font-size: 36px;
+    font-size: 40px;
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
-    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
 }
 
 .play-button:hover {
@@ -36,15 +37,16 @@
 }
 
 .settings-button {
-    width: 400px;
+    width: 420px;
     height: 100px;
     margin: 10px;
-    font-size: 36px;
+    font-size: 40px;
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
-    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
 }
 
 .settings-button:hover {
@@ -52,15 +54,16 @@
 }
 
 .how-to-play-button {
-    width: 400px;
+    width: 420px;
     height: 100px;
     margin: 10px;
-    font-size: 36px;
+    font-size: 40px;
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
-    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
 }
 
 .how-to-play-button:hover {

@@ -184,9 +184,6 @@
     flex-grow: 1;
 }
 
-/* Level button container styles are now handled in LevelButton.uss */
-/* Removed conflicting styles to prevent hover issues */
-
 .level-number {
     font-size: 64px;
     -unity-font-style: bold;
@@ -300,6 +297,38 @@
 .play-button {
     justify-content: center;
     align-items: center;
+    width: 420px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
+    font-size: 40px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(3, 169, 244);
+    background-repeat: no-repeat no-repeat;
+    -unity-slice-type: sliced;
+    transition-duration: 0.2s;
+    display: flex;
+    height: 100px;
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.play-button:hover {
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
+    font-size: 40px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(2, 136, 209);
 }
 
 .button-content {
@@ -327,8 +356,9 @@
 
 .button-text {
     font-size: 40px;
-    -unity-font-style: normal;
-    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-text-align: middle-left;
 }
 
 .page-indicators {
@@ -346,28 +376,37 @@
 
 .navigation-button {
     width: 100%;
-    height: 80px;
+    height: 100px;
     padding: 0 20px;
     border-radius: 40px;
     background-color: rgb(3, 169, 244);
     color: white;
     font-size: 40px;
-    -unity-font-style: normal;
+    -unity-font-style: bold;
     transition: all 0.2s ease;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
     border-left-color: var(--color-level-border);
     border-right-color: var(--color-level-border);
     border-top-color: var(--color-level-border);
     border-bottom-color: var(--color-level-border);
     overflow: visible;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-text-align: middle-center;
+    padding-left: 0;
+    padding-right: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
 
 .navigation-button:hover {
     background-color: rgb(2, 136, 209);
     display: flex;
+    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
 }
 
 .root-container.high-contrast {
@@ -383,8 +422,6 @@
     border-width: 2px;
     border-color: var(--high-contrast-border-color);
 }
-
-/* Removed conflicting high-contrast hover rule */
 
 .root-container.high-contrast .level-button-container:disabled {
     background-color: var(--high-contrast-disabled-color);
