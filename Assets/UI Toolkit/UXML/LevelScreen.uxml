@@ -40,19 +40,19 @@
             <ui:Button name="previous-page-button" class="play-button">
                 <ui:VisualElement name="button-content" class="button-content">
                     <ui:VisualElement name="previous-icon" class="button-icon previous-icon" />
-                    <ui:Label name="previous-text" text="PREVIOUS" class="button-text" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;); -unity-font-style: bold;" />
+                    <ui:Label name="previous-text" text="PREVIOUS" class="button-text" />
                 </ui:VisualElement>
             </ui:Button>
             <ui:VisualElement name="page-indicators" class="page-indicators" />
             <ui:Button name="next-page-button" class="play-button" style="font-size: 40px;">
                 <ui:VisualElement name="button-content" class="button-content">
-                    <ui:Label name="next-text" text="NEXT" class="button-text" style="-unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;);" />
+                    <ui:Label name="next-text" text="NEXT" class="button-text" />
                     <ui:VisualElement name="next-icon" class="button-icon next-icon" />
                 </ui:VisualElement>
             </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="navigation-container" class="navigation-container" style="display: flex;">
-            <ui:Button name="back-button" text="BACK TO LOBBY" class="navigation-button" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;); -unity-font-style: bold; background-color: rgb(3, 169, 244);" />
+            <ui:Button name="back-button" text="BACK TO LOBBY" class="navigation-button" style="background-color: rgb(3, 169, 244);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
