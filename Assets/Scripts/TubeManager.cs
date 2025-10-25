@@ -17,6 +17,7 @@ public class TubeManager : MonoBehaviour
     private InputAction clickAction;
 
     private int availableSwaps;
+    private Camera _mainCamera;
 
     public List<TubeController> Tubes { get; } = new List<TubeController>();
 
@@ -30,10 +31,21 @@ public class TubeManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        _mainCamera = Camera.main;
+
         // Initialize Input System action for mouse click
-        clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
+        /*clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
         clickAction.performed += ctx => HandleMouseClick(Mouse.current.position.ReadValue());
-        clickAction.Enable();
+        clickAction.Enable();*/
+    }
+    
+    private void Update()
+    {
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
+        {
+            var mousePosition = Pointer.current.position.ReadValue();
+            HandleMouseClick(mousePosition);
+        }
     }
 
     private void InitializeTubes(int tubeCount)
@@ -100,13 +112,13 @@ public class TubeManager : MonoBehaviour
         }
 
         // Play tap sound on tube click
-        Vector2 testPos = Camera.main.ScreenToWorldPoint(mousePositionPixel);
+        Vector2 testPos = _mainCamera.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D testHit = Physics2D.Raycast(testPos, Vector2.zero);
         if (testHit.collider != null)
         {
             AudioManager.Instance.PlayBottlePick();
         }
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionPixel);
+        Vector2 mousePosition = _mainCamera.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
         if (hit.collider != null)
