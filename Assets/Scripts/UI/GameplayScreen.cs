@@ -19,6 +19,7 @@ namespace UI
 
         public void OnClickBtnPause()
         {
+            GameManager.Instance.IsUIOpen = true;
             AudioManager.Instance?.PlayButtonTap();
             ScreenManager.Instance.ShowScreen("pause-screen");
         }
@@ -31,6 +32,7 @@ namespace UI
 
         private void OnClickBtnHint()
         {
+            GameManager.Instance.IsUIOpen = true;
             AudioManager.Instance?.PlayButtonTap();
             ScreenManager.Instance.ShowScreen("hint-screen");
         }

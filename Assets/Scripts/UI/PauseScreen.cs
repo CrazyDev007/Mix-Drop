@@ -10,12 +10,14 @@ namespace UI
 
         public void OnClickBtnResume()
         {
+            GameManager.Instance.IsUIOpen = false;
             AudioManager.Instance?.PlayButtonTap();
             ScreenManager.Instance.ShowScreen("gameplay-screen");
         }
 
         public void OnClickBtnRestart()
         {
+            GameManager.Instance.IsUIOpen = false;
             AudioManager.Instance?.PlayButtonTap();
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }

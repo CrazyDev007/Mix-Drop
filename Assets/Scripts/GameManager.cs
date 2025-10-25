@@ -29,12 +29,22 @@ public class GameManager : MonoBehaviour
     public int Level { get; private set; }
     private string levelName;
     private int failedLevel = -1; // Store the level that failed for retry functionality
+    private bool isUIOpen = false; // Track if any UI is currently open
 
     public Color[] Colors => colors;
     public TubeModel[] TubeData => tubeData;
     public float TimeToMove => timeToMove;
     public float TimeToRotate => timeToRotate;
     public float TubeUpOffset => tubeUpOffset;
+
+    /// <summary>
+    /// Gets or sets whether UI is currently open
+    /// </summary>
+    public bool IsUIOpen
+    {
+        get => isUIOpen;
+        set => isUIOpen = value;
+    }
 
     private void Awake()
     {

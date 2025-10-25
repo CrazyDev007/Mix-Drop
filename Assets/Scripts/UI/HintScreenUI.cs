@@ -20,6 +20,7 @@ namespace UI
 
         public void OnClickBtnClose()
         {
+            GameManager.Instance.IsUIOpen = false;
             ScreenManager.Instance.ShowScreen("gameplay-screen");
         }
 

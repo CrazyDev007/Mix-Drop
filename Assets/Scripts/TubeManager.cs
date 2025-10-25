@@ -92,6 +92,13 @@ public class TubeManager : MonoBehaviour
 
     private void HandleMouseClick(Vector3 mousePositionPixel)
     {
+        // Check if UI is open, if so, prevent tube interactions
+        if (GameManager.Instance != null && GameManager.Instance.IsUIOpen)
+        {
+            Debug.Log("[TubeManager] UI is open, ignoring tube click");
+            return;
+        }
+
         // Play tap sound on tube click
         Vector2 testPos = Camera.main.ScreenToWorldPoint(mousePositionPixel);
         RaycastHit2D testHit = Physics2D.Raycast(testPos, Vector2.zero);
