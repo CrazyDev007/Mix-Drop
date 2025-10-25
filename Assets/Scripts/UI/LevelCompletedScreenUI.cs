@@ -40,6 +40,7 @@ namespace UI
         {
             Debug.Log("Level completed screen shown");
             //this.Show();
+            AudioManager.Instance?.StopBG();
             AudioManager.Instance?.PlayLevelComplete();
             ScreenManager.Instance.ShowScreen("level-completed-screen");
             
