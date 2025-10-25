@@ -2,11 +2,11 @@
     <Style src="project://database/Assets/UI%20Toolkit/USS/LevelFailedScreen.uss?fileID=7433441132597879392&amp;guid=a54bdc916bbe3c84d9514472a0da7f43&amp;type=3#LevelFailedScreen" />
     <engine:VisualElement class="root-wrapper">
         <engine:VisualElement name="failed-container" class="failed-container">
-            <engine:Label text="Level Failed" class="title-label" />
-            <engine:Label name="FailureMessageLabel" text="Failure reason" class="failure-message" />
+            <engine:Label text="LEVEL FAILED" class="title-label" />
+            <engine:Label name="FailureMessageLabel" text="FAILURE REASON" class="failure-message" />
             <engine:VisualElement name="button-container" class="button-container">
-                <engine:Button name="RetryButton" text="Retry" class="retry-button" />
-                <engine:Button name="HomeButton" text="Home" class="home-button" />
+                <engine:Button name="RetryButton" text="RETRY" class="retry-button" />
+                <engine:Button name="HomeButton" text="HOME" class="home-button" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
