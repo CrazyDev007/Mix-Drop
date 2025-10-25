@@ -287,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 2155056a29f5aca4abb5517f300a5489, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 706be60a8af03b04694c8d0295c45a66, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: a9a59135a61c87649876cccfef83fce1, type: 3}
   m_SortingOrder: 0
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -637,9 +637,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::UI.LobbyScreenUI
   screenAsset: {fileID: 9197481963319205126, guid: a9a59135a61c87649876cccfef83fce1, type: 3}
-  playButtonName: play-button
-  settingsButtonName: settings-button
-  howToPlayButtonName: hits-button
 --- !u!4 &1415908008
 Transform:
   m_ObjectHideFlags: 0
