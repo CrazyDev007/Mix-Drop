@@ -184,45 +184,8 @@
     flex-grow: 1;
 }
 
-.level-button-container {
-    width: 200px;
-    height: 250px;
-    margin: 15px;
-    padding: 15px;
-    border-radius: 12px;
-    background-color: var(--button-normal-color);
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-}
-
-.level-button-container:hover {
-    background-color: var(--button-hover-color);
-    scale: 1.05;
-}
-
-.level-button-container:active {
-    background-color: var(--button-pressed-color);
-    scale: 0.95;
-}
-
-.level-button-container:disabled {
-    background-color: var(--button-disabled-color);
-}
-
-.level-button-container.locked {
-    background-color: var(--button-locked-color);
-}
-
-.level-button-container.new {
-    background-color: var(--button-new-color);
-}
-
-.level-button-container.completed {
-    background-color: var(--button-completed-color);
-}
+/* Level button container styles are now handled in LevelButton.uss */
+/* Removed conflicting styles to prevent hover issues */
 
 .level-number {
     font-size: 64px;
@@ -424,9 +387,7 @@
     border-color: var(--high-contrast-border-color);
 }
 
-.root-container.high-contrast .level-button-container:hover {
-    background-color: var(--high-contrast-button-hover-color);
-}
+/* Removed conflicting high-contrast hover rule */
 
 .root-container.high-contrast .level-button-container:disabled {
     background-color: var(--high-contrast-disabled-color);
