@@ -26,7 +26,7 @@
 }
 
 .level-button-container:hover {
-    background-color: var(--color-button-secondary-hover);
+    background-color: rgb(55, 55, 85) !important;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
     scale: 1.05;
     border-left-width: 5px;
@@ -298,4 +298,11 @@
     -unity-outline-width: 6px;
     -unity-outline-color: rgba(0, 255, 200, 0.7);
     scale: 1.08;
+}
+
+/* Force hover state to be visible - highest specificity */
+.level-grid-container .level-button-container:hover {
+    background-color: rgb(55, 55, 85) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }

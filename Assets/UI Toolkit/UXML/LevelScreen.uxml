@@ -6,7 +6,7 @@
         <ui:VisualElement name="header-banner-container" class="header-banner-container">
             <ui:VisualElement name="header-top" class="header-top">
                 <ui:Label name="header-title" text="LEVEL SELECT" class="header-title" />
-                <ui:Label name="header-subtitle" text="Choose your next challenge" class="header-subtitle" />
+                <ui:Label name="header-subtitle" text="CHOOSE YOUR NEXT CHALLENGE" class="header-subtitle" />
             </ui:VisualElement>
             <ui:VisualElement name="header-content" class="header-content">
                 <ui:VisualElement name="header-center" class="header-center">
