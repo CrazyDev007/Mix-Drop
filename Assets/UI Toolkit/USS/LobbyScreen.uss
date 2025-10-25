@@ -23,13 +23,12 @@
     width: 400px;
     height: 100px;
     margin: 10px;
-    font-size: 40px;
+    font-size: 36px;
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
-    -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
 }
 
 .play-button:hover {
@@ -40,18 +39,19 @@
     width: 400px;
     height: 100px;
     margin: 10px;
-    font-size: 50px;
+    font-size: 36px;
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
 }
 
 .settings-button:hover {
     background-color: rgb(2, 136, 209);
 }
 
-.hits-button {
+.how-to-play-button {
     width: 400px;
     height: 100px;
     margin: 10px;
@@ -60,8 +60,9 @@
     color: white;
     border-radius: 50px;
     border-width: 0;
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
 }
 
-.hits-button:hover {
+.how-to-play-button:hover {
     background-color: rgb(2, 136, 209);
 }
