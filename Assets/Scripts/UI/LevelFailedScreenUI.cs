@@ -39,6 +39,7 @@ namespace UI
         {
             AudioManager.Instance?.PlayButtonTap();
             GameManager.Instance.RestartGame();
+            ScreenManager.Instance.ShowScreen("gameplay-screen");
         }
 
         private void OnClickBtnHome()

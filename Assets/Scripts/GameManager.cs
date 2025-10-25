@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     
     public int Level { get; private set; }
     private string levelName;
+    private int failedLevel = -1; // Store the level that failed for retry functionality
 
     public Color[] Colors => colors;
     public TubeModel[] TubeData => tubeData;
@@ -162,6 +163,10 @@ public class GameManager : MonoBehaviour
         //do stuff here on level failed
         Debug.Log("Level Failed! Try Again.");
         
+        // Store the failed level for retry functionality
+        failedLevel = Level;
+        Debug.Log($"[GameManager] Stored failed level: {failedLevel}");
+        
         // Save attempt data even when level fails
         if (textFileStorage != null)
         {
@@ -243,8 +248,18 @@ public class GameManager : MonoBehaviour
 
     internal void RestartGame()
     {
+        // Check if we're retrying a failed level
+        if (failedLevel != -1)
+        {
+            Level = failedLevel;
+            Debug.Log($"[GameManager] RestartGame() - Retrying failed level: {Level}");
+            failedLevel = -1; // Reset the failed level after using it
+        }
+        else
+        {
             Level = textFileStorage.CurrentLevel;
             Debug.Log($"[GameManager] RestartGame() - Using current level from TextFileGameDataStorage: {Level}");
+        }
         
         var model = GetLevelData();      // Load level & set currentLevelData
         SetupLevelRules();           // Setup timer & move limit
