@@ -1,0 +1,19 @@
+{
+    "name": "Mix-Drop.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Mix-Drop",
+        "UnityEditor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
