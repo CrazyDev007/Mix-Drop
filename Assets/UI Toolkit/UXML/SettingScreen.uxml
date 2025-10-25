@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/SettingScreen.uss?fileID=7433441132597879392&amp;guid=abf647da91af8ba4ca5fcb368ae2cebf&amp;type=3#SettingScreen" />
+    <Style src="project://database/Assets/UI%20Toolkit/USS/SettingScreen.uss?fileID=7433441132597879392&amp;guid=abf647da91af8ba4ca5fcb368ae2cebf&amp;type=3#SettingScreen" />
     <ui:VisualElement focusable="true" tabindex="0" class="settings-overlay">
         <ui:Button name="close-button" text="×" tabindex="1" tooltip="Close Settings" class="close-button" />
-        <ui:Label text="Settings" tabindex="2" class="title" />
+        <ui:Label text="Settings" tabindex="2" class="title" style="font-size: 50px; -unity-font-style: bold;" />
         <ui:ScrollView name="settings-scroll" focusable="true" tabindex="3" class="settings-container">
             <ui:Label text="Audio Settings" class="section-title first-section-title" />
             <ui:VisualElement class="setting-group">

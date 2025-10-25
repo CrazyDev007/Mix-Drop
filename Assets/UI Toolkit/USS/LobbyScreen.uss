@@ -23,12 +23,13 @@
     width: 400px;
     height: 100px;
     margin: 10px;
-    font-size: 36px;
+    font-size: 40px;
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 50px;
     border-width: 0;
     -unity-font-definition: url("project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&guid=5cf13f5d3640281409f62915b9736d6f&type=3#ROGLyonsTypeRegular3");
+    -unity-font-style: bold;
 }
 
 .play-button:hover {
