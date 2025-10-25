@@ -8,10 +8,9 @@ namespace UI
 {
     public class LobbyScreen : ScreenUI
     {
-        [Header("UI Elements")]
-        [SerializeField] private string playButtonName = "play-button";
-        [SerializeField] private string settingsButtonName = "settings-button";
-        [SerializeField] private string howToPlayButtonName = "hits-button"; // Reusing existing hits-button as How to Play
+        private string playButtonName = "play-button";
+        private string settingsButtonName = "settings-button";
+        private string howToPlayButtonName = "how-to-play-button";
 
         private Button playButton;
         private Button settingsButton;
