@@ -1,7 +1,7 @@
 .root-container {
     flex-grow: 1;
     flex-direction: column;
-    background-color: var(--color-background-primary);
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 8px;
     -unity-font-definition: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=445b4ff1795869e42b6d8334b5e7a779&type=3#NotInter-Regular");
