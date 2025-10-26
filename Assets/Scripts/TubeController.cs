@@ -17,6 +17,7 @@ public class TubeController : MonoBehaviour
     [SerializeField] private float shakeStrength = 0.1f;
     [SerializeField] private Vector2 rotationPointOffset = new Vector2(0.5f, -1f);
     [SerializeField] private Vector2 liquidDropPointOffset = new Vector2(0.5f, -1f);
+    [SerializeField] private SpriteRenderer liquidRenderer;
     public bool IsLocked { get; set; } = false;
 
     internal int[] colors = new int[4] { -1, -1, -1, -1 };
@@ -124,12 +125,27 @@ public class TubeController : MonoBehaviour
         var tubeModel = GameManager.Instance.TubeData[secondTube.currentTopIndex - topColorLevelCount];
 
         await secondTube.MoveTubeAsync(GetLiquidDropPoint(-direction));
+        
+        // Setup Liquid Renderer
+        liquidRenderer.color = GameManager.Instance.Colors[secondTube.TopColor];
+        liquidRenderer.transform.rotation = Quaternion.identity;
+        const float baseScaleY = 250f;
+        const float extraScaleY = 61f;
+        var liquidScale = liquidRenderer.transform.localScale;
+        var fillAmount = tubeMaterial.GetFloat("_Mask");
+        liquidScale.y = (Mathf.Approximately(fillAmount, 0f) ? baseScaleY : baseScaleY * (1-fillAmount)) + extraScaleY;
+        liquidRenderer.transform.localScale = liquidScale;
+        liquidRenderer.gameObject.SetActive(true);
+        
         await Task.WhenAll(
             secondTube.RotateTubeAsync(0, direction * tubeModel.tubeRotationAngle, direction),
             secondTube.RotateLiquidAsync(direction * tubeModel.liquidRotationAngle),
             secondTube.FillMask(tubeModel.fillAmount),
             FillLiquid(secondTube.TopColor, topColorLevelCount)
         );
+        
+        liquidRenderer.gameObject.SetActive(false);
+        
         await Task.WhenAll(
             secondTube.RotateTubeAsync(direction * tubeModel.tubeRotationAngle, 0, direction),
             secondTube.RotateLiquidAsync(0)
