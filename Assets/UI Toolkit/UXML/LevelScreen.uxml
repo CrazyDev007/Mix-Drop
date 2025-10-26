@@ -1,56 +1,58 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/USS/LevelScreen.uss?fileID=7433441132597879392&amp;guid=e4cb526a8465e894c91c39b18138a44a&amp;type=3#LevelScreen" />
     <ui:VisualElement name="root-container" class="root-container">
-        <ui:VisualElement name="header-banner-container" class="header-banner-container">
-            <ui:VisualElement name="header-top" class="header-top">
-                <ui:Label name="header-title" text="LEVEL SELECT" class="header-title" />
-                <ui:Label name="header-subtitle" text="CHOOSE YOUR NEXT CHALLENGE" class="header-subtitle" />
-            </ui:VisualElement>
-            <ui:VisualElement name="header-content" class="header-content">
-                <ui:VisualElement name="header-center" class="header-center">
-                    <ui:Label name="progress-label" text="PROGRESS" class="progress-label" />
-                    <ui:VisualElement name="progress-bar-container" class="progress-bar-container">
-                        <ui:VisualElement name="progress-bar-fill" class="progress-bar-fill" />
-                    </ui:VisualElement>
-                    <ui:Label name="progress-text" text="0/0" class="progress-text" />
+        <ui:VisualElement name="SafeArea" style="flex-grow: 1;">
+            <ui:VisualElement name="header-banner-container" class="header-banner-container">
+                <ui:VisualElement name="header-top" class="header-top">
+                    <ui:Label name="header-title" text="LEVEL SELECT" class="header-title" />
+                    <ui:Label name="header-subtitle" text="CHOOSE YOUR NEXT CHALLENGE" class="header-subtitle" />
                 </ui:VisualElement>
-                <ui:VisualElement name="header-right" class="header-right">
-                    <ui:VisualElement name="stats-container" class="stats-container">
-                        <ui:VisualElement name="stat-item" class="stat-item">
-                            <ui:VisualElement name="stat-icon-stars" class="stat-icon" />
-                            <ui:Label name="stat-value-stars" text="0" class="stat-value" />
-                            <ui:Label name="stat-label-stars" text="STARS" class="stat-label" />
+                <ui:VisualElement name="header-content" class="header-content">
+                    <ui:VisualElement name="header-center" class="header-center">
+                        <ui:Label name="progress-label" text="PROGRESS" class="progress-label" />
+                        <ui:VisualElement name="progress-bar-container" class="progress-bar-container">
+                            <ui:VisualElement name="progress-bar-fill" class="progress-bar-fill" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="stat-divider" class="stat-divider" />
-                        <ui:VisualElement name="stat-item" class="stat-item">
-                            <ui:VisualElement name="stat-icon-levels" class="stat-icon" />
-                            <ui:Label name="stat-value-levels" text="0" class="stat-value" />
-                            <ui:Label name="stat-label-levels" text="LEVELS" class="stat-label" />
+                        <ui:Label name="progress-text" text="0/0" class="progress-text" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="header-right" class="header-right">
+                        <ui:VisualElement name="stats-container" class="stats-container">
+                            <ui:VisualElement name="stat-item" class="stat-item">
+                                <ui:VisualElement name="stat-icon-stars" class="stat-icon" />
+                                <ui:Label name="stat-value-stars" text="0" class="stat-value" />
+                                <ui:Label name="stat-label-stars" text="STARS" class="stat-label" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="stat-divider" class="stat-divider" />
+                            <ui:VisualElement name="stat-item" class="stat-item">
+                                <ui:VisualElement name="stat-icon-levels" class="stat-icon" />
+                                <ui:Label name="stat-value-levels" text="0" class="stat-value" />
+                                <ui:Label name="stat-label-levels" text="LEVELS" class="stat-label" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:ScrollView name="level-scroll-view" class="level-scroll-view">
-            <ui:VisualElement name="level-grid-container" class="level-grid-container" />
-        </ui:ScrollView>
-        <ui:VisualElement name="pagination-container" class="pagination-container">
-            <ui:Button name="previous-page-button" class="play-button" style="border-left-width: 0; border-right-width: 0;">
-                <ui:VisualElement name="button-content" class="button-content">
-                    <ui:VisualElement name="previous-icon" class="button-icon previous-icon" />
-                    <ui:Label name="previous-text" text="PREVIOUS" class="button-text" />
-                </ui:VisualElement>
-            </ui:Button>
-            <ui:VisualElement name="page-indicators" class="page-indicators" />
-            <ui:Button name="next-page-button" class="play-button" style="font-size: 40px;">
-                <ui:VisualElement name="button-content" class="button-content">
-                    <ui:Label name="next-text" text="NEXT" class="button-text" />
-                    <ui:VisualElement name="next-icon" class="button-icon next-icon" />
-                </ui:VisualElement>
-            </ui:Button>
-        </ui:VisualElement>
-        <ui:VisualElement name="navigation-container" class="navigation-container" style="display: flex;">
-            <ui:Button name="back-button" text="BACK TO LOBBY" class="navigation-button" style="background-color: rgb(3, 169, 244); display: flex; width: 86%;" />
+            <ui:ScrollView name="level-scroll-view" class="level-scroll-view">
+                <ui:VisualElement name="level-grid-container" class="level-grid-container" />
+            </ui:ScrollView>
+            <ui:VisualElement name="pagination-container" class="pagination-container">
+                <ui:Button name="previous-page-button" class="play-button" style="border-left-width: 0; border-right-width: 0;">
+                    <ui:VisualElement name="button-content" class="button-content">
+                        <ui:VisualElement name="previous-icon" class="button-icon previous-icon" />
+                        <ui:Label name="previous-text" text="PREVIOUS" class="button-text" />
+                    </ui:VisualElement>
+                </ui:Button>
+                <ui:VisualElement name="page-indicators" class="page-indicators" />
+                <ui:Button name="next-page-button" class="play-button" style="font-size: 40px;">
+                    <ui:VisualElement name="button-content" class="button-content">
+                        <ui:Label name="next-text" text="NEXT" class="button-text" />
+                        <ui:VisualElement name="next-icon" class="button-icon next-icon" />
+                    </ui:VisualElement>
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="navigation-container" class="navigation-container" style="display: flex;">
+                <ui:Button name="back-button" text="BACK TO LOBBY" class="navigation-button" style="background-color: rgb(3, 169, 244); display: flex; width: 86%;" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
