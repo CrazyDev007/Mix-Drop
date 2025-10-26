@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/LobbyScreen.uss?fileID=7433441132597879392&amp;guid=3ac97067e86ffb0429d2a27779954667&amp;type=3#LobbyScreen" />
+    <Style src="project://database/Assets/UI%20Toolkit/USS/LobbyScreen.uss?fileID=7433441132597879392&amp;guid=3ac97067e86ffb0429d2a27779954667&amp;type=3#LobbyScreen" />
     <ui:VisualElement class="lobby-screen">
         <ui:Image image="Assets/Sprites/Mix-Drop-1.png" class="logo" />
-        <ui:Button name="play-button" text="PLAY" class="play-button" />
-        <ui:Button name="settings-button" text="SETTINGS" class="settings-button" />
+        <ui:Button name="play-button" text="PLAY" class="play-button" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;);" />
+        <ui:Button name="settings-button" text="SETTINGS" class="settings-button" style="-unity-font-style: bold;" />
         <ui:Button name="how-to-play-button" text="HOW TO PLAY" class="how-to-play-button" />
     </ui:VisualElement>
 </ui:UXML>

@@ -16,6 +16,10 @@ namespace UI
         private Button settingsButton;
         private Button howToPlayButton;
 
+        private void Start()
+        {
+            AudioManager.Instance?.PlayHomeBGAudio();
+        }
         private void InitializeUIElements(VisualElement root)
         {
             playButton = root.Q<Button>(playButtonName);

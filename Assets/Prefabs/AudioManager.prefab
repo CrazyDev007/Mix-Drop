@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9133ad9fc26cd43478c99da4411ed753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mix-Drop::AudioManager
-  bgHomeClip: {fileID: 8300000, guid: 2f4557f1ce7d67848b555d940f317135, type: 3}
+  bgHomeClip: {fileID: 8300000, guid: d825898fba13ee14684ca057769e3493, type: 3}
   bgGameClip: {fileID: 8300000, guid: 2f4557f1ce7d67848b555d940f317135, type: 3}
   buttonTapClip: {fileID: 8300000, guid: 6ead86c7d2eb5c44fbc325abfe6f6b47, type: 3}
   bottlePickClip: {fileID: 8300000, guid: 6ead86c7d2eb5c44fbc325abfe6f6b47, type: 3}
@@ -315,7 +315,7 @@ MonoBehaviour:
   levelFailClip: {fileID: 8300000, guid: 9a11f55a7437a674aac6e6a5ba3a2979, type: 3}
   undoClip: {fileID: 0}
   hintClip: {fileID: 0}
-  bgAudioSource: {fileID: 8179870028127503481}
+  bgAudioSource: {fileID: 111214199011051743}
   uiAudioSource: {fileID: 8179870028127503481}
   sfxAudioSource: {fileID: 1778262230917581505}
   masterVolume: 1

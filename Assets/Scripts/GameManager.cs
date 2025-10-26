@@ -86,18 +86,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private async void Start()
+    private void Start()
     {
         // Initialize Unity Services
-        await UnityServices.InitializeAsync();
-        
-        // Check if user is authenticated
-        if (!AuthenticationService.Instance.IsSignedIn)
-        {
-            // Load login scene if not authenticated
-            //SceneManager.LoadScene("Main");
-            //return;
-        }
+        //await UnityServices.InitializeAsync();
         
         // Initialize text file storage if available
         if (textFileStorage != null)
@@ -187,7 +179,7 @@ public class GameManager : MonoBehaviour
             // Force immediate save to ensure data is written
             textFileStorage.ForceSaveGameData();
         }
-        
+        AudioManager.Instance?.StopBG();
         gamePlayScreenUIref.OnLevelFailed();
     }
     private void SetupTwists() //Will work on this later
@@ -258,6 +250,7 @@ public class GameManager : MonoBehaviour
 
     internal void RestartGame()
     {
+        AudioManager.Instance?.PlayGameBGAudio();
         // Check if we're retrying a failed level
         if (failedLevel != -1)
         {
