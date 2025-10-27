@@ -28,8 +28,9 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float musicVolume = 0.6f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
     
-    // Mute state for background music
+    // Mute states
     public bool IsMuted { get; private set; }
+    public bool IsSFXMuted { get; private set; }
 
     void Awake()
     {
@@ -37,11 +38,21 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
-        // Load mute state from PlayerPrefs
+        // Load mute states from PlayerPrefs
         IsMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
+        IsSFXMuted = PlayerPrefs.GetInt("SFXMuted", 0) == 1;
+        
         if (bgAudioSource != null)
         {
             bgAudioSource.mute = IsMuted;
+        }
+        if (uiAudioSource != null)
+        {
+            uiAudioSource.mute = IsSFXMuted;
+        }
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.mute = IsSFXMuted;
         }
     }
 
@@ -158,9 +169,36 @@ public class AudioManager : MonoBehaviour
         }
     }
     
+    public void SetSFXMuteState(bool isSFXMuted)
+    {
+        IsSFXMuted = isSFXMuted;
+        
+        if (uiAudioSource != null)
+        {
+            uiAudioSource.mute = IsSFXMuted;
+        }
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.mute = IsSFXMuted;
+        }
+    }
+    
     public void SaveMuteState()
     {
         PlayerPrefs.SetInt("MusicMuted", IsMuted ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+    
+    public void SaveSFXMuteState()
+    {
+        PlayerPrefs.SetInt("SFXMuted", IsSFXMuted ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+    
+    public void SaveAllMuteStates()
+    {
+        PlayerPrefs.SetInt("MusicMuted", IsMuted ? 1 : 0);
+        PlayerPrefs.SetInt("SFXMuted", IsSFXMuted ? 1 : 0);
         PlayerPrefs.Save();
     }
     

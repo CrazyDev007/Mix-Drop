@@ -23,7 +23,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement class="setting-item">
                     <ui:Label text="SOUND EFFECTS (SFX)" class="setting-label" />
-                    <ui:Toggle name="sfx-toggle" tabindex="5" class="setting-toggle" />
+                    <ui:Toggle name="sfx-mute-toggle" tabindex="5" class="setting-toggle" />
                     <ui:Label text="ENABLE/DISABLE GAME SOUND EFFECTS" class="setting-description" />
                 </ui:VisualElement>
             </ui:VisualElement>

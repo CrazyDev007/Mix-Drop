@@ -13,6 +13,7 @@ namespace UI
         private string musicSliderName = "music-slider";
         private string sfxSliderName = "sfx-slider";
         private string musicMuteToggleName = "music-mute-toggle";
+        private string sfxMuteToggleName = "sfx-mute-toggle";
         private string confirmButtonName = "confirm-button";
 
         private Button backButton;
@@ -20,6 +21,7 @@ namespace UI
         private Slider musicSlider;
         private Slider sfxSlider;
         private Toggle musicMuteToggle;
+        private Toggle sfxMuteToggle;
 
         private const string MusicVolumeKey = "MusicVolume";
         private const string SfxVolumeKey = "SfxVolume";
@@ -31,6 +33,7 @@ namespace UI
             musicSlider = root.Q<Slider>(musicSliderName);
             sfxSlider = root.Q<Slider>(sfxSliderName);
             musicMuteToggle = root.Q<Toggle>(musicMuteToggleName);
+            sfxMuteToggle = root.Q<Toggle>(sfxMuteToggleName);
 
             if (backButton == null) Debug.LogWarning($"Back button '{backButtonName}' not found");
             if (confirmButton == null) Debug.LogWarning($"Confirm button '{confirmButtonName}' not found");
@@ -39,6 +42,7 @@ namespace UI
             if (musicSlider == null) Debug.LogWarning($"Music slider '{musicSliderName}' not found");
             if (sfxSlider == null) Debug.LogWarning($"SFX slider '{sfxSliderName}' not found");
             if (musicMuteToggle == null) Debug.LogWarning($"Music mute toggle '{musicMuteToggleName}' not found");
+            if (sfxMuteToggle == null) Debug.LogWarning($"SFX mute toggle '{sfxMuteToggleName}' not found");
         }
 
         private void SetupEventHandlers()
@@ -63,6 +67,10 @@ namespace UI
             {
                 musicMuteToggle.RegisterValueChangedCallback(OnMusicMuteToggleChanged);
             }
+            if (sfxMuteToggle != null)
+            {
+                sfxMuteToggle.RegisterValueChangedCallback(OnSFXMuteToggleChanged);
+            }
         }
 
         private void LoadSettings()
@@ -79,15 +87,19 @@ namespace UI
             {
                 musicMuteToggle.value = !AudioManager.Instance.IsMuted;
             }
+            if (sfxMuteToggle != null && AudioManager.Instance != null)
+            {
+                sfxMuteToggle.value = !AudioManager.Instance.IsSFXMuted;
+            }
         }
 
         private void SaveSettings()
         {
             SaveVolumeSettingsOnly();
-            // Save the mute state when confirm button is clicked
+            // Save all mute states when confirm button is clicked
             if (AudioManager.Instance != null)
             {
-                AudioManager.Instance.SaveMuteState();
+                AudioManager.Instance.SaveAllMuteStates();
             }
         }
 
@@ -126,6 +138,16 @@ namespace UI
             }
         }
 
+        private void OnSFXMuteToggleChanged(ChangeEvent<bool> evt)
+        {
+            if (AudioManager.Instance != null)
+            {
+                // Temporarily apply the SFX mute state without saving
+                AudioManager.Instance.SetSFXMuteState(!evt.newValue);
+                Debug.Log($"SFX mute temporarily set to: {AudioManager.Instance.IsSFXMuted}");
+            }
+        }
+
         private void OnConfirmButtonClicked()
         {
             AudioManager.Instance?.PlayButtonTap();
@@ -148,11 +170,13 @@ namespace UI
             Debug.Log("[DEBUG] OnBackButtonClicked called");
             // Save volume settings but not mute state
             SaveVolumeSettingsOnly();
-            // Restore the original mute state from PlayerPrefs
+            // Restore the original mute states from PlayerPrefs
             if (AudioManager.Instance != null)
             {
-                bool originalMuteState = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
-                AudioManager.Instance.SetMuteState(originalMuteState);
+                bool originalMusicMuteState = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
+                bool originalSFXMuteState = PlayerPrefs.GetInt("SFXMuted", 0) == 1;
+                AudioManager.Instance.SetMuteState(originalMusicMuteState);
+                AudioManager.Instance.SetSFXMuteState(originalSFXMuteState);
             }
             // Show How to Play overlay through ScreenManager
             if (ScreenManager.Instance.GetAvailableScreenTypes().Contains("LobbyScreen"))
