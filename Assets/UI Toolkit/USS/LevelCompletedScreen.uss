@@ -32,7 +32,7 @@
 }
 
 .success-message {
-    font-size: 24px;
+    font-size: 36px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     margin-bottom: 60px;
@@ -77,8 +77,8 @@
 
 .retry-button {
     height: 80px;
-    width: 150px;
-    font-size: 24px;
+    width: 225px;
+    font-size: 36px;
     -unity-font-style: bold;
     background-color: rgb(74, 158, 255);
     border-width: 0;
@@ -96,8 +96,8 @@
 
 .home-button {
     height: 80px;
-    width: 150px;
-    font-size: 24px;
+    width: 225px;
+    font-size: 36px;
     -unity-font-style: bold;
     background-color: rgb(102, 102, 102);
     border-width: 0;
@@ -115,8 +115,8 @@
 
 .next-button {
     height: 80px;
-    width: 150px;
-    font-size: 24px;
+    width: 225px;
+    font-size: 36px;
     -unity-font-style: bold;
     background-color: rgb(74, 158, 255);
     border-width: 0;
