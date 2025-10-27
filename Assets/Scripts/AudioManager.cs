@@ -27,12 +27,22 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float masterVolume = 1f;
     [Range(0f, 1f)] public float musicVolume = 0.6f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
+    
+    // Mute state for background music
+    public bool IsMuted { get; private set; }
 
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(this.gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
+        // Load mute state from PlayerPrefs
+        IsMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
+        if (bgAudioSource != null)
+        {
+            bgAudioSource.mute = IsMuted;
+        }
     }
 
     private void Start()
@@ -124,6 +134,36 @@ public class AudioManager : MonoBehaviour
         // sfx and ui sources use volume multipliers during PlayOneShot
     }
 
+    #endregion
+
+    #region Mute Management
+    
+    public void ToggleMute()
+    {
+        IsMuted = !IsMuted;
+        
+        if (bgAudioSource != null)
+        {
+            bgAudioSource.mute = IsMuted;
+        }
+    }
+    
+    public void SetMuteState(bool isMuted)
+    {
+        IsMuted = isMuted;
+        
+        if (bgAudioSource != null)
+        {
+            bgAudioSource.mute = IsMuted;
+        }
+    }
+    
+    public void SaveMuteState()
+    {
+        PlayerPrefs.SetInt("MusicMuted", IsMuted ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+    
     #endregion
 
 }

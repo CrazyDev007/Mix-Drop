@@ -13,7 +13,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement class="setting-item">
                     <ui:Label text="MUSIC" class="setting-label" />
-                    <ui:Toggle name="music-toggle" tabindex="4" class="setting-toggle" />
+                    <ui:Toggle name="music-mute-toggle" tabindex="4" class="setting-toggle" />
                     <ui:Label text="ENABLE/DISABLE BACKGROUND MUSIC" class="setting-description" />
                 </ui:VisualElement>
                 <ui:VisualElement class="setting-item">
