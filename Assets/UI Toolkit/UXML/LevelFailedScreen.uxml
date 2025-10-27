@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/USS/LevelFailedScreen.uss?fileID=7433441132597879392&amp;guid=a54bdc916bbe3c84d9514472a0da7f43&amp;type=3#LevelFailedScreen" />
     <engine:VisualElement class="root-wrapper">
-        <engine:VisualElement name="failed-container" class="failed-container">
+        <engine:VisualElement name="failed-container" class="failed-container" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;);">
             <engine:Label text="LEVEL FAILED" class="title-label" />
             <engine:Label name="FailureMessageLabel" text="FAILURE REASON" class="failure-message" />
             <engine:VisualElement name="button-container" class="button-container">

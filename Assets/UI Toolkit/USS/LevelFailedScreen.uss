@@ -9,46 +9,46 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 80px;
-    min-width: 600px;
-    max-width: 800px;
+    padding: 120px;
+    min-width: 900px;
+    max-width: 1200px;
     background-color: rgba(0, 0, 0, 0.9);
-    border-radius: 8px;
-    border-width: 2px;
+    border-radius: 12px;
+    border-width: 3px;
     border-color: rgba(255, 0, 0, 0.5);
 }
 
 .title-label {
-    font-size: 48px;
+    font-size: 72px;
     -unity-font-style: bold;
     color: rgb(255, 68, 68);
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     -unity-text-align: middle-center;
 }
 
 .failure-message {
-    font-size: 24px;
+    font-size: 36px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
-    margin-bottom: 60px;
-    min-height: 30px;
+    margin-bottom: 90px;
+    min-height: 45px;
 }
 
 .button-container {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
 }
 
 .retry-button {
-    height: 80px;
-    width: 150px;
-    font-size: 24px;
+    height: 120px;
+    width: 225px;
+    font-size: 36px;
     -unity-font-style: bold;
     background-color: rgb(74, 158, 255);
     border-width: 0;
-    border-radius: 6px;
+    border-radius: 9px;
     color: rgb(255, 255, 255);
 }
 
@@ -61,13 +61,13 @@
 }
 
 .home-button {
-    height: 80px;
-    width: 150px;
-    font-size: 24px;
+    height: 120px;
+    width: 225px;
+    font-size: 36px;
     -unity-font-style: bold;
     background-color: rgb(102, 102, 102);
     border-width: 0;
-    border-radius: 6px;
+    border-radius: 9px;
     color: rgb(255, 255, 255);
 }
 
