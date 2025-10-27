@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/USS/LevelCompletedScreen.uss?fileID=7433441132597879392&amp;guid=f778a97469509c241b88d22acc5b8a25&amp;type=3#LevelCompletedScreen" />
     <engine:VisualElement class="root-wrapper">
-        <engine:VisualElement name="success-container" class="success-container" style="border-left-color: rgba(47, 255, 0, 0.5); border-right-color: rgba(47, 255, 0, 0.5); border-top-color: rgba(47, 255, 0, 0.5); border-bottom-color: rgba(47, 255, 0, 0.5);">
+        <engine:VisualElement name="success-container" class="success-container" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;); border-left-color: rgba(47, 255, 0, 0.5); border-right-color: rgba(47, 255, 0, 0.5); border-top-color: rgba(47, 255, 0, 0.5); border-bottom-color: rgba(47, 255, 0, 0.5);">
             <engine:Label text="LEVEL COMPLETED" emoji-fallback-support="false" class="title-label" style="color: rgb(94, 255, 68);" />
             <engine:Label name="SuccessMessageLabel" text="SUCCESS MESSAGE" class="success-message" />
             <engine:VisualElement name="stars-container" class="stars-container" />
