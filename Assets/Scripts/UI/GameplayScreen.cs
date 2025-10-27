@@ -44,7 +44,7 @@ namespace UI
             movesLabel = screen.Q<Label>("moves-label");
 
             screen.Q<Button>("add-tube-button").clicked += OnClickBtnAddTube;
-            screen.Q<Button>("hint-button").clicked += OnClickBtnHint;
+            //screen.Q<Button>("hint-button").clicked += OnClickBtnHint;
             screen.Q<Button>("pause-button").clicked += OnClickBtnPause;
 
             // Initialize values
