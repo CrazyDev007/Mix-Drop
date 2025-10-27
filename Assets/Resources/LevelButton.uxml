@@ -1,29 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI Toolkit/USS/DesignSystem.uss" />
-    <Style src="project://database/Assets/UI Toolkit/USS/LevelButton.uss" />
-    
-    <ui:VisualElement name="level-button-container" class="level-button-container">
-        <!-- Level Number -->
+    <Style src="project://database/Assets/UI%20Toolkit/USS/DesignSystem.uss?fileID=7433441132597879392&amp;guid=8f2a617c4c6cbb340949e42642b16278&amp;type=3#DesignSystem" />
+    <Style src="project://database/Assets/UI%20Toolkit/USS/LevelButton.uss?fileID=7433441132597879392&amp;guid=6bc9f36aafb76354b8aed7e0a2a3c878&amp;type=3#LevelButton" />
+    <ui:VisualElement name="level-button-container" class="level-button-container" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;);">
         <ui:Label name="level-number" text="1" class="level-number" />
-        
-        <!-- Level Name -->
-        <ui:Label name="level-name" text="Level 1" class="level-name" />
-        
-        <!-- Stars Container -->
         <ui:VisualElement name="stars-container" class="stars-container">
             <ui:VisualElement name="star-1" class="star empty-star" />
             <ui:VisualElement name="star-2" class="star empty-star" />
             <ui:VisualElement name="star-3" class="star empty-star" />
         </ui:VisualElement>
-        
-        <!-- Status Icons -->
         <ui:VisualElement name="status-container" class="status-container">
             <ui:VisualElement name="lock-icon" class="status-icon lock-icon" style="display: none;" />
             <ui:VisualElement name="new-icon" class="status-icon new-icon" style="display: none;" />
             <ui:VisualElement name="completed-icon" class="status-icon completed-icon" style="display: none;" />
         </ui:VisualElement>
-
-        <!-- Loading State Elements -->
         <ui:VisualElement name="loading-overlay" class="loading-overlay" />
         <ui:VisualElement name="loading-spinner" class="loading-spinner" />
     </ui:VisualElement>

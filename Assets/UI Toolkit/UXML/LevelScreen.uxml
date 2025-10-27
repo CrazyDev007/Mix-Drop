@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/USS/LevelScreen.uss?fileID=7433441132597879392&amp;guid=e4cb526a8465e894c91c39b18138a44a&amp;type=3#LevelScreen" />
     <ui:VisualElement name="root-container" class="root-container">
         <ui:VisualElement name="SafeArea" style="flex-grow: 1;">
-            <ui:VisualElement name="header-banner-container" class="header-banner-container">
+            <ui:VisualElement name="header-banner-container" class="header-banner-container" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/ROGLyonsTypeRegular3.ttf?fileID=12800000&amp;guid=5cf13f5d3640281409f62915b9736d6f&amp;type=3#ROGLyonsTypeRegular3&quot;);">
                 <ui:VisualElement name="header-top" class="header-top">
                     <ui:Label name="header-title" text="LEVEL SELECT" class="header-title" />
                     <ui:Label name="header-subtitle" text="CHOOSE YOUR NEXT CHALLENGE" class="header-subtitle" />

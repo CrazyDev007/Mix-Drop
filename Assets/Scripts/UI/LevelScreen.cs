@@ -33,7 +33,7 @@ namespace UI
         
         // Data
         private int currentPage = 0;
-        private int levelsPerPage = 16; // 4x5 grid
+        private int levelsPerPage = 12; // 4x5 grid
         private int totalLevels = 220;
         private int totalPages;
 
@@ -244,13 +244,6 @@ namespace UI
                     if (levelNumberLabel != null)
                     {
                         levelNumberLabel.text = $"{levelNumber}";
-                    }
-                    
-                    // Update level name
-                    var levelNameLabel = buttonContainer.Q<Label>("level-name");
-                    if (levelNameLabel != null)
-                    {
-                        levelNameLabel.text = $"Level {levelNumber}";
                     }
                     
                     // Check if level is completed

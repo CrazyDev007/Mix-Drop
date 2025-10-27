@@ -95,6 +95,10 @@
     -unity-font-style: bold;
     margin-top: 5px;
     text-shadow: var(--neon-glow-cyan);
+    -unity-text-align: middle-center;
+    align-self: center;
+    flex-grow: 1;
+    justify-content: center;
 }
 
 .level-name {

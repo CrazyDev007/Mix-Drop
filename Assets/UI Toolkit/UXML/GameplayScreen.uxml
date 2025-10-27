@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/GameplayScreen.uss?fileID=7433441132597879392&amp;guid=4da70bf03b7d8fa4fb9b25ed575514f0&amp;type=3#GameplayScreen" />
-    <ui:VisualElement class="gameplay-screen">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/GameplayScreen.uss?fileID=7433441132597879392&amp;guid=4da70bf03b7d8fa4fb9b25ed575514f0&amp;type=3#GameplayScreen" />
+    <ui:VisualElement name="SafeArea" class="gameplay-screen">
         <ui:VisualElement class="top-bar">
             <ui:VisualElement class="left-section">
                 <ui:Label name="level-label" text="LEVEL" class="level-title" />
