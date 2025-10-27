@@ -28,6 +28,12 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float musicVolume = 0.6f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
     
+    // Default values for reset
+    private const float DEFAULT_MUSIC_VOLUME = 0.5f;
+    private const float DEFAULT_SFX_VOLUME = 0.5f;
+    private const bool DEFAULT_MUSIC_MUTED = false;
+    private const bool DEFAULT_SFX_MUTED = false;
+    
     // Mute states
     public bool IsMuted { get; private set; }
     public bool IsSFXMuted { get; private set; }
@@ -200,6 +206,43 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetInt("MusicMuted", IsMuted ? 1 : 0);
         PlayerPrefs.SetInt("SFXMuted", IsSFXMuted ? 1 : 0);
         PlayerPrefs.Save();
+    }
+    
+    public void ResetAllAudioSettings()
+    {
+        // Reset volume values
+        musicVolume = DEFAULT_MUSIC_VOLUME;
+        sfxVolume = DEFAULT_SFX_VOLUME;
+        
+        // Reset mute states
+        IsMuted = DEFAULT_MUSIC_MUTED;
+        IsSFXMuted = DEFAULT_SFX_MUTED;
+        
+        // Apply volume changes
+        ApplyVolume();
+        
+        // Apply mute changes
+        if (bgAudioSource != null)
+        {
+            bgAudioSource.mute = IsMuted;
+        }
+        if (uiAudioSource != null)
+        {
+            uiAudioSource.mute = IsSFXMuted;
+        }
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.mute = IsSFXMuted;
+        }
+        
+        // Save all settings to PlayerPrefs
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
+        PlayerPrefs.SetInt("MusicMuted", IsMuted ? 1 : 0);
+        PlayerPrefs.SetInt("SFXMuted", IsSFXMuted ? 1 : 0);
+        PlayerPrefs.Save();
+        
+        Debug.Log("All audio settings reset to defaults");
     }
     
     #endregion

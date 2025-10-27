@@ -15,9 +15,11 @@ namespace UI
         private string musicMuteToggleName = "music-mute-toggle";
         private string sfxMuteToggleName = "sfx-mute-toggle";
         private string confirmButtonName = "confirm-button";
+        private string resetButtonName = "reset-button";
 
         private Button backButton;
         private Button confirmButton;
+        private Button resetButton;
         private Slider musicSlider;
         private Slider sfxSlider;
         private Toggle musicMuteToggle;
@@ -30,6 +32,7 @@ namespace UI
         {
             backButton = root.Q<Button>(backButtonName);
             confirmButton = root.Q<Button>(confirmButtonName);
+            resetButton = root.Q<Button>(resetButtonName);
             musicSlider = root.Q<Slider>(musicSliderName);
             sfxSlider = root.Q<Slider>(sfxSliderName);
             musicMuteToggle = root.Q<Toggle>(musicMuteToggleName);
@@ -37,6 +40,7 @@ namespace UI
 
             if (backButton == null) Debug.LogWarning($"Back button '{backButtonName}' not found");
             if (confirmButton == null) Debug.LogWarning($"Confirm button '{confirmButtonName}' not found");
+            if (resetButton == null) Debug.LogWarning($"Reset button '{resetButtonName}' not found");
             Debug.Log($"[DEBUG] backButtonName: '{backButtonName}', backButton is null: {backButton == null}");
             Debug.Log($"[DEBUG] Available buttons in root: {string.Join(", ", root.Query<Button>().ToList().Select(b => b.name))}");
             if (musicSlider == null) Debug.LogWarning($"Music slider '{musicSliderName}' not found");
@@ -54,6 +58,10 @@ namespace UI
             if (confirmButton != null)
             {
                 confirmButton.clicked += OnConfirmButtonClicked;
+            }
+            if (resetButton != null)
+            {
+                resetButton.clicked += OnResetButtonClicked;
             }
             if (musicSlider != null)
             {
@@ -146,6 +154,48 @@ namespace UI
                 AudioManager.Instance.SetSFXMuteState(!evt.newValue);
                 Debug.Log($"SFX mute temporarily set to: {AudioManager.Instance.IsSFXMuted}");
             }
+        }
+
+        private void OnResetButtonClicked()
+        {
+            AudioManager.Instance?.PlayButtonTap();
+            Debug.Log("[DEBUG] OnResetButtonClicked called");
+            
+            if (AudioManager.Instance != null)
+            {
+                // Reset all audio settings in AudioManager
+                AudioManager.Instance.ResetAllAudioSettings();
+                
+                // Update UI elements to reflect the reset values
+                UpdateUIElementsToDefaults();
+            }
+        }
+
+        private void UpdateUIElementsToDefaults()
+        {
+            if (AudioManager.Instance == null) return;
+            
+            // Update volume sliders
+            if (musicSlider != null)
+            {
+                musicSlider.value = AudioManager.Instance.musicVolume;
+            }
+            if (sfxSlider != null)
+            {
+                sfxSlider.value = AudioManager.Instance.sfxVolume;
+            }
+            
+            // Update mute toggles (inverted because toggle value = !mute state)
+            if (musicMuteToggle != null)
+            {
+                musicMuteToggle.value = !AudioManager.Instance.IsMuted;
+            }
+            if (sfxMuteToggle != null)
+            {
+                sfxMuteToggle.value = !AudioManager.Instance.IsSFXMuted;
+            }
+            
+            Debug.Log("UI elements updated to default audio settings");
         }
 
         private void OnConfirmButtonClicked()
