@@ -49,6 +49,37 @@
     flex-shrink: 0;
 }
 
+/* Level Type Badge Styles */
+.level-type-badge {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
+    text-align: center;
+    min-width: 50px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.level-type-badge.normal {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.level-type-badge.timer {
+    background-color: #FF9800;
+    color: white;
+}
+
+.level-type-badge.moves {
+    background-color: #2196F3;
+    color: white;
+}
+
 .timer {
     font-size: 40px;
     color: white;
@@ -58,6 +89,26 @@
 .moves {
     font-size: 40px;
     color: white;
+}
+
+/* Warning States */
+.timer.warning {
+    color: #F44336;
+    font-weight: bold;
+}
+
+.moves.warning {
+    color: #F44336;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .level-type-badge {
+        font-size: 8px;
+        padding: 1px 4px;
+        min-width: 40px;
+    }
 }
 
 .add-tube-btn {

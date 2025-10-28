@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextFileGameDataStorage textFileStorage;
     
     public int Level { get; private set; }
+    public LevelType CurrentLevelType { get; private set; }
     private string levelName;
     private int failedLevel = -1; // Store the level that failed for retry functionality
     private bool isUIOpen = false; // Track if any UI is currently open
@@ -114,32 +115,79 @@ public class GameManager : MonoBehaviour
 
     private void SetupLevelRules()
     {
-        RemainingMoves = currentLevelData.maxMoves > 0 ? currentLevelData.maxMoves : 50000;
-        LevelTime = currentLevelData.timeLimit;
+        // Determine level type
+        CurrentLevelType = DetermineCurrentLevelType();
+        
+        // Setup moves and time based on level type
+        switch (CurrentLevelType)
+        {
+            case LevelType.Normal:
+                RemainingMoves = 50000; // Effectively unlimited
+                LevelTime = 0;
+                gamePlayScreenUIref.UpdateMoves("∞ Moves");
+                gamePlayScreenUIref.UpdateTimer("∞ Time");
+                break;
+                
+            case LevelType.Timer:
+                RemainingMoves = 50000; // Unlimited
+                LevelTime = currentLevelData.timeLimit;
+                gamePlayScreenUIref.UpdateMoves("∞ Moves");
+                
+                // Start timer
+                if (timerCoroutine != null)
+                    StopCoroutine(timerCoroutine);
+                timerCoroutine = StartCoroutine(LevelTimer());
+                break;
+                
+            case LevelType.Moves:
+                RemainingMoves = currentLevelData.maxMoves;
+                LevelTime = 0; // Unlimited
+                gamePlayScreenUIref.UpdateTimer("∞ Time");
+                gamePlayScreenUIref.UpdateMoves($"{RemainingMoves} Moves left");
+                break;
+        }
+        
         movesUsed = 0; // Reset moves counter
         timeUsed = 0; // Reset time counter
-        var _movesLeft = RemainingMoves >= 50000 ? "Unlimited Moves" : $"{RemainingMoves} Moves left";
-        gamePlayScreenUIref.UpdateMoves(_movesLeft);
-        if (LevelTime > 0)
-        {
-            if (timerCoroutine != null)
-                StopCoroutine(timerCoroutine);
-            
-            timerCoroutine = StartCoroutine(LevelTimer());
-        }
-        else
-        {
-            gamePlayScreenUIref.UpdateTimer("Unlimited Time");
-        }
+        
+        // Update level type badge in UI
+        gamePlayScreenUIref.UpdateLevelType(CurrentLevelType);
+    }
+    
+    /// <summary>
+    /// Determines the current level type based on level data
+    /// </summary>
+    /// <returns>The detected LevelType</returns>
+    private LevelType DetermineCurrentLevelType()
+    {
+        if (currentLevelData == null)
+            return LevelType.Normal;
+        
+        return LevelTypeDetector.DetectLevelType(currentLevelData.maxMoves, currentLevelData.timeLimit);
     }
 
     private IEnumerator LevelTimer()
     {
         float timeLeft = LevelTime;
+        bool isWarning = false;
+        
         while (timeLeft > 0)
         {
-            var _timeLeft = $"{timeLeft} Sec Left";
-            gamePlayScreenUIref.UpdateTimer(_timeLeft);
+            // Check for warning state (25% time remaining)
+            bool shouldBeWarning = timeLeft <= (LevelTime * 0.25f);
+            
+            if (shouldBeWarning != isWarning)
+            {
+                isWarning = shouldBeWarning;
+                var timeText = $"{timeLeft} Sec Left";
+                gamePlayScreenUIref.UpdateTimer(timeText, isWarning);
+            }
+            else
+            {
+                var timeText = $"{timeLeft} Sec Left";
+                gamePlayScreenUIref.UpdateTimer(timeText);
+            }
+            
             yield return new WaitForSeconds(1f);
             timeLeft -= 1f;
             timeUsed += 1f; // Track time used
@@ -151,16 +199,25 @@ public class GameManager : MonoBehaviour
     public void OnMoveMade()
     {
         movesUsed++;
+        
         // Update UI to show remaining moves
         if (RemainingMoves < 50000)
         {
             int movesLeft = RemainingMoves - movesUsed;
+            
             if (movesLeft < 0)
             {
                 OnLevelFailed();
                 return;
             }
-            gamePlayScreenUIref.UpdateMoves($"{movesLeft} Moves left");
+            
+            // Check for warning state (25% moves remaining)
+            bool isWarning = movesLeft <= (RemainingMoves * 0.25f);
+            
+            if (isWarning)
+                gamePlayScreenUIref.UpdateMoves($"{movesLeft} Moves left", true);
+            else
+                gamePlayScreenUIref.UpdateMoves($"{movesLeft} Moves left");
         }
     }
     public void OnLevelFailed()

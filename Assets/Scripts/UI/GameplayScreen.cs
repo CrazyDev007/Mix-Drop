@@ -10,6 +10,7 @@ namespace UI
         private Label levelNumberLabel;
         private Label timerLabel;
         private Label movesLabel;
+        private Label levelTypeBadge;
 
         public void OnClickBtnAddTube()
         {
@@ -42,6 +43,7 @@ namespace UI
             levelNumberLabel = screen.Q<Label>("level-number");
             timerLabel = screen.Q<Label>("timer-label");
             movesLabel = screen.Q<Label>("moves-label");
+            levelTypeBadge = screen.Q<Label>("level-type-badge");
 
             screen.Q<Button>("add-tube-button").clicked += OnClickBtnAddTube;
             //screen.Q<Button>("hint-button").clicked += OnClickBtnHint;
@@ -60,18 +62,66 @@ namespace UI
                 levelNumberLabel.text = level.ToString();
         }
         string _storedTimeInSec = "";
-        public void UpdateTimer(string timeInSec)
+        public void UpdateTimer(string timeInSec, bool isWarning = false)
         {
             _storedTimeInSec = timeInSec;
             if (timerLabel != null)
+            {
                 timerLabel.text = timeInSec;
+                
+                // Handle warning state
+                if (isWarning)
+                    timerLabel.AddToClassList("warning");
+                else
+                    timerLabel.RemoveFromClassList("warning");
+            }
         }
         string _storedMoves = "";
-        public void UpdateMoves(string moves)
+        public void UpdateMoves(string moves, bool isWarning = false)
         {
             _storedMoves = moves;
             if (movesLabel != null)
+            {
                 movesLabel.text = moves;
+                
+                // Handle warning state
+                if (isWarning)
+                    movesLabel.AddToClassList("warning");
+                else
+                    movesLabel.RemoveFromClassList("warning");
+            }
+        }
+        
+        /// <summary>
+        /// Updates the level type badge display
+        /// </summary>
+        /// <param name="levelType">The level type to display</param>
+        public void UpdateLevelType(LevelType levelType)
+        {
+            if (levelTypeBadge != null)
+            {
+                levelTypeBadge.text = LevelTypeDetector.GetLevelTypeDisplayText(levelType);
+                levelTypeBadge.style.display = DisplayStyle.Flex;
+                
+                // Remove existing type classes
+                levelTypeBadge.RemoveFromClassList("normal");
+                levelTypeBadge.RemoveFromClassList("timer");
+                levelTypeBadge.RemoveFromClassList("moves");
+                
+                // Add appropriate type class
+                switch (levelType)
+                {
+                    case LevelType.Normal:
+                        levelTypeBadge.AddToClassList("normal");
+                        break;
+                    case LevelType.Timer:
+                        levelTypeBadge.AddToClassList("timer");
+                        break;
+                    case LevelType.Moves:
+                        levelTypeBadge.AddToClassList("moves");
+                        break;
+                }
+            }
         }
     }
 }
