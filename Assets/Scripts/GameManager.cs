@@ -249,6 +249,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameWin()
     {
+        StopAllCoroutines();
         // Calculate stars earned
         int starsEarned = CalculateStars();
         
