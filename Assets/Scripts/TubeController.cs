@@ -129,13 +129,15 @@ public class TubeController : MonoBehaviour
         // Setup Liquid Renderer
         liquidRenderer.color = GameManager.Instance.Colors[secondTube.TopColor];
         liquidRenderer.transform.rotation = Quaternion.identity;
+        var pos= liquidRenderer.transform.localPosition;
+        pos.x = -direction * 0.5f;
+        liquidRenderer.transform.localPosition = pos;
         const float baseScaleY = 250f;
         const float extraScaleY = 61f;
         var liquidScale = liquidRenderer.transform.localScale;
         var fillAmount = tubeMaterial.GetFloat("_Mask");
         liquidScale.y = (Mathf.Approximately(fillAmount, 0f) ? baseScaleY : baseScaleY * (1-fillAmount)) + extraScaleY;
         liquidRenderer.transform.localScale = liquidScale;
-        liquidRenderer.gameObject.SetActive(true);
         
         await Task.WhenAll(
             secondTube.RotateTubeAsync(0, direction * tubeModel.tubeRotationAngle, direction),
@@ -221,6 +223,7 @@ public class TubeController : MonoBehaviour
 
         currentTopIndex += fillLevel;
         var tubeModel = GameManager.Instance.TubeData[currentTopIndex];
+        liquidRenderer.gameObject.SetActive(true);
         await FillMask(tubeModel.fillAmount);
         return true;
     }
