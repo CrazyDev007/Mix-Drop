@@ -4,7 +4,6 @@
         <ui:VisualElement class="top-bar">
             <ui:VisualElement class="left-section">
                 <ui:Label name="level-label" text="LEVEL" class="level-title" />
-                <ui:Label name="level-type-badge" text="NORMAL" class="level-type-badge" display="false" />
                 <ui:Label name="level-number" text="1" class="level-number" />
             </ui:VisualElement>
             <ui:VisualElement class="center-section">
