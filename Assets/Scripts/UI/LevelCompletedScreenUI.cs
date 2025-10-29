@@ -38,7 +38,8 @@ namespace UI
         
         void ShowCompletedScreen()
         {
-            Debug.Log("Level completed screen shown");
+            // Set UI open flag to prevent tube interactions
+            GameManager.Instance.IsUIOpen = true;
             //this.Show();
             AudioManager.Instance?.StopBG();
             AudioManager.Instance?.PlayLevelComplete();
@@ -128,8 +129,9 @@ namespace UI
 
         private void OnClickBtnNext()
         {
-            AudioManager.Instance?.PlayButtonTap();
-            Debug.Log("[LevelCompletedScreenUI] OnClickBtnNext() called");
+            AudioManager.Instance?.PlayButtonTap();            
+            // Set UI open flag to false before returning to gameplay
+            GameManager.Instance.IsUIOpen = false;            
             RefreshLevelData();
             ScreenManager.Instance.ShowScreen("gameplay-screen");
             GameManager.Instance.ProceedToNextLevel();
@@ -137,14 +139,18 @@ namespace UI
 
         private void OnClickBtnRestart()
         {
-            AudioManager.Instance?.PlayButtonTap();
+            AudioManager.Instance?.PlayButtonTap();            
+            // Set UI open flag to false before restarting
+            GameManager.Instance.IsUIOpen = false;
             //GameManager.Instance.RestartGame();
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void OnClickBtnHome()
         {
-            AudioManager.Instance?.PlayButtonTap();
+            AudioManager.Instance?.PlayButtonTap();            
+            // Set UI open flag to false before going to home
+            GameManager.Instance.IsUIOpen = false;
             RefreshLevelData();
             SceneManager.LoadSceneAsync("Main");
         }
