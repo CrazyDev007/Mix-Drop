@@ -149,9 +149,6 @@ public class GameManager : MonoBehaviour
         
         movesUsed = 0; // Reset moves counter
         timeUsed = 0; // Reset time counter
-        
-        // Update level type badge in UI
-        gamePlayScreenUIref.UpdateLevelType(CurrentLevelType);
     }
     
     /// <summary>
