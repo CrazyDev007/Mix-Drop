@@ -35,7 +35,7 @@
                 }
             ],
             "emptyTubes": 2,
-            "maxMoves": 0,
+            "maxMoves": 10,
             "timeLimit": 0,
             "lockedTubes": [],
             "availableSwaps": 0
