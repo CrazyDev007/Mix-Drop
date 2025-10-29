@@ -145,6 +145,16 @@ public class GameManager : MonoBehaviour
                 gamePlayScreenUIref.UpdateTimer("∞ Time");
                 gamePlayScreenUIref.UpdateMoves($"{RemainingMoves} Moves left");
                 break;
+            case LevelType.TimerAndMoves:
+                RemainingMoves = currentLevelData.maxMoves;
+                LevelTime = currentLevelData.timeLimit;
+
+                // Start timer
+                if (timerCoroutine != null)
+                    StopCoroutine(timerCoroutine);
+                timerCoroutine = StartCoroutine(LevelTimer());
+                gamePlayScreenUIref.UpdateMoves($"{RemainingMoves} Moves left");
+                break;
         }
         
         movesUsed = 0; // Reset moves counter
@@ -246,6 +256,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameWin()
     {
+        StopAllCoroutines();
         // Calculate stars earned
         int starsEarned = CalculateStars();
         

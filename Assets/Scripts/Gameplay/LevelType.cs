@@ -8,7 +8,8 @@ public enum LevelType
 {
     Normal,  // Unlimited time and moves
     Timer,   // Limited time, unlimited moves
-    Moves    // Limited moves, unlimited time
+    Moves,    // Limited moves, unlimited time
+    TimerAndMoves // Both limited
 }
 
 /// <summary>
@@ -40,7 +41,7 @@ public static class LevelTypeDetector
         if (maxMoves > 0 && timeLimit > 0)
         {
             Debug.LogWarning($"Hybrid level detected (maxMoves: {maxMoves}, timeLimit: {timeLimit}). Treating as Timer mode.");
-            return LevelType.Timer;
+            return LevelType.TimerAndMoves;
         }
         
         // Fallback to Normal for invalid combinations
