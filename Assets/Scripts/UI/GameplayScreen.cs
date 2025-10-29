@@ -26,6 +26,7 @@ namespace UI
 
         public void OnLevelFailed()
         {
+            GameManager.Instance.IsUIOpen = true;
             AudioManager.Instance?.PlayLevelFail();
             ScreenManager.Instance.ShowScreen("level-failed-screen");
         }
