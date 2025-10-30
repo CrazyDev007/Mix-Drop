@@ -49,7 +49,6 @@
     flex-shrink: 0;
 }
 
-/* Level Type Badge Styles */
 .level-type-badge {
     font-size: 10px;
     font-weight: bold;
@@ -66,17 +65,17 @@
 }
 
 .level-type-badge.normal {
-    background-color: #4CAF50;
+    background-color: rgb(76, 175, 80);
     color: white;
 }
 
 .level-type-badge.timer {
-    background-color: #FF9800;
+    background-color: rgb(255, 152, 0);
     color: white;
 }
 
 .level-type-badge.moves {
-    background-color: #2196F3;
+    background-color: rgb(33, 150, 243);
     color: white;
 }
 
@@ -91,24 +90,14 @@
     color: white;
 }
 
-/* Warning States */
 .timer.warning {
-    color: #F44336;
+    color: rgb(244, 67, 54);
     font-weight: bold;
 }
 
 .moves.warning {
-    color: #F44336;
+    color: rgb(244, 67, 54);
     font-weight: bold;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .level-type-badge {
-        font-size: 8px;
-        padding: 1px 4px;
-        min-width: 40px;
-    }
 }
 
 .add-tube-btn {
@@ -118,6 +107,7 @@
     border-width: 0;
     border-radius: 8px;
     margin-left: 8px;
+    background-image: url("project://database/Assets/Sprites/Add%20Tube.png?fileID=2800000&guid=a82cf85908c3a7b48b57df9651ccc70a&type=3#Add Tube");
 }
 
 .hint-btn {
